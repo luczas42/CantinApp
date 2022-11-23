@@ -16,10 +16,6 @@ public class Employee implements Serializable {
         this.workDays = workDays;
     }
 
-    public static long getSerialversiouid() {
-        return serialVersioUID;
-    }
-
     public String getName() {
         return name;
     }
@@ -43,7 +39,6 @@ public class Employee implements Serializable {
     public void setWorkDays(ArrayList<Date> workDays) {
         this.workDays = workDays;
     }
-    
-    
+
     
 }

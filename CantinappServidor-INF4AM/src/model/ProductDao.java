@@ -17,12 +17,6 @@ import java.util.logging.Logger;
 public class ProductDao {
 
     private Connection con;
-    private int codigo;
-    private String modelo;
-    private String marca;
-    private String preco;
-    private String dataLancamento;
-    private byte[] imagem;
 
     public ProductDao() {
         con = Connector.getConnection();

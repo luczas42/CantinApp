@@ -14,10 +14,9 @@ import java.util.logging.Logger;
  * @author lucsa
  */
 public class EmployeeDao {
+    
     private Connection con;
-    private int codigo;
-    private String employee;
-
+    
     public EmployeeDao() {
         con = Connector.getConnection();
     }
