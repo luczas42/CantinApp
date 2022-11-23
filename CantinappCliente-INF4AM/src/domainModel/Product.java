@@ -13,12 +13,12 @@ import java.io.Serializable;
 public class Product implements Serializable{
     private static final long serialVersioUID = 123456789L;
     private String name;
-    private float preco;
+    private float price;
     private byte[] photo;
 
-    public Product(String name, float preco, byte[] photo) {
+    public Product(String name, float price, byte[] photo) {
         this.name = name;
-        this.preco = preco;
+        this.price = price;
         this.photo = photo;
     }
 
@@ -31,11 +31,11 @@ public class Product implements Serializable{
     }
 
     public float getPreco() {
-        return preco;
+        return price;
     }
 
     public void setPreco(float preco) {
-        this.preco = preco;
+        this.price = preco;
     }
 
     public byte[] getPhoto() {

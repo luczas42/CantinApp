@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
-import factory.Conector;
+import factory.Connector;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -19,7 +19,7 @@ public class EmployeeDao {
     private String employee;
 
     public EmployeeDao() {
-        con = Conector.getConnection();
+        con = Connector.getConnection();
     }
     
     //metodo que retorna todas as marcas cadastradas

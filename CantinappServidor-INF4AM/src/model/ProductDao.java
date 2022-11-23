@@ -4,7 +4,7 @@
  */
 package model;
 
-import factory.Conector;
+import factory.Connector;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -25,7 +25,7 @@ public class ProductDao {
     private byte[] imagem;
 
     public ProductDao() {
-        con = Conector.getConnection();
+        con = Connector.getConnection();
     }
 
 //    public ArrayList<Bike> getLista() {

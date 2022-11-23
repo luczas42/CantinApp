@@ -1,6 +1,6 @@
 package model;
 
-import factory.Conector;
+import factory.Connector;
 import java.sql.*;
 import domainModel.Admin;
 
@@ -10,7 +10,7 @@ public class AdminDao {
     private Connection con;
 
     public AdminDao() {
-        con = Conector.getConnection();
+        con = Connector.getConnection();
     }
 
     public Admin loginAdmin(Admin admin) {

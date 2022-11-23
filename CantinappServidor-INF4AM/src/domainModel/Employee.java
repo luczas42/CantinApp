@@ -15,6 +15,35 @@ public class Employee implements Serializable {
         this.grade = grade;
         this.workDays = workDays;
     }
+
+    public static long getSerialversiouid() {
+        return serialVersioUID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public ArrayList<Date> getWorkDays() {
+        return workDays;
+    }
+
+    public void setWorkDays(ArrayList<Date> workDays) {
+        this.workDays = workDays;
+    }
+    
     
     
 }
