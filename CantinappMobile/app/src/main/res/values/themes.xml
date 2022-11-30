@@ -1,0 +1,47 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Theme.CantinappMobile" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
+        <item name="colorOnPrimary">@color/primaryTextColor</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
+        <item name="colorOnSecondary">@color/secondaryTextColor</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/primaryColor</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Theme.CantinappMobile.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="background">
+        <item name="android:background">@color/primaryColor</item>
+    </style>
+
+    <style name="cardTitle">
+        <item name="android:textColor">@color/secondaryDarkColor</item>
+    </style>
+
+    <style name="cardDescription">
+        <item name="android:textColor">@color/descriptionTextColor</item>
+    </style>
+
+    <style name="searchCard">
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="android:textColorHint">#00A87D</item>
+    </style>
+
+    <style name="imageButton">
+        <item name="android:background">null</item>
+        <item name="android:layout_marginEnd">8dp</item>
+    </style>
+
+    <style name="Theme.CantinappMobile.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.CantinappMobile.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+</resources>

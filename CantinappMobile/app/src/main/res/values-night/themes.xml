@@ -1,0 +1,44 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Theme.CantinappMobile" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/nightPrimaryColor</item>
+        <item name="colorPrimaryVariant">@color/nightPrimaryDarkColor</item>
+        <item name="colorOnPrimary">@color/primaryTextColor</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
+        <item name="colorOnSecondary">@color/secondaryTextColor</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/nightPrimaryDarkColor</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="background">
+        <item name="android:background">@color/nightPrimaryColor</item>
+    </style>
+
+    <style name="cardTitle">
+        <item name="android:textColor">@color/secondaryColor</item>
+    </style>
+
+    <style name="cardDescription">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="searchCard" parent="Theme.MaterialComponents.DayNight">
+        <item name="cardBackgroundColor">@color/nightPrimaryLightColor</item>
+        <item name="android:textColorHint">@color/secondaryColor</item>
+        <item name="hintTextColor">@color/secondaryColor</item>
+    </style>
+
+    <style name="imageButton">
+        <item name="android:background">null</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="tint">@color/secondaryColor</item>
+        <item name="minHeight">48dp</item>
+        <item name="minWidth">48dp</item>
+    </style>
+
+
+</resources>
