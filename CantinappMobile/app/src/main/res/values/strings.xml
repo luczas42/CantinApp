@@ -11,4 +11,5 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="button_workdays_text">Ver Escala</string>
     <string name="button_filters_text">Filtrar Produtos</string>
+    <string name="string_product_image">Imagem do Produto</string>
 </resources>
