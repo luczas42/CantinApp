@@ -11,6 +11,7 @@
     <color name="primaryTextColor">#000000</color>
     <color name="secondaryTextColor">#000000</color>
     <color name="descriptionTextColor">#535353</color>
+    <color name="lightStroke">#E3E3E3</color>
 
     <color name="nightPrimaryColor">#000f0f</color>
     <color name="nightPrimaryLightColor">#2b3535</color>

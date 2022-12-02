@@ -23,9 +23,18 @@
         <item name="android:background">@color/primaryColor</item>
     </style>
 
+    <style name="cardBackground">
+        <item name="android:background">@color/white</item>
+    </style>
+
     <style name="cardTitle">
         <item name="android:textColor">@color/secondaryDarkColor</item>
     </style>
+
+    <style name="filterTitle">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
 
     <style name="cardDescription">
         <item name="android:textColor">@color/descriptionTextColor</item>
@@ -39,6 +48,11 @@
     <style name="imageButton">
         <item name="android:background">null</item>
         <item name="android:layout_marginEnd">8dp</item>
+    </style>
+
+    <style name="imageOutline">
+        <item name="strokeWidth">2dp</item>
+        <item name="strokeColor">@color/lightStroke</item>
     </style>
 
     <style name="Theme.CantinappMobile.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
