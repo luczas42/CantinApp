@@ -10,7 +10,7 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public ProductResponse retrieveProducts() {
-
+        return null;
     }
 
 }

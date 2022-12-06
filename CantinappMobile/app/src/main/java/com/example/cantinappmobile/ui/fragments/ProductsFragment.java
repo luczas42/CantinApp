@@ -29,6 +29,7 @@ public class ProductsFragment extends Fragment {
 
     private FragmentProductsBinding binding;
 
+
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
@@ -50,25 +51,26 @@ public class ProductsFragment extends Fragment {
     private void requestWebService() {
 
         String urlWebService = "http://127.0.0.1/testephp/getProducts.php";
-        StringRequest stringRequest;
         RequestQueue requestQueue = Volley.newRequestQueue(requireActivity());
+        StringRequest stringRequest;
 
         stringRequest = new StringRequest(Request.Method.POST, urlWebService, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.i("logLogin", "onResponse: teste funcionaou");
+                //o que acontece quando a resposta está ok
+                Toast.makeText(requireActivity(), "o conteúdo retornado: "+response, Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.i("logLogin", "onErrorResponse: teste nao funcionou");
+                // o que acontece quando a resposta da erro
             }
         }) {
             @Override
             protected Map<String, String> getParams() {
+                //parametros da request
                 Map<String, String> params = new HashMap<>();
                 params.put("product_name", "kevytos shrek");
-                Toast.makeText(requireActivity(), "funcionou a api!", Toast.LENGTH_SHORT).show();
                 return params;
             }
         };
