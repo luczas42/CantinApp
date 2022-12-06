@@ -36,6 +36,11 @@ public class ListsActivity extends AppCompatActivity {
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_lists);
 
+        callWebService();
+
+    }
+
+    private void callWebService() {
         String urlWebService = "http://192.168.0.106/testephp/getProducts.php";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         StringRequest stringRequest;
@@ -44,13 +49,13 @@ public class ListsActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 //o que acontece quando a resposta está ok
-                Log.i("logLogin", "onResponse: "+response);
+                Log.i("logLogin", "onResponse: " + response);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 // o que acontece quando a resposta da erro
-                Log.i("logLogin", "onErrorResponse: "+error);
+                Log.i("logLogin", "onErrorResponse: " + error);
 
             }
         }) {
@@ -63,7 +68,6 @@ public class ListsActivity extends AppCompatActivity {
             }
         };
         requestQueue.add(stringRequest);
-
     }
 
     @Override
