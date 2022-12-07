@@ -33,6 +33,7 @@ public class ListsActivity extends AppCompatActivity {
         com.example.cantinappmobile.databinding.ActivityListsBinding binding = ActivityListsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        //isso deve ficar no repository
         callWebService();
 
     }
