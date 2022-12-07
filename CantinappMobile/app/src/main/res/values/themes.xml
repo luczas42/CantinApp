@@ -37,7 +37,10 @@
     </style>
 
     <style name="imageButton">
+        <item name="android:background">@null</item>
         <item name="android:layout_marginEnd">8dp</item>
+        <item name="minHeight">48dp</item>
+        <item name="minWidth">48dp</item>
     </style>
 
     <style name="Theme.CantinappMobile.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

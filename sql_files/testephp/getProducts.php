@@ -1,14 +1,15 @@
 <?php
 header('Content-Type: application/json charset=utf-8');
 
-$response = array();
-$response["error"] = true;
+//variável que armazena os dados que vao virar json
+$productList = array();
 
 if($_SERVER['REQUEST_METHOD']=='POST'){
 
     include 'dbConnection.php';
 
-    $conn = new mysqli($HostName, $HostUser, 
+    //variável com a conexão
+    $conn = new mysqli($HostName, $HostUser,  
     $HostPass, $DatabaseName); 
 
     mysqli_set_charset($conn, "utf8");
@@ -17,27 +18,35 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         die("Connection failed: ". $conn->connect_error);
     }
 
-    $name = "'".$_POST['product_name']."'";
-
-    $sql = "SELECT * FROM product WHERE name = $name";
-
-    $result = $conn->query($sql);
+    //variável da query no bd
+    $result = $conn->query("SELECT * FROM product");
 
     if($result->num_rows>0){
 
-        $register = mysqli_fetch_array($result);
+        //lista de objetos que guarda o resultado da query
+        while($row = $result->fetch_object()){
 
-        $response["lines"] = $result->num_rows;
-        $response["error"] = false;
-        $response["name"] = $register['name'];
-        $response["price"] = $register['price'];
+           $productList[] = new Product($row->name, $row->price);
+
+        }
     }else{
-        //teste
     }
 
     $conn->close();
 }
 
-echo json_encode($response);
+echo json_encode($productList);
+
+class Product{
+
+    public $name;
+    public $price;
+
+    public function __construct(string $name, float $price)
+    {
+        $this->name = $name;
+        $this->price = $price;
+    }
+}
 
 ?>

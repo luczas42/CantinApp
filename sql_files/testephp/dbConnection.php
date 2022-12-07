@@ -1,16 +1,7 @@
 <?php
-    $ambiente = false;
-    if($ambiente){ // ambiente de produção
-        $HostName = "";
-        $HostUser = "";
-        $HostPass = "";
-        $DatabaseName = "";
-
-        print("daaaaaaaaaaa");
-    }else{ //ambiente de desenvolvimento
-        $HostName = "localhost";
-        $HostUser = "root";
-        $HostPass = "";
-        $DatabaseName = "cantinapp";
-    }
+    //ambiente de desenvolvimento
+    $HostName = "cantinapp-db.c8d4ztpot49c.sa-east-1.rds.amazonaws.com";
+    $HostUser = "admin";
+    $HostPass = "1q2w3e4r";
+    $DatabaseName = "cantinapp";
 ?>

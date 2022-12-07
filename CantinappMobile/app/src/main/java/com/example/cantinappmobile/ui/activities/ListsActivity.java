@@ -33,15 +33,12 @@ public class ListsActivity extends AppCompatActivity {
         com.example.cantinappmobile.databinding.ActivityListsBinding binding = ActivityListsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_lists);
-
         callWebService();
 
     }
 
     private void callWebService() {
-        String urlWebService = "http://192.168.0.106/testephp/getProducts.php";
+        String urlWebService = "http://192.168.5.104/testephp/getProducts.php";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         StringRequest stringRequest;
 
@@ -63,7 +60,7 @@ public class ListsActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 //parametros da request
                 Map<String, String> params = new HashMap<>();
-                params.put("product_name", "kevytos shrek");
+//                params.put("product_name", "kevytos shrek");
                 return params;
             }
         };
