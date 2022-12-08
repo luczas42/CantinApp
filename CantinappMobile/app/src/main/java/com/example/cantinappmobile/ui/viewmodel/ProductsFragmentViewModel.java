@@ -4,6 +4,4 @@ import androidx.lifecycle.ViewModel;
 
 public class ProductsFragmentViewModel extends ViewModel {
 
-
-
 }
