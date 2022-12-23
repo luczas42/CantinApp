@@ -1,0 +1,15 @@
+package com.example.cantinappmobile.retrofit;
+
+import com.example.cantinappmobile.model.Product;
+import com.example.cantinappmobile.model.ProductResponse;
+
+import retrofit2.Response;
+import retrofit2.http.POST;
+
+public interface WebService {
+
+    @POST("getProducts.php")
+    Response<ProductResponse> retrieveProducts();
+
+
+}

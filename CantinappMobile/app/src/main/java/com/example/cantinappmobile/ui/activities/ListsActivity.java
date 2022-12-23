@@ -16,6 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.cantinappmobile.AppInfo;
 import com.example.cantinappmobile.R;
 import com.example.cantinappmobile.databinding.ActivityListsBinding;
 
@@ -25,6 +26,7 @@ import java.util.Map;
 public class ListsActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
+    private AppInfo appInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,40 +35,41 @@ public class ListsActivity extends AppCompatActivity {
         com.example.cantinappmobile.databinding.ActivityListsBinding binding = ActivityListsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        appInfo = (AppInfo) getApplicationContext();
         //isso deve ficar no repository
-        callWebService();
+//        callWebService();
 
     }
 
-    private void callWebService() {
-        String urlWebService = "http://192.168.5.104/testephp/getProducts.php";
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        StringRequest stringRequest;
-
-        stringRequest = new StringRequest(Request.Method.POST, urlWebService, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                //o que acontece quando a resposta está ok
-                Log.i("logLogin", "onResponse: " + response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // o que acontece quando a resposta da erro
-                Log.i("logLogin", "onErrorResponse: " + error);
-
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                //parametros da request
-                Map<String, String> params = new HashMap<>();
-//                params.put("product_name", "kevytos shrek");
-                return params;
-            }
-        };
-        requestQueue.add(stringRequest);
-    }
+//    private void callWebService() {
+//
+//        RequestQueue requestQueue = Volley.newRequestQueue(this);
+//        StringRequest stringRequest;
+//
+//        stringRequest = new StringRequest(Request.Method.POST, urlWebService, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                //o que acontece quando a resposta está ok
+//                Log.i("logLogin", "onResponse: " + response);
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                // o que acontece quando a resposta da erro
+//                Log.i("logLogin", "onErrorResponse: " + error);
+//
+//            }
+//        }) {
+//            @Override
+//            protected Map<String, String> getParams() {
+//                //parametros da request
+//                Map<String, String> params = new HashMap<>();
+////                params.put("product_name", "kevytos shrek");
+//                return params;
+//            }
+//        };
+//        requestQueue.add(stringRequest);
+//    }
 
     @Override
     public boolean onSupportNavigateUp() {

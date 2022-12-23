@@ -1,16 +1,32 @@
 package com.example.cantinappmobile.repository;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.example.cantinappmobile.model.Product;
 import com.example.cantinappmobile.model.ProductResponse;
+import com.example.cantinappmobile.retrofit.WebService;
+
+import retrofit2.Response;
 
 public class RepositoryImpl implements Repository {
 
+    WebService webService;
+
+    public RepositoryImpl(WebService webService) {
+        this.webService = webService;
+    }
 
     @Override
     public ProductResponse retrieveProducts() {
-        return null;
+
+        try {
+            Response<ProductResponse> response = webService.retrieveProducts();
+            if (response.isSuccessful()) {
+                return response.body();
+            }else{
+                return null;
+            }
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 }
