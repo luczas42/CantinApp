@@ -1,8 +1,6 @@
 package com.example.cantinappmobile.ui.activities;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -10,23 +8,12 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.cantinappmobile.AppInfo;
 import com.example.cantinappmobile.R;
 import com.example.cantinappmobile.databinding.ActivityListsBinding;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class ListsActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
-    private AppInfo appInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +22,6 @@ public class ListsActivity extends AppCompatActivity {
         com.example.cantinappmobile.databinding.ActivityListsBinding binding = ActivityListsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        appInfo = (AppInfo) getApplicationContext();
         //isso deve ficar no repository
 //        callWebService();
 

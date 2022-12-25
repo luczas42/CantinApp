@@ -1,18 +1,15 @@
 package com.example.cantinappmobile.repository;
 
-import com.example.cantinappmobile.model.Product;
 import com.example.cantinappmobile.model.ProductResponse;
+import com.example.cantinappmobile.retrofit.ClientRetrofit;
 import com.example.cantinappmobile.retrofit.WebService;
 
 import retrofit2.Response;
 
 public class RepositoryImpl implements Repository {
 
-    WebService webService;
-
-    public RepositoryImpl(WebService webService) {
-        this.webService = webService;
-    }
+    private final WebService
+            webService = ClientRetrofit.getInstance().create(WebService.class);
 
     @Override
     public ProductResponse retrieveProducts() {
@@ -21,7 +18,7 @@ public class RepositoryImpl implements Repository {
             Response<ProductResponse> response = webService.retrieveProducts();
             if (response.isSuccessful()) {
                 return response.body();
-            }else{
+            } else {
                 return null;
             }
         } catch (Exception e) {

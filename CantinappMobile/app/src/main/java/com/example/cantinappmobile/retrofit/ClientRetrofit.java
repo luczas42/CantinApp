@@ -1,24 +1,24 @@
 package com.example.cantinappmobile.retrofit;
 
-import android.content.Context;
-
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ClientRetrofit {
 
-    private static WebService retrofit = null;
+    private static Retrofit retrofit = null;
 
-    public static WebService create() {
+    public static Retrofit getInstance() {
 
-        final String urlWebService = "http://54.94.3.48/testephp/";
+        if(retrofit == null){
+            final String urlWebService = "http://54.94.3.48/testephp/";
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl(urlWebService)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build().create(WebService.class);
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(urlWebService)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
 
-        return retrofit;
+            return retrofit;
+        }
     }
 
 }

@@ -1,8 +1,12 @@
 package com.example.cantinappmobile.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Product {
 
+    @SerializedName("name")
     String name;
+    @SerializedName("price")
     Float price;
 
     public Product(String name, Float price) {

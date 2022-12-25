@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.cantinappmobile.model.ProductResponse;
 import com.example.cantinappmobile.repository.RepositoryImpl;
+import com.example.cantinappmobile.retrofit.ClientRetrofit;
+import com.example.cantinappmobile.retrofit.WebService;
 
 public class ProductsFragmentViewModel extends ViewModel {
 
@@ -20,7 +22,6 @@ public class ProductsFragmentViewModel extends ViewModel {
         }else{
             return null;
         }
-
     }
 
 }

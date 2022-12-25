@@ -21,6 +21,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.cantinappmobile.databinding.FragmentProductsBinding;
+import com.example.cantinappmobile.model.ProductResponse;
+import com.example.cantinappmobile.repository.RepositoryImpl;
+import com.example.cantinappmobile.ui.viewmodel.ProductsFragmentViewModel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,36 +47,32 @@ public class ProductsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        requestWebService();
+//        requestWebService();
+        ProductsFragmentViewModel viewModel = new ProductsFragmentViewModel(new RepositoryImpl());
+        ProductResponse response = viewModel.retrieveProductsToScreen();
+        Log.i("screen", ""+response);
 
     }
 
     private void requestWebService() {
 
-        String urlWebService = "http://127.0.0.1/testephp/getProducts.php";
-        RequestQueue requestQueue = Volley.newRequestQueue(requireActivity());
+        String urlWebService = "http://54.94.3.48/testephp/getProducts.php";
+        RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
         StringRequest stringRequest;
 
         stringRequest = new StringRequest(Request.Method.POST, urlWebService, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 //o que acontece quando a resposta está ok
-                Toast.makeText(requireActivity(), "o conteúdo retornado: "+response, Toast.LENGTH_SHORT).show();
+                Log.i("logLogin", "onResponse: " + response);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 // o que acontece quando a resposta da erro
+                Log.i("logLogin", "onErrorResponse: " + error.getMessage());
             }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                //parametros da request
-                Map<String, String> params = new HashMap<>();
-                params.put("product_name", "kevytos shrek");
-                return params;
-            }
-        };
+        });
         requestQueue.add(stringRequest);
 
     }
