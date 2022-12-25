@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.*?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0"
+            prefWidth="1280.0" style="-fx-background-color: ffffff;" stylesheets="@application.css"
+            xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.apache.maven.cantinappdesktop.view.FXMLController">
+    <children>
+        <Pane fx:id="productsPane" layoutX="252.0" prefHeight="720.0" prefWidth="1030.0">
+            <children>
+                <TableView fx:id="productTable" layoutX="50.0" layoutY="85.0" prefHeight="550.0" prefWidth="930.0">
+                    <columns>
+                        <TableColumn fx:id="productPrice" editable="false" prefWidth="249.0" text="Preço - R$"/>
+                        <TableColumn fx:id="productName" editable="false" minWidth="0.0" prefWidth="680.0" text="Nome"/>
+                    </columns>
+                </TableView>
+            </children>
+        </Pane>
+        <Pane fx:id="startPane" layoutX="250.0" layoutY="10.0" prefHeight="720.0" prefWidth="1030.0"
+              style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="250.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+        <VBox alignment="TOP_CENTER" prefHeight="720.0" prefWidth="250.0" style="-fx-background-color: #F4F4F0;"
+              stylesheets="@application.css">
+            <children>
+                <Label alignment="BOTTOM_LEFT" prefHeight="86.0" prefWidth="250.0" style="-fx-label-padding: 16;"
+                       stylesheets="@application.css" text="Administrador">
+                    <font>
+                        <Font name="System Bold" size="20.0"/>
+                    </font>
+                </Label>
+                <Line endX="149.58578491210938" endY="1.5497207641601562E-6" startX="-100.0" strokeLineCap="ROUND"
+                      strokeWidth="2.0" style="-fx-stroke: #E5E5E5;">
+                    <VBox.margin>
+                        <Insets bottom="8.0"/>
+                    </VBox.margin>
+                </Line>
+                <ToggleButton id="button-test" fx:id="productsButton" mnemonicParsing="false"
+                              onAction="#displayProducts" prefWidth="230.0" style="-fx-background-radius: 10;"
+                              text="Produtos">
+                    <font>
+                        <Font name="System Bold" size="14.0"/>
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="4.0"/>
+                    </VBox.margin>
+                </ToggleButton>
+                <ToggleButton id="button-test" fx:id="shiftsButton" mnemonicParsing="false" onAction="#displayShifts"
+                              prefWidth="230.0" style="-fx-background-radius: 10;" text="Escalas">
+                    <font>
+                        <Font name="System Bold" size="14.0"/>
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="4.0"/>
+                    </VBox.margin>
+                </ToggleButton>
+                <ToggleButton id="button-test" fx:id="employeesButton" mnemonicParsing="false"
+                              onAction="#displayEmployees" prefWidth="230.0" style="-fx-background-radius: 10;"
+                              text="Pessoas">
+                    <toggleGroup>
+                        <ToggleGroup fx:id="frame"/>
+                    </toggleGroup>
+                    <font>
+                        <Font name="System Bold" size="14.0"/>
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="4.0"/>
+                    </VBox.margin>
+                </ToggleButton>
+                <Line endX="149.58578491210938" endY="1.5497207641601562E-6" layoutX="111.0" layoutY="97.0"
+                      startX="-100.0" strokeLineCap="ROUND" strokeWidth="2.0" style="-fx-stroke: #E5E5E5;">
+                    <VBox.margin>
+                        <Insets bottom="8.0" top="135.0"/>
+                    </VBox.margin>
+                </Line>
+                <Button id="button-test" fx:id="configButton" alignment="CENTER" mnemonicParsing="false"
+                        prefWidth="230.0" style="-fx-background-radius: 10;" stylesheets="@application.css"
+                        text="Configurações">
+                    <font>
+                        <Font name="System Bold" size="14.0"/>
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="4.0"/>
+                    </VBox.margin>
+                </Button>
+                <Button id="button-test" fx:id="exitButton" alignment="CENTER" mnemonicParsing="false"
+                        onAction="#closeApplication" prefWidth="230.0" style="-fx-background-radius: 10;"
+                        stylesheets="@application.css" text="Sair">
+                    <font>
+                        <Font name="System Bold" size="14.0"/>
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="4.0"/>
+                    </VBox.margin>
+                </Button>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
