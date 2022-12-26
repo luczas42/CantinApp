@@ -1,7 +1,5 @@
 package com.example.cantinappmobile.ui.fragments;
 
-import static androidx.fragment.app.FragmentManager.TAG;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,10 +8,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -23,15 +20,13 @@ import com.android.volley.toolbox.Volley;
 import com.example.cantinappmobile.databinding.FragmentProductsBinding;
 import com.example.cantinappmobile.model.ProductResponse;
 import com.example.cantinappmobile.repository.RepositoryImpl;
+import com.example.cantinappmobile.ui.adapter.ProductListAdapter;
 import com.example.cantinappmobile.ui.viewmodel.ProductsFragmentViewModel;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class ProductsFragment extends Fragment {
 
     private FragmentProductsBinding binding;
-
+    private ProductListAdapter productAdapter;
 
     @Override
     public View onCreateView(
@@ -47,11 +42,20 @@ public class ProductsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        requestWebService();
-        ProductsFragmentViewModel viewModel = new ProductsFragmentViewModel(new RepositoryImpl());
-        ProductResponse response = viewModel.retrieveProductsToScreen();
-        Log.i("screen", ""+response);
+        productAdapter  = new ProductListAdapter();
+        binding.recyclerProducts.setAdapter(productAdapter);
+        binding.recyclerProducts.setLayoutManager(new LinearLayoutManager(requireContext()));
 
+        ProductsFragmentViewModel viewModel = new ProductsFragmentViewModel(new RepositoryImpl());
+        ProductResponse response = viewModel.retrieveProductsFromRepository();
+
+        if(response==null){
+            Log.i("logLogin", "onViewCreated: responseIsNull");
+        }else{
+            Log.i("logLogin", "onViewCreated: responseIsFull");
+        }
+
+        productAdapter.append(response.getProductList());
     }
 
     private void requestWebService() {

@@ -9,4 +9,12 @@ public class ProductResponse {
     public ProductResponse(ArrayList<Product> productList) {
         this.productList = productList;
     }
+
+    public ArrayList<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(ArrayList<Product> productList) {
+        this.productList = productList;
+    }
 }
