@@ -20,8 +20,6 @@ public class App extends Application {
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         stage.show();
-        System.out.println(System.getProperty("java.version"));
-        System.out.println(System.getProperty("javafx.version"));
     }
 
     public static void main(String[] args) {

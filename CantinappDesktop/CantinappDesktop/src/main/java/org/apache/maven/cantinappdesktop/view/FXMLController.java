@@ -5,24 +5,77 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import org.apache.maven.cantinappdesktop.App;
 import org.apache.maven.cantinappdesktop.data.service.Products;
 import org.apache.maven.cantinappdesktop.data.service.RetrofitInit;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.io.IOException;
 import java.util.List;
 
 public class FXMLController {
+    RetrofitInit retrofitInit = new RetrofitInit();
+    @FXML
+    private Button exitButton;
+    @FXML
+    private Button newProductButton;
+
+    @FXML
+    private Button loginButton;
+
+    @FXML
+    private BorderPane loginPane;
+
+    @FXML
+    private Button passwordForgot;
+
+    @FXML
+    private Button signupButton;
+
+    @FXML
+    private PasswordField textFieldLoginPassword;
+
+    @FXML
+    private TextField textFieldLoginUsername;
+
+    @FXML
+    private TextField textFieldSignupEmail;
+
+    @FXML
+    private PasswordField textFieldSignupPassword;
+
+    @FXML
+    private TextField textFieldSignupUsername;
+
+    @FXML
+    private PasswordField textFieldSignupPasswordConfirm;
     @FXML
     private Button configButton;
     @FXML
-    private ToggleButton employeesButton;
+    private TableColumn<?, ?> employeeClass;
+
     @FXML
-    private Button exitButton;
+    private TableColumn<?, ?> employeeName;
+
+    @FXML
+    private Pane employeePane;
+
+    @FXML
+    private TableView<?> employeeTable;
+    @FXML
+    private ToggleButton employeesButton;
     @FXML
     private ToggleGroup frame;
     @FXML
@@ -39,6 +92,24 @@ public class FXMLController {
     private ToggleButton shiftsButton;
     @FXML
     private Pane startPane;
+    @FXML
+    private TableColumn<?, ?> workdayClass;
+
+    @FXML
+    private TableColumn<?, ?> workdayDate;
+
+    @FXML
+    private TableColumn<?, ?> workdayEmployee;
+
+    @FXML
+    private TableColumn<?, ?> workdayPeriod;
+
+    @FXML
+    private Pane workdaysPane;
+
+    @FXML
+    private TableView<?> workdaysTable;
+
     Callback<List<Products>> listCallback = new Callback<>() {
         public void onResponse(Call<List<Products>> call, Response<List<Products>> response) {
             List<Products> productsList = response.body();
@@ -46,10 +117,6 @@ public class FXMLController {
             assert productsList != null;
 
             ObservableList<Products> productsObservableList = FXCollections.observableList(productsList);
-
-            for (Products products : productsList) {
-                System.out.println(products.name);
-            }
 
             FXMLController.this.productName.setCellValueFactory(new PropertyValueFactory<>("Name"));
             FXMLController.this.productPrice.setCellValueFactory(new PropertyValueFactory<>("Price"));
@@ -67,26 +134,74 @@ public class FXMLController {
     @FXML
     void displayEmployees(ActionEvent event) {
         this.productsButton.setSelected(false);
+        productsButton.setDisable(false);
         this.shiftsButton.setSelected(false);
-        this.startPane.toFront();
+        shiftsButton.setDisable(false);
+        this.employeePane.toFront();
+        employeesButton.setDisable(true);
     }
 
     @FXML
     void displayProducts(ActionEvent event) {
         this.employeesButton.setSelected(false);
+        employeesButton.setDisable(false);
         this.shiftsButton.setSelected(false);
+        shiftsButton.setDisable(false);
         this.productsPane.toFront();
-        RetrofitInit retrofitInit = new RetrofitInit();
+        productsButton.setDisable(true);
         retrofitInit.getProducts(this.listCallback);
     }
 
     @FXML
     void displayShifts(ActionEvent event) {
+        this.productsButton.setSelected(false);
+        productsButton.setDisable(false);
+        this.employeesButton.setSelected(false);
+        employeesButton.setDisable(false);
+        shiftsButton.setDisable(true);
+        this.workdaysPane.toFront();
     }
 
     @FXML
     void closeApplication(ActionEvent event) {
         Platform.exit();
     }
+
+    @FXML
+    void onForgotPasswordClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onLogin(ActionEvent event) {
+        this.loginPane.setVisible(false);
+    }
+
+    @FXML
+    void onSignup(ActionEvent event) {
+
+    }
+
+    @FXML
+    void openNewProductScreen(ActionEvent event) {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("productEditScreen.fxml"));
+            Scene scene = new Scene((Parent) fxmlLoader.load());
+            stage.setTitle("Cantinapp");
+            stage.setScene(scene);
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setAlwaysOnTop(true);
+            ProductEditScreen productEditScreenController = fxmlLoader.getController();
+            productEditScreenController.checkIsEdit(true);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
+
+
 

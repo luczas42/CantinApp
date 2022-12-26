@@ -1,3 +1,43 @@
+* :disabled {
+    -fx-opacity: 1;
+}
+
+/* LOGIN SCREEN*/
+
+/* Login Screen Fields*/
+#login-screen-labels{
+    -fx-text-fill: #00A87D;
+}
+
+/* Login Fields*/
+#login-fields, #aux-fields{
+    -fx-background-color: white;
+    -fx-background-radius:10;
+    -fx-text-fill: #00A87D;
+    -fx-prompt-text-fill: #007557;
+}
+
+/* Login Screen Buttons*/
+
+#login-screen-buttons{
+    -fx-background-color: #00A87D;
+    -fx-background-radius:10;
+}
+
+#login-screen-buttons:hover{
+    -fx-background-color: #007557;
+}
+
+#pass-forgot-button{
+    -fx-background-color: transparent;
+    -fx-text-fill: #00A87D;
+}
+
+#pass-forgot-button:hover{
+    -fx-text-fill: #007557;
+}
+
+/* Side menu buttons style */
 #button-test{
        -fx-background-color: transparent;
 }
@@ -14,3 +54,84 @@
            -fx-background-color: #00DBAC;
 }
 
+/* Table buttons Style*/
+#table-aux-button, #general-button-style{
+    -fx-background-color: #00A87D;
+    -fx-background-radius:10;
+    -fx-text-fill: white;
+}
+
+#table-aux-button:hover, #general-button-style:hover{
+    -fx-background-color: #007557;
+}
+
+/* Table styles */
+.table-view .column-header-background{
+    -fx-background-color: #00A87D;
+}
+
+.table-view .column-header .label{
+    -fx-alignment: CENTER_LEFT;
+    -fx-font-size:14px;
+}
+
+
+.table-view .scroll-bar * {
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+}
+
+.table-view .column-header-background .label{
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+    -fx-padding:10px;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .table-cell{
+    -fx-text-fill: #00A87D;
+    -fx-font-size:14px;
+    -fx-padding:10px;
+}
+
+.table-row-cell{
+    -fx-background-insets: 0;
+    -fx-background-radius: 1;
+}
+
+.table-row-cell:odd{
+    -fx-background-insets: 0;
+    -fx-background-radius: 1;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #85ecd3;
+    -fx-background-insets: 0;
+    -fx-background-radius: 1;
+}
+
+
+
+.table-view > .virtual-flow > .scroll-bar:vertical,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track-background,
+.table-view > .virtual-flow > .scroll-bar:horizontal,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track-background {
+    -fx-background-color: transparent;
+}
+
+
+
+.table-view > .virtual-flow > .scroll-bar > .increment-button,
+.table-view > .virtual-flow > .scroll-bar > .decrement-button {
+    -fx-opacity: 0;
+}
