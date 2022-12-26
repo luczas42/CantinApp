@@ -9,7 +9,7 @@ public class ClientRetrofit {
 
     public static Retrofit getInstance() {
 
-        if(retrofit == null){
+        if (retrofit == null) {
             final String urlWebService = "http://54.94.3.48/testephp/";
 
             retrofit = new Retrofit.Builder()
@@ -18,6 +18,8 @@ public class ClientRetrofit {
                     .build();
 
             return retrofit;
+        } else {
+            return null;
         }
     }
 
