@@ -57,13 +57,12 @@ public class ProductsFragment extends Fragment {
     }
 
     private void observeProducts(ProductsFragmentViewModel viewModel) {
-        viewModel.productResponseLiveData.observe(getViewLifecycleOwner(), productResponse -> {
-            createAdapter(productResponse);
-        });
+        binding.tvError.setVisibility(View.GONE);
+        viewModel.productResponseLiveData.observe(getViewLifecycleOwner(), this::createAdapter);
     }
 
     private void apiError() {
-
+        binding.tvError.setVisibility(View.VISIBLE);
     }
 
     private void createAdapter(List<Product> productList) {
