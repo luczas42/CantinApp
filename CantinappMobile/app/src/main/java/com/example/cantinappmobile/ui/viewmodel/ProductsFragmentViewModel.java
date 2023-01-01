@@ -30,16 +30,45 @@ public class ProductsFragmentViewModel extends ViewModel {
 
     public void retrieveProductsFromRepository() {
 
-        List<Product> data = repository.retrieveProductsFromWebService();
+        Call<List<Product>> call = repository.retrieveProductsFromWebService();
 
-        if (data != null) {
-            connectionLiveData.setValue(Connection.Successfull);
-            _productResponseLiveData.setValue(data);
-            Log.i("logLogin", "retrieveProductsFromRepository: sucessfull viewmodel "+data);
-        } else {
-            connectionLiveData.setValue(Connection.Failed);
-            Log.i("logLogin", "retrieveProductsFromRepository: failed viewmodel");
-        }
+        call.enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+
+                if (response.isSuccessful()) {
+
+                    List<Product> data = response.body();
+
+                    if (data != null) {
+                        for (Product product :
+                                data) {
+                            Log.i("logLogin", "retrieveProducts sucess at onResponse:" + product.getName());
+                        }
+                        connectionLiveData.setValue(Connection.Successfull);
+                        _productResponseLiveData.setValue(data);
+
+                    } else {
+                        Log.i("logLogin", "retrieve products: failed at onResponse == null ");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+                Log.i("logLogin", "onFailure: onFailure "+t.getMessage());
+                connectionLiveData.setValue(Connection.Failed);
+            }
+        });
+
+//        if (data != null) {
+//            connectionLiveData.setValue(Connection.Successfull);
+//            _productResponseLiveData.setValue(data);
+//            Log.i("logLogin", "retrieveProductsFromRepository: sucessfull viewmodel "+data);
+//        } else {
+//            connectionLiveData.setValue(Connection.Failed);
+//            Log.i("logLogin", "retrieveProductsFromRepository: failed viewmodel");
+//        }
     }
 }
 
