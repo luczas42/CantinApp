@@ -12,4 +12,5 @@
     <string name="button_workdays_text">Ver Escala</string>
     <string name="button_filters_text">Filtrar Produtos</string>
     <string name="string_product_image">Imagem do Produto</string>
+    <string name="an_error_has_ocurred">An error has ocurred!</string>
 </resources>

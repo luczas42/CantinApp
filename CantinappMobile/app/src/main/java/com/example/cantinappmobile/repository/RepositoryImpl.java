@@ -1,16 +1,22 @@
 package com.example.cantinappmobile.repository;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.cantinappmobile.model.ProductResponse;
+import com.example.cantinappmobile.model.Product;
+import com.example.cantinappmobile.retrofit.ClientRetrofit;
+import com.example.cantinappmobile.retrofit.WebService;
+
+import java.util.List;
+
+import retrofit2.Call;
 
 public class RepositoryImpl implements Repository {
 
+    private final WebService
+            webService = ClientRetrofit.getInstance().create(WebService.class);
 
+    //talvez seja interessante colocar um try catch, mas não sei se é necessário
     @Override
-    public ProductResponse retrieveProducts() {
-        return null;
+    public Call<List<Product>> retrieveProductsFromWebService() {
+        return webService.retrieveProducts();
     }
 
 }

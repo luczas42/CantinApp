@@ -1,12 +1,17 @@
 package com.example.cantinappmobile.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProductResponse {
 
-    String name;
-    Float price;
+    List<Product> productList;
 
-    public ProductResponse(String name, Float price) {
-        this.name = name;
-        this.price = price;
+    public ProductResponse(List<Product> productList) {
+        this.productList = productList;
+    }
+
+    public List<Product> getProductList() {
+        return productList;
     }
 }
