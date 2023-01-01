@@ -39,7 +39,6 @@ public class ProductsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ProductsFragmentViewModel viewModel = new ProductsFragmentViewModel(new RepositoryImpl());
-
         viewModel.retrieveProductsFromRepository();
         observeConnection(viewModel);
 
