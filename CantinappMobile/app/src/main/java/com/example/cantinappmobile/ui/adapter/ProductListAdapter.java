@@ -1,7 +1,6 @@
 package com.example.cantinappmobile.ui.adapter;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -9,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cantinappmobile.databinding.ProductListitemBinding;
 import com.example.cantinappmobile.model.Product;
-import com.example.cantinappmobile.model.ProductResponse;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ViewHolder> {
 
@@ -41,7 +40,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         return productList.size();
     }
 
-    public void append(ArrayList<Product> newList) {
+    public void append(List<Product> newList) {
         this.productList.clear();
         this.productList.addAll(newList);
         notifyDataSetChanged();

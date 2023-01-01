@@ -1,20 +1,17 @@
 package com.example.cantinappmobile.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductResponse {
 
-    ArrayList<Product> productList;
+    List<Product> productList;
 
-    public ProductResponse(ArrayList<Product> productList) {
+    public ProductResponse(List<Product> productList) {
         this.productList = productList;
     }
 
-    public ArrayList<Product> getProductList() {
+    public List<Product> getProductList() {
         return productList;
-    }
-
-    public void setProductList(ArrayList<Product> productList) {
-        this.productList = productList;
     }
 }

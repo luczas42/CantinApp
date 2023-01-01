@@ -1,9 +1,11 @@
 package com.example.cantinappmobile.repository;
 
-import com.example.cantinappmobile.model.ProductResponse;
+import com.example.cantinappmobile.model.Product;
+
+import java.util.List;
 
 public interface Repository {
 
-    ProductResponse retrieveProductsFromWebService();
+    List<Product> retrieveProductsFromWebService();
 
 }
