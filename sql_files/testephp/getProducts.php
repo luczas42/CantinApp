@@ -29,6 +29,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
            $productList[] = new Product($row->name, $row->price);
 
         }
+    //programar alguma coisa no else
     }else{
     }
 
