@@ -6,7 +6,7 @@ $productList = array();
 
 if($_SERVER['REQUEST_METHOD']=='POST'){
 
-    include 'dbConnection.php';
+    include 'dbConnectionTest.php';
 
     //variável com a conexão
     $conn = new mysqli($HostName, $HostUser,  
@@ -38,6 +38,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
 echo json_encode($productList);
 
+
+
 class Product{
 
     public $name;
@@ -48,6 +50,8 @@ class Product{
         $this->name = $name;
         $this->price = $price;
     }
+
+
 }
 
 ?>
