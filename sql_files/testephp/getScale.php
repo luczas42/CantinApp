@@ -5,17 +5,8 @@ $scaleList = array();
 
 if($_SERVER['REQUEST_METHOD']=='POST'){
 
-    include 'dbConnection.php';
+    include 'setupConnection.php';
 
-    $conn = new mysqli ($HostName, $HostUser, $HostPass, $DatabaseName);
-
-    mysqli_set_charset($conn, "utf8");
-
-    if($conn->connect_error){
-        die("Connection failed: ". $conn->connect_error);
-    }
-
-    // escrever o comando completo quando eu for testá-lo
     $result = $conn->query("SELECT employee.name, employee.class, turn.day, turn.period
     FROM scale
     JOIN (employee, turn)
@@ -25,9 +16,9 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         while($row = $result->fetch_object()){
             $scaleList[] = new Scale($row->name, $row->class, $row->day, $row->period);
         }
-    //programar alguma coisa no else
+        echo ("Response successfull!\n");
     }else{
-        print "error";
+        echo ("Response failed: Empty Response");
     }
 
     $conn->close();

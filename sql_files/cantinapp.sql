@@ -18,12 +18,12 @@ image longblob,
 primary key(id)
 );
 
-insert into product
-values (1, "kevytos shrek", 199.10, null);
-insert into product
-values (2, "kevytos fiona", 198.00, null);
-insert into product
-values (3, "kevytos burro", 198.00, null);
+insert into product (name, price, image)
+values ('kevytos shrek', 199.10, null);
+insert into product (name, price, image)
+values ("kevytos fiona", 198.00, null);
+insert into product (name, price, image)
+values ("kevytos burro", 198.00, null);
 
 create table employee(
 id int not null auto_increment,
@@ -70,6 +70,7 @@ values (2, 1, 2);
 
 select * from employee;
 select * from turn;
+select * from product;
 
 select employee.name, employee.class, turn.day, turn.period
 from scale
@@ -86,6 +87,8 @@ SELECT employee.name, employee.class, turn.day, turn.period
 delete from scale
 where id = 2;
 
-select * from scale where id = 1;
+delete from product where id = 18 ;
+alter table product AUTO_INCREMENT = 1;
+
 
 
