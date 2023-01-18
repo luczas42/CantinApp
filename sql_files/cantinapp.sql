@@ -44,9 +44,13 @@ id int not null auto_increment,
 id_employee int,
 id_turn int,
 primary key(id),
-foreign key(id_employee) references employee(id),
+foreign key(id_employee) references employee(id)
+on delete cascade,
 foreign key(id_turn) references turn(id)
+on delete cascade
 );
+
+drop table scale;
 
 insert into employee
 values (1, "Guilherme", "INF4AM");
@@ -56,13 +60,17 @@ values (1, '2023-01-06', 1);
 insert into turn
 values (2, '2023-02-06', 1);
 
+delete from turn where id = 2;
+
 insert into scale
 values (1, 1, 1);
+
 insert into scale
 values (2, 1, 2);
 
 select * from employee;
 select * from turn;
+
 select employee.name, employee.class, turn.day, turn.period
 from scale
 join (employee, turn)
@@ -77,5 +85,7 @@ SELECT employee.name, employee.class, turn.day, turn.period
 
 delete from scale
 where id = 2;
+
+select * from scale where id = 1;
 
 

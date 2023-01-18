@@ -6,7 +6,7 @@ $productList = array();
 
 if($_SERVER['REQUEST_METHOD']=='POST'){
 
-    include 'dbConnectionTest.php';
+    include 'dbConnection.php';
 
     //variável com a conexão
     $conn = new mysqli($HostName, $HostUser,  

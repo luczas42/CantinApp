@@ -5,7 +5,7 @@ $scaleList = array();
 
 if($_SERVER['REQUEST_METHOD']=='POST'){
 
-    include 'dbConnectionTest.php';
+    include 'dbConnection.php';
 
     $conn = new mysqli ($HostName, $HostUser, $HostPass, $DatabaseName);
 
