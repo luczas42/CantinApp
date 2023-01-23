@@ -13,9 +13,9 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         while($row = $result->fetch_object()){
            $productList[] = new Product($row->name, $row->price);
         }
-        echo ("Response successfull!\n");
+        //echo ("Response successfull!\n");
     }else{
-        echo ("Response failed: empty response");
+        //echo ("Response failed: empty response");
     }
 
     $conn->close();

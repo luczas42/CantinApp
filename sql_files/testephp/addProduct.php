@@ -13,9 +13,9 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('sd', $name, $price);
         $stmt->execute();
-        echo ("Request sucessfull!");
+        //echo ("Request sucessfull!");
     }else{
-        echo ("Request failed: empty value");
+        //echo ("Request failed: empty value");
     }
     $conn->close();
 }
