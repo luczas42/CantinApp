@@ -18,11 +18,15 @@
         <item name="android:background">@color/nightPrimaryColor</item>
     </style>
 
-    <style name="cardTitle">
+    <style name="cardBackground">
+        <item name="cardBackgroundColor">@color/nightPrimaryLightColor</item>
+    </style>
+
+    <style name="productCardTitle">
         <item name="android:textColor">@color/secondaryColor</item>
     </style>
 
-    <style name="cardDescription">
+    <style name="productCardDescription">
         <item name="android:textColor">@color/white</item>
     </style>
 

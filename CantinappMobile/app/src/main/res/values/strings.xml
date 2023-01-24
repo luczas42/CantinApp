@@ -13,4 +13,7 @@
     <string name="button_filters_text">Filtrar Produtos</string>
     <string name="string_product_image">Imagem do Produto</string>
     <string name="an_error_has_ocurred">An error has ocurred!</string>
+    <string name="refri4am">REFRI4AM</string>
+    <string name="inf4at">INF4AT</string>
+    <string name="inf4am">INF4AM</string>
 </resources>

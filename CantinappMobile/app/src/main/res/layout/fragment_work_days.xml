@@ -7,28 +7,20 @@
     android:layout_height="match_parent"
     tools:context=".ui.activities.ListsActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_filters"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:itemCount="2"
-        tools:listitem="@layout/filters_listitem" />
+    <include
+        android:id="@+id/class_filter"
+        layout="@layout/class_filters" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="5dp"
         android:id="@+id/recycler_days"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recycler_filters"
-        tools:itemCount="2"
-        tools:listitem="@layout/days_listitem"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/class_filter"
+        tools:listitem="@layout/days_listitem" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

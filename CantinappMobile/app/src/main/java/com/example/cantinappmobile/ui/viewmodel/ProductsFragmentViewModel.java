@@ -1,13 +1,10 @@
 package com.example.cantinappmobile.ui.viewmodel;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.cantinappmobile.model.Product;
-import com.example.cantinappmobile.model.ProductResponse;
 import com.example.cantinappmobile.repository.RepositoryImpl;
 
 import java.util.List;
@@ -23,7 +20,6 @@ public class ProductsFragmentViewModel extends ViewModel {
     public LiveData<List<Product>> productResponseLiveData = _productResponseLiveData;
     public MutableLiveData<Connection> connectionLiveData = new MutableLiveData<>();
 
-
     public ProductsFragmentViewModel(RepositoryImpl repository) {
         this.repository = repository;
     }
@@ -37,7 +33,6 @@ public class ProductsFragmentViewModel extends ViewModel {
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
 
                 if (response.isSuccessful()) {
-
                     List<Product> data = response.body();
 
                     if (data != null) {
