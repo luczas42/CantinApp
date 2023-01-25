@@ -7,9 +7,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ClientRetrofit {
 
-    private static Retrofit retrofit = null;
-
     public static Retrofit getInstance() {
+
+        //perguntar pros professores em aula se isso não é perigoso
+
+        Retrofit retrofit = null;
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -23,7 +25,6 @@ public class ClientRetrofit {
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
-
             return retrofit;
         } else {
             return null;
