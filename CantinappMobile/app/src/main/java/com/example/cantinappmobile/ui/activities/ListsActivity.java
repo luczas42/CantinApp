@@ -11,6 +11,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.cantinappmobile.R;
 import com.example.cantinappmobile.databinding.ActivityListsBinding;
+import com.example.cantinappmobile.databinding.ContentListsBinding;
 
 public class ListsActivity extends AppCompatActivity {
 

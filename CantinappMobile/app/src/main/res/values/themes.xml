@@ -78,16 +78,6 @@
         <item name="minWidth">48dp</item>
     </style>
 
-    <style name="inf4atColor">
-        <item name="cardBackgroundColor">#000103</item>
-    </style>
-    <style name="inf4amColor">
-        <item name="cardBackgroundColor">#1849C7</item>
-    </style>
-    <style name="refriColor">
-        <item name="cardBackgroundColor">#921835</item>
-    </style>
-
     <style name="Theme.CantinappMobile.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.CantinappMobile.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

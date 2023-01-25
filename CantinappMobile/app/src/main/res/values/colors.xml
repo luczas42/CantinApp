@@ -12,8 +12,11 @@
     <color name="secondaryTextColor">#000000</color>
     <color name="descriptionTextColor">#535353</color>
     <color name="nightPrimaryColor">#000f0f</color>
-    <color name="nightPrimaryLightColor">#2b3535</color>
+    <color name="nightPrimaryLightColor">#2B3535</color>
     <color name="nightPrimaryDarkColor">#000000</color>
     <color name="nightPrimaryTextColor">#ffffff</color>
     <color name="nightStroke">#161616</color>
+    <color name="inf4at">#000103</color>
+    <color name="inf4am">#1849C7</color>
+    <color name="refri4am">#921835</color>
 </resources>

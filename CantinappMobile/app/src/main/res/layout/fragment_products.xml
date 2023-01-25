@@ -28,5 +28,5 @@
         android:text="@string/an_error_has_ocurred"
         android:textAlignment="center"
         android:visibility="gone"
-        android:textColor="@color/white"/>
+        style="@style/productCardDescription"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

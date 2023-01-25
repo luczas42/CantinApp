@@ -14,20 +14,60 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="background">
-        <item name="android:background">@color/nightPrimaryColor</item>
+    <style name="Theme.CantinappMobile.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="cardBackground">
+    <style name="defaultCard">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="cardCornerRadius">10dp</item>
+        <item name="cardElevation">5dp</item>
+        <item name="android:layout_margin">5dp</item>
         <item name="cardBackgroundColor">@color/nightPrimaryLightColor</item>
+    </style>
+
+    <style name="classBalls">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_margin">8dp</item>
+    </style>
+
+    <style name="classFilterText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="background">
+        <item name="android:background">@color/nightPrimaryColor</item>
     </style>
 
     <style name="productCardTitle">
         <item name="android:textColor">@color/secondaryColor</item>
     </style>
 
+    <style name="cardBackground">
+        <item name="cardBackgroundColor">@color/nightPrimaryLightColor</item>
+    </style>
+
     <style name="productCardDescription">
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="dayCardTitle">
+        <item name="android:textColor">@color/nightPrimaryTextColor</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="dayCardClass">
+        <item name="android:textColor">@color/nightPrimaryTextColor</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
     </style>
 
     <style name="searchCard" parent="Theme.MaterialComponents.DayNight">
