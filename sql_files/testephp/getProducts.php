@@ -11,7 +11,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
     if($result->num_rows>0){
         while($row = $result->fetch_object()){
-           $productList[] = new Product($row->name, $row->price);
+           $productList[] = new Product($row->id, $row->name, $row->price);
         }
         //echo ("Response successfull!\n");
     }else{
@@ -25,11 +25,13 @@ echo json_encode($productList);
 
 class Product{
 
+    public $id;
     public $name;
     public $price;
 
-    public function __construct(string $name, float $price)
+    public function __construct($id, $name, $price)
     {
+        $this->id = $id;
         $this->name = $name;
         $this->price = $price;
     }

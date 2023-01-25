@@ -18,13 +18,6 @@ image longblob,
 primary key(id)
 );
 
-insert into product (name, price, image)
-values ('kevytos shrek', 199.10, null);
-insert into product (name, price, image)
-values ("kevytos fiona", 198.00, null);
-insert into product (name, price, image)
-values ("kevytos burro", 198.00, null);
-
 create table employee(
 id int not null auto_increment,
 name varchar(45),
@@ -50,45 +43,10 @@ foreign key(id_turn) references turn(id)
 on delete cascade
 );
 
-drop table scale;
+insert into employee (name, class) values ("lucas", "inf4am");
+insert into turn (day, period) values ("2022-01-25", 1);
 
-insert into employee
-values (1, "Guilherme", "INF4AM");
-
-insert into turn
-values (1, '2023-01-06', 1);
-insert into turn
-values (2, '2023-02-06', 1);
-
-delete from turn where id = 2;
-
-insert into scale
-values (1, 1, 1);
-
-insert into scale
-values (2, 1, 2);
-
-select * from employee;
-select * from turn;
-select * from product;
-
-select employee.name, employee.class, turn.day, turn.period
-from scale
-join (employee, turn)
-on (scale.id_employee = employee.id and scale.id_turn = turn.id);
-
-select * from scale;
-
-SELECT employee.name, employee.class, turn.day, turn.period
+SELECT employee.name, employee.class, employee.id, turn.day, turn.period, turn.id
     FROM scale
     JOIN (employee, turn)
-    ON (scale.id_employee = employee.id and scale.id_turn = turn.id);
-
-delete from scale
-where id = 2;
-
-delete from product where id = 18 ;
-alter table product AUTO_INCREMENT = 1;
-
-
-
+    ON (scale.id_employee = employee.id AND scale.id_turn = turn.id);
