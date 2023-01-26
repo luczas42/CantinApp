@@ -21,5 +21,9 @@ public interface ApiService {
     @POST("addProduct.php")
     Call<Products> addProduct(@Field("name") String name, @Field("price") Float price);
 
+    @FormUrlEncoded
+    @POST("deleteProduct.php")
+    Call<Void> deleteProduct(@Field("id") int id);
+
 
 }

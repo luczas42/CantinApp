@@ -18,6 +18,22 @@ public class ProductEditScreen {
 
     Products myProduct = null;
 
+    Callback<Void> deleteProductCallback = new Callback<Void>() {
+        @Override
+        public void onResponse(Call<Void> call, Response<Void> response) {
+            if (!response.isSuccessful()) {
+                System.out.println(response.code());
+            }
+            System.out.println(response.code());
+        }
+
+        @Override
+        public void onFailure(Call<Void> call, Throwable t) {
+            System.out.println(t.getMessage());
+
+        }
+    };
+
     Callback<Products> addProductCallback = new Callback<Products>() {
         @Override
         public void onResponse(Call<Products> call, Response<Products> response) {
@@ -96,7 +112,9 @@ public class ProductEditScreen {
 
     @FXML
     void deleteProduct(ActionEvent event) {
-
+        retrofitInit.deleteProduct(deleteProductCallback, myProduct.id);
+        Stage stage = (Stage) productRegisterButton.getScene().getWindow();
+        stage.close();
     }
 
     @FXML

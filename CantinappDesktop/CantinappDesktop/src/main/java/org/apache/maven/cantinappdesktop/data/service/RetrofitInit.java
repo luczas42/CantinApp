@@ -22,9 +22,11 @@ public class RetrofitInit {
         this.apiService.addProduct(post.name, post.price).enqueue(call);
 
     }
-
     public void editProducts(Callback<Products> call, Products products) {
         this.apiService.editProduct(products.name, products.price, products.id).enqueue(call);
+    }
+    public void deleteProduct(Callback<Void> call, int id){
+        this.apiService.deleteProduct(id).enqueue(call);
     }
 
 
