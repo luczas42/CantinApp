@@ -2,16 +2,21 @@ package org.apache.maven.cantinappdesktop.view;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.apache.maven.cantinappdesktop.App;
 import org.apache.maven.cantinappdesktop.data.service.Post;
 import org.apache.maven.cantinappdesktop.data.service.Products;
 import org.apache.maven.cantinappdesktop.data.service.RetrofitInit;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import java.io.IOException;
 
 public class ProductEditScreen {
 
@@ -83,7 +88,7 @@ public class ProductEditScreen {
     }
 
     @FXML
-    void registerProduct(ActionEvent event) {
+    void registerProduct(ActionEvent event) throws IOException {
         String productName = productNameField.getText();
         System.out.println(productName);
         Float productPrice = Float.valueOf(productPriceField.getText());
@@ -91,6 +96,11 @@ public class ProductEditScreen {
 
         retrofitInit.addProducts(addProductCallback, products);
 
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("FXMLController.fxml"));
+        fxmlLoader.load();
+        FXMLController fxmlController = fxmlLoader.getController();
+        Stage stage = (Stage) productRegisterButton.getScene().getWindow();
+        stage.close();
     }
 
     public void checkIsEdit(Boolean isEdit){

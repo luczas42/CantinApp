@@ -121,6 +121,7 @@ public class FXMLController {
             FXMLController.this.productName.setCellValueFactory(new PropertyValueFactory<>("Name"));
             FXMLController.this.productPrice.setCellValueFactory(new PropertyValueFactory<>("Price"));
             FXMLController.this.productTable.setItems(productsObservableList);
+            System.out.println("feitoo "+ productsList.size());
         }
 
         public void onFailure(Call<List<Products>> call, Throwable t) {
@@ -192,13 +193,19 @@ public class FXMLController {
             stage.setScene(scene);
             stage.initStyle(StageStyle.UNDECORATED);
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setAlwaysOnTop(true);
             ProductEditScreen productEditScreenController = fxmlLoader.getController();
             productEditScreenController.checkIsEdit(true);
             stage.showAndWait();
+            refreshProductsTable();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void refreshProductsTable(){
+        ObservableList<Products> emptyList = FXCollections.emptyObservableList();
+        productTable.setItems(emptyList);
+        retrofitInit.getProducts(this.listCallback);
     }
 
 }

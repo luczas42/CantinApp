@@ -19,7 +19,7 @@ public class RetrofitInit {
 
 
     public void addProducts(Callback<Products> call, Products post){
-        this.apiService.createPost(post.name,post.price).enqueue(call);
+        this.apiService.addProduct(post.name,post.price).enqueue(call);
     }
 
 
