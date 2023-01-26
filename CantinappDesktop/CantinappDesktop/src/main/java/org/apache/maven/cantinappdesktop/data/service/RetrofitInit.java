@@ -16,4 +16,12 @@ public class RetrofitInit {
     public void getProducts(Callback<List<Products>> callback) {
         this.apiService.getProducts().enqueue(callback);
     }
+
+
+    public void addProducts(Callback<Products> call, Products post){
+        this.apiService.createPost(post.name,post.price).enqueue(call);
+    }
+
+
+
 }

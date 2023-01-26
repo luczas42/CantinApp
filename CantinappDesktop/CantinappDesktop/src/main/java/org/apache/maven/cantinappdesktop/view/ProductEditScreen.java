@@ -6,8 +6,36 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.apache.maven.cantinappdesktop.data.service.Post;
+import org.apache.maven.cantinappdesktop.data.service.Products;
+import org.apache.maven.cantinappdesktop.data.service.RetrofitInit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProductEditScreen {
+
+    Callback<Products> addProductCallback = new Callback<Products>() {
+        @Override
+        public void onResponse(Call<Products> call, Response<Products> response) {
+            if (!response.isSuccessful()){
+                System.out.println(response.code());
+                return;
+            }
+
+            Products postResponse = response.body();
+            System.out.println(response.code());
+            System.out.println(postResponse.name);
+
+        }
+
+        @Override
+        public void onFailure(Call<Products> call, Throwable t) {
+            System.out.println(t.getMessage());
+        }
+    };
+
+    RetrofitInit retrofitInit = new RetrofitInit();
 
     @FXML
     private Button addProductImageButton;
@@ -56,6 +84,12 @@ public class ProductEditScreen {
 
     @FXML
     void registerProduct(ActionEvent event) {
+        String productName = productNameField.getText();
+        System.out.println(productName);
+        Float productPrice = Float.valueOf(productPriceField.getText());
+        Products products = new Products(productName,productPrice);
+
+        retrofitInit.addProducts(addProductCallback, products);
 
     }
 
