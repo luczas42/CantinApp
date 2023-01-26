@@ -54,13 +54,5 @@ public class ListsActivity extends AppCompatActivity {
                 fragmentTransaction.commit();
             }
         });
-
-
-
-//        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_content_lists);
-//        NavController navController = navHostFragment.getNavController();
-
-
-
     }
 }
