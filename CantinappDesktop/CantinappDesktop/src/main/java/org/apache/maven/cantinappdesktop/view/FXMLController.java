@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
@@ -151,6 +152,29 @@ public class FXMLController {
         this.productsPane.toFront();
         productsButton.setDisable(true);
         retrofitInit.getProducts(this.listCallback);
+
+    }
+
+    @FXML
+    void onProductSelected(MouseEvent event) {
+        Products selectedProduct = productTable.getSelectionModel().getSelectedItem();
+
+        try {
+            Stage stage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("productEditScreen.fxml"));
+            Scene scene = new Scene((Parent) fxmlLoader.load());
+            stage.setTitle("Cantinapp");
+            stage.setScene(scene);
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            ProductEditScreen productEditScreenController = fxmlLoader.getController();
+            productEditScreenController.productEdit(selectedProduct);
+            stage.showAndWait();
+            refreshProductsTable();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @FXML
@@ -194,7 +218,7 @@ public class FXMLController {
             stage.initStyle(StageStyle.UNDECORATED);
             stage.initModality(Modality.APPLICATION_MODAL);
             ProductEditScreen productEditScreenController = fxmlLoader.getController();
-            productEditScreenController.checkIsEdit(true);
+            productEditScreenController.productAdd();
             stage.showAndWait();
             refreshProductsTable();
         } catch (IOException e) {

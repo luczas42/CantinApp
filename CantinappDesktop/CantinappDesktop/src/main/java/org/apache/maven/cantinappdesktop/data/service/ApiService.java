@@ -12,7 +12,14 @@ public interface ApiService {
     @POST("getProducts.php")
     Call<List<Products>> getProducts();
 
+
+    @FormUrlEncoded
+    @POST("editProduct.php")
+    Call<Products> editProduct(@Field("name") String name, @Field("price") Float price, @Field("id") int id);
+
     @FormUrlEncoded
     @POST("addProduct.php")
     Call<Products> addProduct(@Field("name") String name, @Field("price") Float price);
+
+
 }

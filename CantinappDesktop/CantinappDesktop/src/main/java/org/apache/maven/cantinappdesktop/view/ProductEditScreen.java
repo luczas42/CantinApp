@@ -2,14 +2,10 @@ package org.apache.maven.cantinappdesktop.view;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.apache.maven.cantinappdesktop.App;
-import org.apache.maven.cantinappdesktop.data.service.Post;
 import org.apache.maven.cantinappdesktop.data.service.Products;
 import org.apache.maven.cantinappdesktop.data.service.RetrofitInit;
 import retrofit2.Call;
@@ -20,10 +16,12 @@ import java.io.IOException;
 
 public class ProductEditScreen {
 
+    Products myProduct = null;
+
     Callback<Products> addProductCallback = new Callback<Products>() {
         @Override
         public void onResponse(Call<Products> call, Response<Products> response) {
-            if (!response.isSuccessful()){
+            if (!response.isSuccessful()) {
                 System.out.println(response.code());
                 return;
             }
@@ -32,6 +30,25 @@ public class ProductEditScreen {
             System.out.println(response.code());
             System.out.println(postResponse.name);
 
+        }
+
+        @Override
+        public void onFailure(Call<Products> call, Throwable t) {
+            System.out.println(t.getMessage());
+        }
+    };
+
+    Callback<Products> editProductCallback = new Callback<Products>() {
+        @Override
+        public void onResponse(Call<Products> call, Response<Products> response) {
+            if (!response.isSuccessful()) {
+                System.out.println(response.code());
+                return;
+            }
+
+            Products postResponse = response.body();
+            System.out.println(response.code());
+            System.out.println(postResponse.name);
         }
 
         @Override
@@ -84,7 +101,14 @@ public class ProductEditScreen {
 
     @FXML
     void editProduct(ActionEvent event) {
-
+        String productName = productNameField.getText();
+        System.out.println(productName);
+        float productPrice = Float.parseFloat(productPriceField.getText());
+        myProduct.name = productName;
+        myProduct.price = productPrice;
+        retrofitInit.editProducts(editProductCallback, myProduct);
+        Stage stage = (Stage) productRegisterButton.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
@@ -92,28 +116,27 @@ public class ProductEditScreen {
         String productName = productNameField.getText();
         System.out.println(productName);
         Float productPrice = Float.valueOf(productPriceField.getText());
-        Products products = new Products(productName,productPrice);
+        Products products = new Products(productName, productPrice);
 
         retrofitInit.addProducts(addProductCallback, products);
 
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("FXMLController.fxml"));
-        fxmlLoader.load();
-        FXMLController fxmlController = fxmlLoader.getController();
         Stage stage = (Stage) productRegisterButton.getScene().getWindow();
         stage.close();
     }
 
-    public void checkIsEdit(Boolean isEdit){
-        if (isEdit){
-            productDeleteButton.setVisible(false);
-            productDeleteButton.setManaged(false);
-            productEditButton.setVisible(false);
-            productEditButton.setManaged(false);
-        }else {
-            productEditLabel.setText("Edição de Produto");
-            productRegisterButton.setVisible(false);
-            productRegisterButton.setManaged(false);
-        }
+    public void productAdd() {
+        productDeleteButton.setVisible(false);
+        productDeleteButton.setManaged(false);
+        productEditButton.setVisible(false);
+        productEditButton.setManaged(false);
     }
 
+    public void productEdit(Products selectedProduct) {
+        productEditLabel.setText("Edição de Produto");
+        productRegisterButton.setVisible(false);
+        productRegisterButton.setManaged(false);
+        myProduct = selectedProduct;
+        productNameField.setText(selectedProduct.name);
+        productPriceField.setText(selectedProduct.price.toString());
+    }
 }

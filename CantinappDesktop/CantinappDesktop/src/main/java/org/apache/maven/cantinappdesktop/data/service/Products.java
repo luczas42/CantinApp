@@ -4,6 +4,14 @@ package org.apache.maven.cantinappdesktop.data.service;
 import com.google.gson.annotations.SerializedName;
 
 public class Products {
+
+    @SerializedName("id")
+    public int id;
+
+    public int getId() {
+        return id;
+    }
+
     @SerializedName("name")
     public String name;
     @SerializedName("price")
