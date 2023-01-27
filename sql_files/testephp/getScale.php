@@ -16,9 +16,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         while($row = $result->fetch_object()){
             $scaleList[] = new Scale($row->name, $row->class, $row->id_employee, $row->day, $row->period,  $row->id_turn);
         }
-        //echo ("Response successfull!\n");
     }else{
-        //echo ("Response failed: Empty Response");
     }
 
     $conn->close();

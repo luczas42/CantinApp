@@ -13,9 +13,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         while($row = $result->fetch_object()){
            $productList[] = new User($row->username, $row->name, $row->password, $row-> isUser, $row->email);
         }
-        echo ("Response successfull!\n");
     }else{
-        echo ("Response failed: empty response");
     }
 
     $conn->close();
