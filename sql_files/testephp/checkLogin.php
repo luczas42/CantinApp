@@ -2,7 +2,7 @@
 header('Content-Type: application/json charset=utf-8');
 
 
-$user = null;
+$user = array();
 if($_SERVER['REQUEST_METHOD']=='POST'){
 
     include 'setupConnection.php';
@@ -33,18 +33,18 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             $stmt = $conn->prepare($sql);
             $stmt->bind_param('s', $username);
             $stmt->execute();
-            echo ("a");
+            
 
             $result = $stmt->get_result();
     
             if($result->num_rows>0){
                 while($row = $result->fetch_object()){
-                    $user = new User($row->id, $row->username, $row->name, $row->email, $row->isUser);
-                    json_encode($user->username);
+                    $user[] = new User($row->id, $row->username, $row->name, $row->email, $row->isUser);
                 }
             }
         }
     }
+    echo json_encode($user);
     $conn->close();
 }
 
