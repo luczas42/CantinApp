@@ -25,9 +25,21 @@ import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class FXMLController {
+    ScheduledExecutorService productsRefreshExecutor = Executors.newSingleThreadScheduledExecutor();
+    ScheduledExecutorService scaleRefreshExecutor;
+    ScheduledExecutorService employeeRefreshExecutor;
     RetrofitInit retrofitInit = new RetrofitInit();
+    @FXML
+    private Button closeAppButton;
+    @FXML
+    private SplitPane splitPane;
+    @FXML
+    private Button minimizeAppButton;
     @FXML
     private Button exitButton;
     @FXML
@@ -122,7 +134,8 @@ public class FXMLController {
             FXMLController.this.productName.setCellValueFactory(new PropertyValueFactory<>("Name"));
             FXMLController.this.productPrice.setCellValueFactory(new PropertyValueFactory<>("Price"));
             FXMLController.this.productTable.setItems(productsObservableList);
-            System.out.println("feitoo "+ productsList.size());
+            System.out.println("feitoo " + productsList.size());
+            productTable.refresh();
         }
 
         public void onFailure(Call<List<Products>> call, Throwable t) {
@@ -151,7 +164,13 @@ public class FXMLController {
         shiftsButton.setDisable(false);
         this.productsPane.toFront();
         productsButton.setDisable(true);
-        retrofitInit.getProducts(this.listCallback);
+        productsRefreshExecutor.scheduleAtFixedRate(() -> {
+            try {
+                refreshProductsTable();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }, 0, 2, TimeUnit.SECONDS);
 
     }
 
@@ -169,10 +188,13 @@ public class FXMLController {
             stage.initModality(Modality.APPLICATION_MODAL);
             ProductEditScreen productEditScreenController = fxmlLoader.getController();
             productEditScreenController.productEdit(selectedProduct);
+            productsRefreshExecutor.wait();
             stage.showAndWait();
-            refreshProductsTable();
+            productsRefreshExecutor.notify();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
 
     }
@@ -185,11 +207,13 @@ public class FXMLController {
         employeesButton.setDisable(false);
         shiftsButton.setDisable(true);
         this.workdaysPane.toFront();
+
     }
 
     @FXML
     void closeApplication(ActionEvent event) {
-        Platform.exit();
+        this.loginPane.setVisible(true);
+        this.loginPane.toFront();
     }
 
     @FXML
@@ -221,15 +245,24 @@ public class FXMLController {
             productEditScreenController.productAdd();
             stage.showAndWait();
             refreshProductsTable();
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    public void refreshProductsTable(){
-        ObservableList<Products> emptyList = FXCollections.emptyObservableList();
-        productTable.setItems(emptyList);
+    public void refreshProductsTable() throws InterruptedException {
         retrofitInit.getProducts(this.listCallback);
+    }
+
+    @FXML
+    void closeApp(ActionEvent event) {
+        Platform.exit();
+    }
+
+    @FXML
+    void minimizeApp(ActionEvent event) {
+        Stage stage = (Stage) minimizeAppButton.getScene().getWindow();
+        stage.setIconified(true);
     }
 
 }

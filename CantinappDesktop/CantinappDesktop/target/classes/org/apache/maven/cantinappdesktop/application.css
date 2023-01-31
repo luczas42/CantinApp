@@ -2,6 +2,23 @@
     -fx-opacity: 1;
 }
 
+#toolbar-button:hover{
+        -fx-background-color: #D8D8D8;
+}
+
+#toolbar-button{
+        -fx-background-color:  #F4F4F0;
+}
+
+.split-pane *.split-pane-divider {
+    -fx-padding: 0 1 0 1;
+        -fx-background-color: transparent;
+}
+
+#toolbar{
+-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 1, 0, 0, 0);
+}
+
 /* LOGIN SCREEN*/
 
 /* Login Screen Fields*/
@@ -64,6 +81,7 @@
 #table-aux-button:hover, #general-button-style:hover{
     -fx-background-color: #007557;
 }
+
 
 /* Table styles */
 .table-view .column-header-background{

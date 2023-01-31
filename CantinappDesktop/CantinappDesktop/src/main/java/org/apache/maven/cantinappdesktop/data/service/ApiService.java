@@ -9,21 +9,19 @@ import retrofit2.http.POST;
 import java.util.List;
 
 public interface ApiService {
-    @POST("getProducts.php")
+    @POST("products/getProducts.php")
     Call<List<Products>> getProducts();
 
 
     @FormUrlEncoded
-    @POST("editProduct.php")
+    @POST("products/editProduct.php")
     Call<Products> editProduct(@Field("name") String name, @Field("price") Float price, @Field("id") int id);
 
     @FormUrlEncoded
-    @POST("addProduct.php")
+    @POST("products/addProduct.php")
     Call<Products> addProduct(@Field("name") String name, @Field("price") Float price);
 
     @FormUrlEncoded
-    @POST("deleteProduct.php")
+    @POST("products/deleteProduct.php")
     Call<Void> deleteProduct(@Field("id") int id);
-
-
 }

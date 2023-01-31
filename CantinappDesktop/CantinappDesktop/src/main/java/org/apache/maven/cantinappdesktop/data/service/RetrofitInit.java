@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import java.util.List;
 
 public class RetrofitInit {
-    Retrofit retrofit = (new Retrofit.Builder()).baseUrl("http://54.94.3.48/testephp/").addConverterFactory(GsonConverterFactory.create()).build();
+    Retrofit retrofit = (new Retrofit.Builder()).baseUrl("https://cantinapp.000webhostapp.com/cantinapp/").addConverterFactory(GsonConverterFactory.create()).build();
     ApiService apiService;
 
     public RetrofitInit() {
