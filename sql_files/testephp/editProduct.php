@@ -15,9 +15,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('sdi', $name, $price, $id);
         $stmt->execute(); 
-        //echo ("Request sucessfull!");
     }else{
-        //echo ("Request failed: empty value");
     }
     $conn->close();
 }

@@ -2,11 +2,13 @@ create schema cantinapp;
 
 use cantinapp;
 
-create table admin(
+create table user(
 id int not null auto_increment,
 username varchar(45),
 name varchar(45),
 password varchar(2000),
+email varchar(45),
+isUser int,
 primary key(id)
 );
 
@@ -43,10 +45,11 @@ foreign key(id_turn) references turn(id)
 on delete cascade
 );
 
-insert into employee (name, class) values ("lucas", "inf4am");
-insert into turn (day, period) values ("2022-01-25", 1);
+insert into employee (name, class) values ("adam", "inf4at");
+insert into turn (day, period) values ("2022-01-30", 1);
+insert into scale (id_employee, id_turn) values (2,2);
 
-SELECT employee.name, employee.class, employee.id, turn.day, turn.period, turn.id
-    FROM scale
-    JOIN (employee, turn)
-    ON (scale.id_employee = employee.id AND scale.id_turn = turn.id);
+select * from employee;
+
+    
+    
