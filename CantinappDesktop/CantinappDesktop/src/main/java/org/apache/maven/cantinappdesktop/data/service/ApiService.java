@@ -15,13 +15,28 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("products/editProduct.php")
-    Call<Products> editProduct(@Field("name") String name, @Field("price") Float price, @Field("id") int id);
+    Call<Products> editProduct(@Field("name") String name,
+                               @Field("price") Float price,
+                               @Field("id") int id);
 
     @FormUrlEncoded
     @POST("products/addProduct.php")
-    Call<Products> addProduct(@Field("name") String name, @Field("price") Float price);
+    Call<Products> addProduct(@Field("name") String name,
+                              @Field("price") Float price);
 
     @FormUrlEncoded
     @POST("products/deleteProduct.php")
     Call<Void> deleteProduct(@Field("id") int id);
+
+    @FormUrlEncoded
+    @POST("users/signUpUser.php")
+    Call<Users> addUser(@Field("username") String username,
+                        @Field("name") String name,
+                        @Field("password") String password,
+                        @Field("isUser") int isUser,
+                        @Field("email") String email);
+
+    @FormUrlEncoded
+    @POST("users/checkLogin.php")
+    Call<Users> checkLogin(@Field("username") String username, @Field("password") String password);
 }
