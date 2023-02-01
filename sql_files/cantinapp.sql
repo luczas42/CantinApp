@@ -31,6 +31,7 @@ create table turn(
 id int not null auto_increment,
 day date,
 period int,
+class varchar(45),
 primary key(id)
 );
 
