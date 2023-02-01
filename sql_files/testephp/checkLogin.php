@@ -26,7 +26,6 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             while ($row = $result->fetch_object()){
                 $dbpassword = $row->password;
             }
-            // var_dump($dbpassword);
         }
         
 
@@ -44,10 +43,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
                 }
             }
         }else{
-            echo ("fffff");
         }
     }
-    // var_dump($user);
     echo json_encode($user);
     $conn->close();
 }
