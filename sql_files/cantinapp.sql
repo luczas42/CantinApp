@@ -45,11 +45,7 @@ foreign key(id_turn) references turn(id)
 on delete cascade
 );
 
-insert into employee (name, class) values ("adam", "inf4at");
-insert into turn (day, period) values ("2022-01-30", 1);
-insert into scale (id_employee, id_turn) values (1,1);
 
-select * from employee;
 
     
     
