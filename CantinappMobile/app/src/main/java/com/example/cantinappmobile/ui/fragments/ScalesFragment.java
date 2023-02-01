@@ -8,18 +8,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.cantinappmobile.databinding.FragmentWorkDaysBinding;
+import com.example.cantinappmobile.databinding.FragmentScalesBinding;
 
-public class WorkDaysFragment extends Fragment {
+public class ScalesFragment extends Fragment {
 
-    private FragmentWorkDaysBinding binding;
+    private FragmentScalesBinding binding;
 
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        binding = FragmentWorkDaysBinding.inflate(inflater, container, false);
+        binding = FragmentScalesBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
