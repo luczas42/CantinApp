@@ -39,8 +39,7 @@ id int not null auto_increment,
 id_employee int,
 id_turn int,
 primary key(id),
-foreign key(id_employee) references employee(id)
-on delete cascade,
+foreign key(id_employee) references employee(id),
 foreign key(id_turn) references turn(id)
 on delete cascade
 );
