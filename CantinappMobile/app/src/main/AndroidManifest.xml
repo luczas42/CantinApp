@@ -34,8 +34,6 @@
             android:exported="true"
             android:label="@string/title_activity_lists"
             android:theme="@style/Theme.CantinappMobile.NoActionBar">
-            <intent-filter>
-            </intent-filter>
         </activity>
     </application>
 
