@@ -6,8 +6,11 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.ActivityNavigator;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +24,7 @@ import com.example.cantinappmobile.ui.activities.ListsActivity;
 
 public class LoginFragment extends Fragment {
 
-    Button btLogin;
-    TextView tvSignin;
+    private FragmentLoginBinding binding;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,30 +34,28 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        binding = FragmentLoginBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        NavController navController = Navigation.findNavController(view);
+        ActivityNavigator activityNavigator = new ActivityNavigator(requireActivity());
+
+
         super.onViewCreated(view, savedInstanceState);
-        FragmentLoginBinding binding = FragmentLoginBinding.inflate(getLayoutInflater());
 
-        btLogin = binding.btLoginFragmentLogin;
-        tvSignin = binding.tvLoginFragmentSignIn;
-
-        btLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(requireActivity(), ListsActivity.class);
-                startActivity(intent);
-                Toast.makeText(requireActivity(), "asdasdasdasdsa", Toast.LENGTH_SHORT).show();
-            }
+        binding.loginButton.setOnClickListener(v -> {
+            Log.i("teste", "onViewCreated: test");
+//            navController.navigate(R.id.ListsActivity);
+            activityNavigator.navigate(activityNavigator.createDestination().setIntent(new Intent(requireContext(), ListsActivity.class)),null,null, null);
         });
 
-        tvSignin.setOnClickListener(new View.OnClickListener() {
+        binding.registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_LoginFragment_to_SignInFragment);
+                navController.navigate(R.id.action_LoginFragment_to_SignInFragment);
                 Toast.makeText(requireActivity(), "bdbdbdbdbdbd", Toast.LENGTH_SHORT).show();
             }
         });

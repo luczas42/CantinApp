@@ -46,6 +46,10 @@
         <item name="android:background">@color/primaryColor</item>
     </style>
 
+    <style name="logScreenCardView">
+        <item name="android:backgroundTint">@color/primaryColor</item>
+    </style>
+
     <style name="productCardTitle">
         <item name="android:textColor">@color/secondaryDarkColor</item>
     </style>
@@ -80,7 +84,7 @@
 
     <style name="closeButton">
         <item name="backgroundTint">#00A87D</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/white</item>
     </style>
 

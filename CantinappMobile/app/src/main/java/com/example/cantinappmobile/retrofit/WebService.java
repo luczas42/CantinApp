@@ -9,7 +9,7 @@ import retrofit2.http.POST;
 
 public interface WebService {
 
-    @POST("getProducts.php")
+    @POST("products/getProducts.php")
     Call<List<Product>> retrieveProducts();
 
 
