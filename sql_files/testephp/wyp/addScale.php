@@ -5,13 +5,22 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
     include 'setupConnection.php';
 
-    if(!empty($_POST['name']) && !empty($_POST['price'])){
-        $name = $_POST['name'];
-        $price = $_POST['price'];
+    if(!empty($_POST['id_turn']) && !empty($_POST['emp_num'])){
 
-        $sql = "insert into product (name, price) values (?, ?);";
+        $id_turn = $_POST['id_turn'];
+        $emp_num = $_POST['emp_num'];
+        switch ($emp_num){
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+        }
+
+        $sql = "insert into scale (id_employee, id_turn) values (?, ?);";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('sd', $name, $price);
+        $stmt->bind_param('ii', $employee_id, $turn_id);
         $stmt->execute();
     }else{
     }

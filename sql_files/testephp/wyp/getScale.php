@@ -1,59 +1,47 @@
 <?php
 header('Content-Type: application/json charset=utf-8');
 
-$employeeList = array();
+$scaleList = array();
 
 if($_SERVER['REQUEST_METHOD']=='POST'){
 
     include 'setupConnection.php';
 
-    $result = $conn->query("SELECT s.id, e.name, e.class, t.day, t.period
-    FROM employee e, scale s, turn t
-    WHERE e.id = s.id_employee
-    AND s.id_turn = t.id;");
+    if(!empty($_POST['turn_id'])){
 
-    if($result->num_rows>0){
-        while($row = $result->fetch_object()){
+        $turn_id = $_POST['turn_id'];
 
-            $employeeList[] = new Employee($row->id, $row->name, $row->class, $row->day, $row->period);
+        $sql = "SELECT e.id, e.name 
+        FROM employee e, scale s
+        WHERE s.id_employee = e.id
+        AND s.id_turn = ?";
 
-            // $auxArray[] = $row->day;
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $turn_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if($result->num_rows>0){
+            while($row = $result->fetch_object()){
+                $scaleList[] = new Employee($row->id, $row->name);
+            }
         }
-
-        // for ($i; $i < count($auxArray); $i++){
-        //     echo ($auxArray[$i]);
-        //     echo ("\n"); //enquanto $i for menor que o número de indexes de $aux array
-        //     for($j; $j<count($dayArray); $j++){ // enquanto $j for menor que o número de indexes de $day array
-        //         if($dayArray[$j]!=$auxArray[$i]){
-        //             $dayArray[$j] = $auxArray[$i];
-        //             echo ($dayArray[$j]);
-        //         echo ("\n");
-        //         }
-        //     }
-        // }
-    }else{
     }
 
-    echo json_encode($employeeList);
+    echo json_encode($scaleList);
     $conn->close();
 
 }
-// echo json_encode($employeeList);
 
 class Employee{
     public $id;
-    public $name;
-    public $class;
-    public $day;
-    public $period;
 
-    public function __construct($id, $name, $class, $day, $period)
+    public $name;
+
+    public function __construct($id, $name)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->class = $class;
-        $this->day = $day;
-        $this->period = $period;
     }
 }
 
