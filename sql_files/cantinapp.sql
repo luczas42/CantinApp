@@ -31,6 +31,7 @@ create table turn(
 id int not null auto_increment,
 day date,
 period int,
+class varchar(45),
 primary key(id)
 );
 
@@ -39,17 +40,12 @@ id int not null auto_increment,
 id_employee int,
 id_turn int,
 primary key(id),
-foreign key(id_employee) references employee(id)
-on delete cascade,
+foreign key(id_employee) references employee(id),
 foreign key(id_turn) references turn(id)
 on delete cascade
 );
 
-insert into employee (name, class) values ("adam", "inf4at");
-insert into turn (day, period) values ("2022-01-30", 1);
-insert into scale (id_employee, id_turn) values (2,2);
 
-select * from employee;
 
     
     

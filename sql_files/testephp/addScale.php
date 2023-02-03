@@ -5,15 +5,18 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
     include 'setupConnection.php';
 
-    if(!empty($_POST['name']) && !empty($_POST['price'])){
-        $name = $_POST['name'];
-        $price = $_POST['price'];
+    if(!empty($_POST['id_turn']) && !empty($_POST['emp_id_array'])){
 
-        $sql = "insert into product (name, price) values (?, ?);";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('sd', $name, $price);
-        $stmt->execute();
-    }else{
+        $id_turn = $_POST['id_turn'];
+        $emp_id_array = $_POST['emp_id_array'];
+        
+
+        foreach($emp_id_array as $id){
+            $sql = "insert into scale (id_employee, id_turn) values (?, ?);";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('ii', $id, $id_turn);
+            $stmt->execute();
+        }
     }
     $conn->close();
 }
