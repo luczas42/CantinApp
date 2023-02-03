@@ -12,11 +12,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $period = $_POST['period'];
         $class = $_POST['class'];
 
-        $sql = "insert into turn (day, period, class) values (?, ?, ?);";
+        $sql = "INSERT INTO turn (day, period, class) VALUES (?, ?, ?);";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('sis', $day, $period, $class);
         $stmt->execute();
-    }else{
     }
     $conn->close();
 }

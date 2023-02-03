@@ -11,11 +11,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $name = $_POST['name'];
         $price = $_POST['price'];
 
-        $sql = "update product set name = ?, price = ? where id = ?;";
+        $sql = "UPDATE product SET name = ?, price = ? WHERE id = ?;";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('sdi', $name, $price, $id);
         $stmt->execute(); 
-    }else{
     }
     $conn->close();
 }

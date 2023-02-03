@@ -15,11 +15,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $isUser = $_POST['isUser'];
         $email = $_POST['email'];
 
-        $sql = "insert into user (username, name, password, isUser, email) values (?, ?, ?, ?, ?);";
+        $sql = "INSERT INTO user (username, name, password, isUser, email) VALUES (?, ?, ?, ?, ?);";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('sssss', $username, $name, $password, $isUser, $email);
         $stmt->execute();
-    }else{
     }
     $conn->close();
 }

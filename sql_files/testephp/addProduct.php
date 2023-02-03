@@ -9,11 +9,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $name = $_POST['name'];
         $price = $_POST['price'];
 
-        $sql = "insert into product (name, price) values (?, ?);";
+        $sql = "INSERT INTO product (name, price) VALUES (?, ?);";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('sd', $name, $price);
         $stmt->execute();
-    }else{
     }
     $conn->close();
 }

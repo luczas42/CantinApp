@@ -1,8 +1,6 @@
 <?php
 header('Content-Type: application/json charset=utf-8');
 
-$employeeList = array();
-
 if($_SERVER['REQUEST_METHOD']=='POST'){
 
     include 'setupConnection.php';
@@ -18,7 +16,6 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $stmt->bind_param('i', $id);
         $stmt->execute();
     }
-    echo json_encode($employeeList);
     $conn->close();
 }
 

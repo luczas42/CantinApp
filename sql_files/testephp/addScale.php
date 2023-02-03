@@ -5,16 +5,15 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
     include 'setupConnection.php';
 
-    if(!empty($_POST['id_turn']) && !empty($_POST['emp_id_array'])){
+    if(!empty($_POST['turn_id']) && !empty($_POST['emp_id_array'])){
 
-        $id_turn = $_POST['id_turn'];
+        $turn_id = $_POST['turn_id'];
         $emp_id_array = $_POST['emp_id_array'];
-        
 
         foreach($emp_id_array as $id){
-            $sql = "insert into scale (id_employee, id_turn) values (?, ?);";
+            $sql = "INSERT INTO scale (id_employee, id_turn) VALUES (?, ?);";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param('ii', $id, $id_turn);
+            $stmt->bind_param('ii', $id, $turn_id);
             $stmt->execute();
         }
     }

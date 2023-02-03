@@ -15,11 +15,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $period = $_POST['period'];
         $class = $_POST['class'];
 
-        $sql = "update turn set day = ?, period = ?, class = ? where id = ?;";
+        $sql = "UPDATE turn SET day = ?, period = ?, class = ? WHERE id = ?;";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('sisi', $day, $period, $class, $id);
         $stmt->execute(); 
-    }else{
     }
     $conn->close();
 }

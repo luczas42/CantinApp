@@ -13,7 +13,6 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         while($row = $result->fetch_object()){
            $turnList[] = new Turn($row->id, $row->day, $row->period, $row->class);
         }
-    }else{
     }
 
     $conn->close();

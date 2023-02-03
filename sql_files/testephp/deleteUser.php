@@ -8,11 +8,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     if(!empty($_POST['id'])){
         $id = $_POST['id'];
 
-        $sql = "delete from user where id = ?;";
+        $sql = "DELETE FROM user WHERE id = ?;";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('i', $id);
         $stmt->execute(); 
-    }else{
     }
     $conn->close();
 }

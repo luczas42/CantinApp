@@ -11,11 +11,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $name = $_POST['name'];
         $class = $_POST['class'];
 
-        $sql = "update employee set name = ?, class = ? where id = ?;";
+        $sql = "UPDATE employee SET name = ?, class = ? WHERE id = ?;";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('ssi', $name, $class, $id);
         $stmt->execute(); 
-    }else{
     }
     $conn->close();
 }

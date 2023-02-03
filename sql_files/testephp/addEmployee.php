@@ -12,7 +12,6 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
         $sql = "INSERT INTO employee (name, class)
         VALUES (?, ?)";
-
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('ss', $name, $class);
         $stmt->execute();

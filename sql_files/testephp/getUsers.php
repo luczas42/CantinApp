@@ -13,7 +13,6 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         while($row = $result->fetch_object()){
            $productList[] = new User($row-> id, $row->username, $row->name, $row->password, $row-> isUser, $row->email);
         }
-    }else{
     }
 
     $conn->close();
