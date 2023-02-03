@@ -5,7 +5,7 @@ header('Content-Type: application/json charset=utf-8');
 $user = array();
 if($_SERVER['REQUEST_METHOD']=='POST'){
 
-    include ../'setupConnection.php';
+    include '../setupConnection.php';
 
     if(!empty($_POST['username']) && !empty($_POST['password'])){
 
