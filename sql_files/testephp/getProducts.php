@@ -5,7 +5,7 @@ $productList = array();
 
 if($_SERVER['REQUEST_METHOD']=='POST'){
 
-    include 'setupConnection.php';
+    include ../'setupConnection.php';
 
     $result = $conn->query("SELECT * FROM product");
 

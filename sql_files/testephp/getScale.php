@@ -5,7 +5,7 @@ $scaleList = array();
 
 if($_SERVER['REQUEST_METHOD']=='POST'){
 
-    include 'setupConnection.php';
+    include ../'setupConnection.php';
 
     if(!empty($_POST['turn_id'])){
 
