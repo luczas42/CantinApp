@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,13 +50,23 @@ public class LoginFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         binding.loginButton.setOnClickListener(v -> {
-            Log.i("teste", "onViewCreated: test");
-            String username = binding.userLoginEditText.getText().toString();
-            String password = binding.userPasswordEditText.getText().toString();
-            viewModel.userLogin(username, password);
-            Log.i("login", "onViewCreated: "+ username);
-            Intent intent = new Intent(requireContext(), ListsActivity.class);
-            startActivity(intent);
+            if (checkEmpty(binding.userLoginEditText)){
+                if (checkEmpty(binding.userPasswordEditText)){
+                    String username = binding.userLoginEditText.getText().toString();
+                    String password = binding.userPasswordEditText.getText().toString();
+                    viewModel.userLogin(username, password);
+                    viewModel.userResponseLiveData.observe(getViewLifecycleOwner(), user -> {
+                        if (user!= null){
+                            Log.i("login", "onViewCreated: "+ username);
+                            Intent intent = new Intent(requireContext(), ListsActivity.class);
+                            startActivity(intent);
+                        }else{
+                            Toast.makeText(requireContext(), "Credenciais erradas", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }
+            }
         });
 
         binding.registerButton.setOnClickListener(new View.OnClickListener() {
@@ -65,5 +76,15 @@ public class LoginFragment extends Fragment {
                 Toast.makeText(requireActivity(), "bdbdbdbdbdbd", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public boolean checkEmpty(EditText editText){
+        if (editText.getText().toString().isEmpty()){
+            editText.requestFocus();
+            editText.setError("Preencha todos os campos");
+            return false;
+        }else{
+            return true;
+        }
     }
 }

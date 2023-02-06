@@ -34,9 +34,13 @@ public class LoginScreenViewModel extends ViewModel {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 assert response.body() != null;
-                _userResponseLiveData.setValue(response.body().get(0));
-                Log.i("loginSuccess", userResponseLiveData.getValue().getUsername());
-                Log.i("loginSuccess", String.valueOf(response.body().size()));
+                if (response.body().size()!= 0){
+                    _userResponseLiveData.setValue(response.body().get(0));
+                    Log.i("loginSuccess", userResponseLiveData.getValue().getUsername());
+                    Log.i("loginSuccess", String.valueOf(response.body().size()));
+                }else{
+                    _userResponseLiveData.setValue(null);
+                }
             }
 
             @Override
