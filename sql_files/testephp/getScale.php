@@ -5,43 +5,49 @@ $scaleList = array();
 
 if($_SERVER['REQUEST_METHOD']=='POST'){
 
-    include 'setupConnection.php';
+    include '../setupConnection.php';
 
-    $result = $conn->query("SELECT employee.name, employee.class, employee.id as 'id_employee', turn.day, turn.period, turn.id as 'id_turn'
-    FROM scale
-    JOIN (employee, turn)
-    ON (scale.id_employee = employee.id AND scale.id_turn = turn.id);");
+    if(!empty($_POST['turn_id'])){
 
-    if($result->num_rows>0){
-        while($row = $result->fetch_object()){
-            $scaleList[] = new Scale($row->name, $row->class, $row->id_employee, $row->day, $row->period,  $row->id_turn);
+        $turn_id = $_POST['turn_id'];
+
+        $sql = "SELECT s.id as 'id_scale', e.id as 'id_emp', e.name 
+        FROM employee e, scale s
+        WHERE s.id_employee = e.id
+        AND s.id_turn = ?
+        ORDER BY e.id";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $turn_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if($result->num_rows>0){
+            while($row = $result->fetch_object()){
+                $scaleList[] = new Employee($row->id_emp, $row->name, $row->id_scale);
+            }
         }
-        //echo ("Response successfull!\n");
-    }else{
-        //echo ("Response failed: Empty Response");
     }
 
+    echo json_encode($scaleList);
     $conn->close();
 
 }
-echo json_encode($scaleList);
 
-class Scale{
+class Employee{
+
+
+    public $id;
+
     public $name;
-    public $class;
-    public $id_employee;
-    public $day;
-    public $period;
-    public $id_turn;
 
-    public function __construct($name, $class, $id_employee, $day, $period, $id_turn)
+    public $scale_id;
+
+    public function __construct($id, $name, $scale_id)
     {
-        $this->day = $day;
-        $this->period = $period;
-        $this->id_employee = $id_employee;
+        $this->id = $id;
         $this->name = $name;
-        $this->class = $class;
-        $this->id_turn = $id_turn;
+        $this->scale_id = $scale_id;
     }
 }
 

@@ -5,15 +5,15 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
     include '../setupConnection.php';
 
-    if(!empty($_POST['id']) && !empty($_POST['name']) && !empty($_POST['price'])){
+    if(!empty($_POST['id']) && !empty($_POST['name']) && !empty($_POST['class'])){
 
         $id = $_POST['id'];
         $name = $_POST['name'];
-        $price = $_POST['price'];
+        $class = $_POST['class'];
 
-        $sql = "UPDATE product SET name = ?, price = ? WHERE id = ?;";
+        $sql = "UPDATE employee SET name = ?, class = ? WHERE id = ?;";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('sdi', $name, $price, $id);
+        $stmt->bind_param('ssi', $name, $class, $id);
         $stmt->execute(); 
     }
     $conn->close();

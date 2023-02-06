@@ -5,17 +5,17 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
     include '../setupConnection.php';
 
-    if(!empty($_POST['name']) && !empty($_POST['price'])){
-        $name = $_POST['name'];
-        $price = $_POST['price'];
+    if(!empty($_POST['name']) && !empty($_POST['class'])){
 
-        $sql = "INSERT INTO product (name, price) VALUES (?, ?);";
+        $name = $_POST['name'];
+        $class = $_POST['class'];
+
+        $sql = "INSERT INTO employee (name, class)
+        VALUES (?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('sd', $name, $price);
+        $stmt->bind_param('ss', $name, $class);
         $stmt->execute();
     }
     $conn->close();
 }
-
-
 ?>

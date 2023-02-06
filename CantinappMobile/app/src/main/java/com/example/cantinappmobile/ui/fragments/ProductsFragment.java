@@ -48,7 +48,6 @@ public class ProductsFragment extends Fragment {
         ProductsFragmentViewModel viewModel = new ProductsFragmentViewModel(new RepositoryImpl());
         viewModel.retrieveProductsFromRepository();
         observeConnection(viewModel);
-
     }
 
 
@@ -95,6 +94,7 @@ public class ProductsFragment extends Fragment {
 
         productName.setText(product.getName());
         productPrice.setText(MoneyFormatter.moneyFormat(product.getPrice()));
+
         setPopupClick(myDialog, closeButton);
         myDialog.show();
     }

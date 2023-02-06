@@ -1,5 +1,5 @@
 <?php
-include 'dbConnectionTest.php';
+include 'dbConnection.php';
         
     $conn = new mysqli($HostName, $HostUser, 
     $HostPass, $DatabaseName); 
