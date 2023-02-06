@@ -1,6 +1,7 @@
 package com.example.cantinappmobile.ui.viewmodel;
 
 import android.util.Log;
+import android.widget.EditText;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -27,6 +28,16 @@ public class LoginScreenViewModel extends ViewModel {
         this.repository = repository;
     }
 
+
+    public boolean checkEmpty(EditText editText){
+        if (editText.getText().toString().isEmpty()){
+            editText.requestFocus();
+            editText.setError("Preencha todos os campos");
+            return false;
+        }else{
+            return true;
+        }
+    }
     public void userLogin(String username, String password){
         Call<List<User>> userCall = repository.userLogin(username,password);
 

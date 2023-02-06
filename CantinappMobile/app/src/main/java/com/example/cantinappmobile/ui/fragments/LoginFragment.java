@@ -50,8 +50,8 @@ public class LoginFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         binding.loginButton.setOnClickListener(v -> {
-            if (checkEmpty(binding.userLoginEditText)){
-                if (checkEmpty(binding.userPasswordEditText)){
+            if (viewModel.checkEmpty(binding.userLoginEditText)){
+                if (viewModel.checkEmpty(binding.userPasswordEditText)){
                     String username = binding.userLoginEditText.getText().toString();
                     String password = binding.userPasswordEditText.getText().toString();
                     viewModel.userLogin(username, password);
@@ -78,13 +78,5 @@ public class LoginFragment extends Fragment {
         });
     }
 
-    public boolean checkEmpty(EditText editText){
-        if (editText.getText().toString().isEmpty()){
-            editText.requestFocus();
-            editText.setError("Preencha todos os campos");
-            return false;
-        }else{
-            return true;
-        }
-    }
+
 }
