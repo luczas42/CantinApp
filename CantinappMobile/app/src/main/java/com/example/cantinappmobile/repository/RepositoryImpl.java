@@ -1,6 +1,7 @@
 package com.example.cantinappmobile.repository;
 
 import com.example.cantinappmobile.model.Product;
+import com.example.cantinappmobile.model.User;
 import com.example.cantinappmobile.retrofit.ClientRetrofit;
 import com.example.cantinappmobile.retrofit.WebService;
 
@@ -17,6 +18,14 @@ public class RepositoryImpl implements Repository {
     @Override
     public Call<List<Product>> retrieveProductsFromWebService() {
         return webService.retrieveProducts();
+    }
+
+    public Call<List<User>> userLogin(String username, String password){
+        return webService.userLogin(username, password);
+    }
+
+    public Call<User> addUser(String username, String name, String password, String email){
+        return webService.addUser(username, name, password, 2, email);
     }
 
 }

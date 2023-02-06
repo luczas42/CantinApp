@@ -18,7 +18,7 @@ public class ClientRetrofit {
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
         if (retrofit == null) {
-            final String urlWebService = "http://54.94.3.48/testephp/";
+            final String urlWebService = "https://cantinapp.000webhostapp.com/cantinapp/";
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(urlWebService)

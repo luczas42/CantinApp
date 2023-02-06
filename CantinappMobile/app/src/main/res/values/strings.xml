@@ -16,4 +16,6 @@
     <string name="refri4am">REFRI4AM</string>
     <string name="inf4at">INF4AT</string>
     <string name="inf4am">INF4AM</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
