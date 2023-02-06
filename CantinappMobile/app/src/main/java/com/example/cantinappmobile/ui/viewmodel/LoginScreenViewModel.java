@@ -9,6 +9,9 @@ import androidx.lifecycle.ViewModel;
 import com.example.cantinappmobile.model.User;
 import com.example.cantinappmobile.repository.RepositoryImpl;
 
+import java.util.Arrays;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -24,29 +27,39 @@ public class LoginScreenViewModel extends ViewModel {
         this.repository = repository;
     }
 
-    public boolean userLogin(String username, String password){
-        Call<User> userCall = repository.userLogin(username,password);
-        userCall.enqueue(new Callback<User>() {
+    public void userLogin(String username, String password){
+        Call<List<User>> userCall = repository.userLogin(username,password);
+
+        userCall.enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                assert response.body() != null;
+                _userResponseLiveData.setValue(response.body().get(0));
+                Log.i("loginSuccess", userResponseLiveData.getValue().getUsername());
+                Log.i("loginSuccess", String.valueOf(response.body().size()));
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                Log.i("loginFail", "onFailure: "+ t.getMessage());
+            }
+        });
+    }
+
+    public void addUser(String username, String name, String password, String email){
+        Call<User> addUserCall = repository.addUser(username,name,password,email);
+
+        addUserCall.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                _userResponseLiveData.setValue(response.body());
-                connectionLiveData.setValue(Connection.Successfull);
-                Log.i("login", "userLogin: ");
+                System.out.println(response.body().getUsername());
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                Log.i("loginfail", "onFailure: "+t.getMessage());
-                _userResponseLiveData.setValue(null);
-                connectionLiveData.setValue(Connection.Failed);
+                System.out.println(t.getMessage());
             }
         });
-
-        if (userResponseLiveData.getValue()!=null){
-            return true;
-        }else{
-            return false;
-        }
     }
 
 }

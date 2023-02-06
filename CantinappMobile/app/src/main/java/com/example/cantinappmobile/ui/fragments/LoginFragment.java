@@ -50,10 +50,9 @@ public class LoginFragment extends Fragment {
 
         binding.loginButton.setOnClickListener(v -> {
             Log.i("teste", "onViewCreated: test");
-            String username = binding.userLoginEditText.toString();
-            String password = binding.userPasswordEditText.toString();
-        Boolean allowLogin= viewModel.userLogin(username, password);
-            Log.i("loginallow", "onViewCreated: "+ allowLogin);
+            String username = binding.userLoginEditText.getText().toString();
+            String password = binding.userPasswordEditText.getText().toString();
+            viewModel.userLogin(username, password);
             Log.i("login", "onViewCreated: "+ username);
             Intent intent = new Intent(requireContext(), ListsActivity.class);
             startActivity(intent);

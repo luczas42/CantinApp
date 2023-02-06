@@ -11,6 +11,6 @@ public interface Repository {
 
     Call<List<Product>> retrieveProductsFromWebService();
 
-    Call<User> userLogin(String username, String password);
+    Call<List<User>> userLogin(String username, String password);
 
 }

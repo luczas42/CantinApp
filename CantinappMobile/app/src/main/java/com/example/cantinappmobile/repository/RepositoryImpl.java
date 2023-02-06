@@ -20,8 +20,12 @@ public class RepositoryImpl implements Repository {
         return webService.retrieveProducts();
     }
 
-    public Call<User> userLogin(String username, String password){
+    public Call<List<User>> userLogin(String username, String password){
         return webService.userLogin(username, password);
+    }
+
+    public Call<User> addUser(String username, String name, String password, String email){
+        return webService.addUser(username, name, password, 2, email);
     }
 
 }

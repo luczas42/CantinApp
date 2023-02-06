@@ -49,7 +49,7 @@
                 />
 
             <EditText
-                android:id="@+id/user_login_edit_text"
+                android:id="@+id/user_username_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="36dp"
@@ -78,8 +78,8 @@
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="8dp"
                 android:textColorHint="@color/secondaryDarkColor"
-                app:layout_constraintStart_toStartOf="@id/user_login_edit_text"
-                app:layout_constraintTop_toBottomOf="@id/user_login_edit_text" />
+                app:layout_constraintStart_toStartOf="@id/user_username_edit_text"
+                app:layout_constraintTop_toBottomOf="@id/user_username_edit_text" />
 
             <EditText
                 android:id="@+id/user_email_edit_text"
@@ -132,7 +132,7 @@
                 app:layout_constraintTop_toBottomOf="@id/user_password_edit_text" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/register_button"
+                android:id="@+id/cancel_button"
                 style="@style/buttonStyle"
                 android:layout_width="wrap_content"
 
@@ -147,7 +147,7 @@
                 app:layout_constraintTop_toBottomOf="@id/user_confirm_password_edit_text" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/login_button"
+                android:id="@+id/signin_button"
                 style="@style/buttonStyle"
                 android:background="@drawable/button_background"
                 android:layout_width="wrap_content"
