@@ -20,7 +20,9 @@ import android.widget.Toast;
 
 import com.example.cantinappmobile.R;
 import com.example.cantinappmobile.databinding.FragmentLoginBinding;
+import com.example.cantinappmobile.repository.RepositoryImpl;
 import com.example.cantinappmobile.ui.activities.ListsActivity;
+import com.example.cantinappmobile.ui.viewmodel.LoginScreenViewModel;
 
 public class LoginFragment extends Fragment {
 
@@ -41,15 +43,20 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         NavController navController = Navigation.findNavController(view);
-        ActivityNavigator activityNavigator = new ActivityNavigator(requireActivity());
+        LoginScreenViewModel viewModel = new LoginScreenViewModel(new RepositoryImpl());
 
 
         super.onViewCreated(view, savedInstanceState);
 
         binding.loginButton.setOnClickListener(v -> {
             Log.i("teste", "onViewCreated: test");
-//            navController.navigate(R.id.ListsActivity);
-            activityNavigator.navigate(activityNavigator.createDestination().setIntent(new Intent(requireContext(), ListsActivity.class)),null,null, null);
+            String username = binding.userLoginEditText.toString();
+            String password = binding.userPasswordEditText.toString();
+        Boolean allowLogin= viewModel.userLogin(username, password);
+            Log.i("loginallow", "onViewCreated: "+ allowLogin);
+            Log.i("login", "onViewCreated: "+ username);
+            Intent intent = new Intent(requireContext(), ListsActivity.class);
+            startActivity(intent);
         });
 
         binding.registerButton.setOnClickListener(new View.OnClickListener() {

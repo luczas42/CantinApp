@@ -28,7 +28,6 @@ public class ListsActivity extends AppCompatActivity {
 
         ContentListsBinding contentListsBinding = binding.contentLists;
         FragmentManager fragmentManager = getSupportFragmentManager();
-        Navigation.findNavController(this,R.id.nav_host_fragment_content_lists).navigate(R.id.ProductsFragment);
 
 
         contentListsBinding.buttonWorkdays.setOnClickListener(new View.OnClickListener() {
@@ -39,8 +38,6 @@ public class ListsActivity extends AppCompatActivity {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.nav_host_fragment_content_lists, new ScalesFragment(), null);
                 fragmentTransaction.commit();
-//                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_ProductsFragment_to_ScalesFragment);
-
             }
         });
 
@@ -52,7 +49,6 @@ public class ListsActivity extends AppCompatActivity {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.nav_host_fragment_content_lists, new ProductsFragment(), null);
                 fragmentTransaction.commit();
-//                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_ScalesFragment_to_ProductsFragment);
             }
         });
     }

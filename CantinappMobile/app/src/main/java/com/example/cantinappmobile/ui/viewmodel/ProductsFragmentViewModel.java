@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.cantinappmobile.model.Product;
+import com.example.cantinappmobile.model.User;
 import com.example.cantinappmobile.repository.RepositoryImpl;
 
 import java.util.List;
@@ -26,9 +27,9 @@ public class ProductsFragmentViewModel extends ViewModel {
 
     public void retrieveProductsFromRepository() {
 
-        Call<List<Product>> call = repository.retrieveProductsFromWebService();
+        Call<List<Product>> productCall = repository.retrieveProductsFromWebService();
 
-        call.enqueue(new Callback<List<Product>>() {
+        productCall.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
 

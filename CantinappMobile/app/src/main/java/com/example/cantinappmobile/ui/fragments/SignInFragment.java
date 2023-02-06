@@ -32,11 +32,5 @@ public class SignInFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         FragmentSignInBinding binding = FragmentSignInBinding.inflate(getLayoutInflater());
 
-        binding.btSigninFragmentSignin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                findNavController(view).navigate(R.id.action_SignInFragment_to_LoginFragment);
-            }
-        });
     }
 }
