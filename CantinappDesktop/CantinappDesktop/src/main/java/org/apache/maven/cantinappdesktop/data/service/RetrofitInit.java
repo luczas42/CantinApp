@@ -1,6 +1,5 @@
 package org.apache.maven.cantinappdesktop.data.service;
 
-import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -38,7 +37,7 @@ public class RetrofitInit {
     }
 
     public void checkLogin(Callback<Users> call, String username, String password){
-        this.apiService.checkLogin(username, password).enqueue(call);
+        this.apiService.userLogin(username, password).enqueue(call);
     }
 
 

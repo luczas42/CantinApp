@@ -17,6 +17,6 @@ public interface WebService {
 
     @FormUrlEncoded
     @POST("users/login.php")
-    Call<User> userLogin(@Field("username") String username, @Field("password")String password);
+    Call<User> userLogin(@Field("username") String username, @Field("password") String password);
 
 }

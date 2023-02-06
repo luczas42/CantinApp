@@ -29,7 +29,7 @@ public interface ApiService {
     Call<Void> deleteProduct(@Field("id") int id);
 
     @FormUrlEncoded
-    @POST("users/signUpUser.php")
+    @POST("users/addUser.php")
     Call<Users> addUser(@Field("username") String username,
                         @Field("name") String name,
                         @Field("password") String password,
@@ -37,6 +37,6 @@ public interface ApiService {
                         @Field("email") String email);
 
     @FormUrlEncoded
-    @POST("users/checkLogin.php")
-    Call<Users> checkLogin(@Field("username") String username, @Field("password") String password);
+    @POST("users/login.php")
+    Call<Users> userLogin(@Field("username") String username, @Field("password") String password);
 }
