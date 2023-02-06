@@ -14,4 +14,5 @@ module org.apache.maven.cantinappdesktop {
             javafx.base;
     opens org.apache.maven.cantinappdesktop.view to
             javafx.fxml;
+    exports org.apache.maven.cantinappdesktop.view;
 }

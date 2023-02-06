@@ -10,11 +10,13 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class App extends Application {
-    public App() {
+
+    public static void main(String[] args) {
+        launch(args);
     }
 
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("FXMLController.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("LoginScreen.fxml"));
         Scene scene = new Scene((Parent) fxmlLoader.load());
         stage.setTitle("Cantinapp");
         stage.initStyle(StageStyle.UNDECORATED);
@@ -22,7 +24,6 @@ public class App extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch(new String[0]);
-    }
+
+
 }

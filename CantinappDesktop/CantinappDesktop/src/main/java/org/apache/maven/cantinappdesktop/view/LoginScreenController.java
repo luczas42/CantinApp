@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -26,17 +27,20 @@ import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class FXMLController {
+public class LoginScreenController {
     ScheduledExecutorService productsRefreshExecutor = Executors.newSingleThreadScheduledExecutor();
     ScheduledExecutorService scaleRefreshExecutor;
     ScheduledExecutorService employeeRefreshExecutor;
     RetrofitInit retrofitInit = new RetrofitInit();
     Users connectedUser;
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+
     @FXML
     private Button closeAppButton;
     @FXML
@@ -131,8 +135,10 @@ public class FXMLController {
     Callback<Users> checkLoginCallback = new Callback<Users>() {
         @Override
         public void onResponse(Call<Users> call, Response<Users> response) {
-            connectedUser = response.body();
-            System.out.println(connectedUser.getName());
+//            connectedUser = response.body();
+//            System.out.println(connectedUser.getName());
+
+
         }
 
         @Override
@@ -141,6 +147,20 @@ public class FXMLController {
             throwable.printStackTrace();
         }
     };
+
+    public void openMainScene(ActionEvent event) throws IOException{
+
+    System.out.println(App.class.getResource("MainScreen.fxml"));
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("MainScreen.fxml"));
+        root = loader.load();
+
+        MainScreenController mainScreenController = loader.getController();
+
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
     Callback<Users> addUserCallback = new Callback<Users>() {
         @Override
@@ -162,9 +182,9 @@ public class FXMLController {
 
             ObservableList<Products> productsObservableList = FXCollections.observableList(productsList);
 
-            FXMLController.this.productName.setCellValueFactory(new PropertyValueFactory<>("Name"));
-            FXMLController.this.productPrice.setCellValueFactory(new PropertyValueFactory<>("Price"));
-            FXMLController.this.productTable.setItems(productsObservableList);
+            LoginScreenController.this.productName.setCellValueFactory(new PropertyValueFactory<>("Name"));
+            LoginScreenController.this.productPrice.setCellValueFactory(new PropertyValueFactory<>("Price"));
+            LoginScreenController.this.productTable.setItems(productsObservableList);
             System.out.println("feitoo " + productsList.size());
             productTable.refresh();
         }
@@ -174,7 +194,7 @@ public class FXMLController {
         }
     };
 
-    public FXMLController() {
+    public LoginScreenController() {
     }
 
     @FXML
@@ -307,6 +327,7 @@ public class FXMLController {
         Stage stage = (Stage) minimizeAppButton.getScene().getWindow();
         stage.setIconified(true);
     }
+
 
 }
 
