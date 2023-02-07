@@ -144,7 +144,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button id="button-test" fx:id="exitButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#closeApplication" prefWidth="230.0" style="-fx-background-radius: 10;" stylesheets="@application.css" text="Desconectar">
+            <Button id="button-test" fx:id="exitButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#closeApp" prefWidth="230.0" style="-fx-background-radius: 10;" stylesheets="@application.css" text="Desconectar">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

@@ -19,6 +19,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import javax.swing.*;
 import java.io.IOException;
 
 public class LoginScreenController {
@@ -145,7 +146,9 @@ public class LoginScreenController {
 
     }
     @FXML
-    CloseButton closeApp = event -> Platform.exit();
+    void closeApp (ActionEvent event) {
+        Platform.exit();
+    }
     @FXML
     void minimizeApp(ActionEvent event) {
         Stage stage = (Stage) minimizeAppButton.getScene().getWindow();

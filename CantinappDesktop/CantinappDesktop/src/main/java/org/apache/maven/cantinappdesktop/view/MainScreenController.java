@@ -26,6 +26,7 @@ import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.FieldMap;
 
 import java.io.IOException;
 import java.util.List;
@@ -42,6 +43,9 @@ public class MainScreenController {
     private Stage stage;
     private Scene scene;
     private Parent root;
+
+    @FXML
+    private Button minimizeAppButton;
     @FXML
     private Pane workdaysPane;
     @FXML
@@ -180,7 +184,6 @@ public class MainScreenController {
             MainScreenController.this.productName.setCellValueFactory(new PropertyValueFactory<>("Name"));
             MainScreenController.this.productPrice.setCellValueFactory(new PropertyValueFactory<>("Price"));
             MainScreenController.this.productTable.setItems(productsObservableList);
-            System.out.println("feitoo " + productsList.size());
             productTable.refresh();
         }
 
@@ -190,8 +193,12 @@ public class MainScreenController {
     };
 
     @FXML
-    void closeApplication(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(App.class.getResource("MainScreen.fxml"));
+    void closeApp (ActionEvent event) throws IOException{
+        Platform.exit();
+    }
+
+    @FXML void logOut(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("LoginScreen.fxml"));
         root = loader.load();
 
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -201,6 +208,9 @@ public class MainScreenController {
     }
 
     @FXML
-    CloseButton closeApp = event -> Platform.exit();
+    void minimizeApp(ActionEvent event) {
+        Stage stage = (Stage) minimizeAppButton.getScene().getWindow();
+        stage.setIconified(true);
+    }
 
 }
