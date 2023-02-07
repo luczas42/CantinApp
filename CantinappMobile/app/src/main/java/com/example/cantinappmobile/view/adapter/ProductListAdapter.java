@@ -1,4 +1,4 @@
-package com.example.cantinappmobile.ui.adapter;
+package com.example.cantinappmobile.view.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,12 +59,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             super(binding.getRoot());
             this.binding = binding;
             View itemView = binding.getRoot();
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    clickListener.onItemClick(getBindingAdapterPosition(), productList.get(getBindingAdapterPosition()));
-                }
-            });
+            itemView.setOnClickListener(v -> clickListener.onItemClick(getBindingAdapterPosition(), productList.get(getBindingAdapterPosition())));
         }
 
         public void bind(Product product) {

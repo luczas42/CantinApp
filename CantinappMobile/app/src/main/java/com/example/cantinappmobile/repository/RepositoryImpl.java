@@ -1,6 +1,8 @@
 package com.example.cantinappmobile.repository;
 
+import com.example.cantinappmobile.model.Employee;
 import com.example.cantinappmobile.model.Product;
+import com.example.cantinappmobile.model.Turn;
 import com.example.cantinappmobile.model.User;
 import com.example.cantinappmobile.retrofit.ClientRetrofit;
 import com.example.cantinappmobile.retrofit.WebService;
@@ -28,4 +30,11 @@ public class RepositoryImpl implements Repository {
         return webService.addUser(username, name, password, 2, email);
     }
 
+    public Call<List<Turn>> getTurn(){
+        return webService.getTurns();
+    }
+
+    public Call<List<Employee>> getTurnEmployees(int turnId) {
+        return webService.getTurnEmployees(turnId);
+    }
 }

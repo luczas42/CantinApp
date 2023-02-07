@@ -1,11 +1,10 @@
-package com.example.cantinappmobile.ui.viewmodel;
+package com.example.cantinappmobile.view.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.cantinappmobile.model.Product;
-import com.example.cantinappmobile.model.User;
 import com.example.cantinappmobile.repository.RepositoryImpl;
 
 import java.util.List;

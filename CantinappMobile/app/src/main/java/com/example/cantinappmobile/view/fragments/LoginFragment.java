@@ -1,4 +1,4 @@
-package com.example.cantinappmobile.ui.fragments;
+package com.example.cantinappmobile.view.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.ActivityNavigator;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -14,16 +13,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cantinappmobile.R;
 import com.example.cantinappmobile.databinding.FragmentLoginBinding;
 import com.example.cantinappmobile.repository.RepositoryImpl;
-import com.example.cantinappmobile.ui.activities.ListsActivity;
-import com.example.cantinappmobile.ui.viewmodel.LoginScreenViewModel;
+import com.example.cantinappmobile.view.activities.ListsActivity;
+import com.example.cantinappmobile.view.viewmodel.LoginScreenViewModel;
 
 public class LoginFragment extends Fragment {
 

@@ -1,4 +1,4 @@
-package com.example.cantinappmobile.ui.viewmodel;
+package com.example.cantinappmobile.view.viewmodel;
 
 import android.util.Log;
 import android.widget.EditText;
@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModel;
 import com.example.cantinappmobile.model.User;
 import com.example.cantinappmobile.repository.RepositoryImpl;
 
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;

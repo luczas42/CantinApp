@@ -5,7 +5,7 @@
     style="@style/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.ListsActivity">
+    tools:context=".view.activities.ListsActivity">
 
     <include
         android:id="@+id/class_filter"

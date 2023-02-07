@@ -1,15 +1,12 @@
-package com.example.cantinappmobile.ui.fragments;
+package com.example.cantinappmobile.view.fragments;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.text.Layout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -20,17 +17,18 @@ import com.example.cantinappmobile.databinding.FragmentProductsBinding;
 import com.example.cantinappmobile.model.Product;
 import com.example.cantinappmobile.repository.RepositoryImpl;
 import com.example.cantinappmobile.resources.MoneyFormatter;
-import com.example.cantinappmobile.ui.adapter.ProductListAdapter;
-import com.example.cantinappmobile.ui.adapter.AdapterOnItemClick;
-import com.example.cantinappmobile.ui.viewmodel.Connection;
-import com.example.cantinappmobile.ui.viewmodel.ProductsFragmentViewModel;
+import com.example.cantinappmobile.view.adapter.ProductListAdapter;
+import com.example.cantinappmobile.view.adapter.AdapterOnItemClick;
+import com.example.cantinappmobile.view.viewmodel.Connection;
+import com.example.cantinappmobile.view.viewmodel.ProductsFragmentViewModel;
 
 import java.util.List;
 
 public class ProductsFragment extends Fragment {
 
     private FragmentProductsBinding binding;
-
+    ProductListAdapter productAdapter = new ProductListAdapter();
+    ProductsFragmentViewModel viewModel = new ProductsFragmentViewModel(new RepositoryImpl());
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
@@ -44,12 +42,16 @@ public class ProductsFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Toast.makeText(requireContext(), "chegou", Toast.LENGTH_SHORT).show();
-        ProductsFragmentViewModel viewModel = new ProductsFragmentViewModel(new RepositoryImpl());
         viewModel.retrieveProductsFromRepository();
         observeConnection(viewModel);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        viewModel.retrieveProductsFromRepository();
+        observeConnection(viewModel);
+    }
 
     private void observeConnection(ProductsFragmentViewModel viewModel) {
         viewModel.connectionLiveData.observe(getViewLifecycleOwner(), connection -> {
@@ -72,16 +74,10 @@ public class ProductsFragment extends Fragment {
     }
 
     private void createAdapter(List<Product> productList) {
-        ProductListAdapter productAdapter = new ProductListAdapter();
         binding.recyclerProducts.setAdapter(productAdapter);
         binding.recyclerProducts.setLayoutManager(new LinearLayoutManager(requireContext()));
         productAdapter.append(productList);
-        productAdapter.setOnClickListener(new AdapterOnItemClick() {
-            @Override
-            public void onItemClick(int position, Product product) {
-                setupPopup(product);
-            }
-        });
+        productAdapter.setOnClickListener((position, product) -> setupPopup(product));
     }
 
     private void setupPopup(Product product) {
@@ -107,6 +103,7 @@ public class ProductsFragment extends Fragment {
             }
         });
     }
+
 
 
     @Override

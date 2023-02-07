@@ -1,4 +1,4 @@
-package com.example.cantinappmobile.ui.activities;
+package com.example.cantinappmobile.view.activities;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -13,8 +13,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.cantinappmobile.R;
 import com.example.cantinappmobile.databinding.ActivityListsBinding;
 import com.example.cantinappmobile.databinding.ContentListsBinding;
-import com.example.cantinappmobile.ui.fragments.ScalesFragment;
-import com.example.cantinappmobile.ui.viewmodel.ScalesViewModel;
+import com.example.cantinappmobile.view.fragments.ScalesFragment;
+import com.example.cantinappmobile.view.viewmodel.ScalesViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 

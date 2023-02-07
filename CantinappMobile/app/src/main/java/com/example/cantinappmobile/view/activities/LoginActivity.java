@@ -1,4 +1,4 @@
-package com.example.cantinappmobile.ui.activities;
+package com.example.cantinappmobile.view.activities;
 
 import android.os.Bundle;
 
