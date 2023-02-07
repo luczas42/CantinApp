@@ -15,14 +15,16 @@ import com.example.cantinappmobile.databinding.ActivityListsBinding;
 import com.example.cantinappmobile.databinding.ContentListsBinding;
 import com.example.cantinappmobile.ui.fragments.ProductsFragment;
 import com.example.cantinappmobile.ui.fragments.ScalesFragment;
+import com.example.cantinappmobile.ui.viewmodel.ScalesViewModel;
 
 public class ListsActivity extends AppCompatActivity {
+    ScalesViewModel scalesViewModel = new ScalesViewModel();
 
     @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        scalesViewModel._openFilter.setValue(true);
         ActivityListsBinding binding = ActivityListsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -30,26 +32,21 @@ public class ListsActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
 
 
-        contentListsBinding.buttonWorkdays.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                contentListsBinding.buttonWorkdays.setVisibility(View.GONE);
-                contentListsBinding.buttonFilters.setVisibility(View.VISIBLE);
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment_content_lists, new ScalesFragment(), null);
-                fragmentTransaction.commit();
-            }
+        contentListsBinding.buttonWorkdays.setOnClickListener(v -> {
+            contentListsBinding.buttonWorkdays.setVisibility(View.GONE);
+            contentListsBinding.buttonFilters.setVisibility(View.VISIBLE);
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.nav_host_fragment_content_lists, new ScalesFragment(), null);
+            fragmentTransaction.commit();
         });
 
-        contentListsBinding.buttonFilters.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                contentListsBinding.buttonWorkdays.setVisibility(View.VISIBLE);
-                contentListsBinding.buttonFilters.setVisibility(View.GONE);
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment_content_lists, new ProductsFragment(), null);
-                fragmentTransaction.commit();
-            }
+        contentListsBinding.buttonFilters.setOnClickListener(v -> {
+
+//            contentListsBinding.buttonWorkdays.setVisibility(View.VISIBLE);
+//            contentListsBinding.buttonFilters.setVisibility(View.GONE);
+//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//            fragmentTransaction.replace(R.id.nav_host_fragment_content_lists, new ProductsFragment(), null);
+//            fragmentTransaction.commit();
         });
     }
 }
