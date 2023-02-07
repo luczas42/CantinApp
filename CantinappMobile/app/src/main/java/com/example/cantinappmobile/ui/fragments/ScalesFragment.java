@@ -7,14 +7,20 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.cantinappmobile.databinding.FragmentScalesBinding;
 import com.example.cantinappmobile.ui.viewmodel.ScalesViewModel;
 
+import java.util.Objects;
+
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class ScalesFragment extends Fragment {
-    ScalesViewModel scalesViewModel = new ScalesViewModel();
 
     private FragmentScalesBinding binding;
+    private ScalesViewModel viewModel;
 
     @Override
     public View onCreateView(
@@ -27,11 +33,13 @@ public class ScalesFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        scalesViewModel.openFilters.observe(getViewLifecycleOwner(), open ->{
-            if (open){
+
+        viewModel = new ViewModelProvider(requireActivity()).get(ScalesViewModel.class);
+        viewModel.getDisplayValue().observe(getViewLifecycleOwner(),display -> {
+            if (display){
                 binding.classFilter.filtersLayout.setVisibility(View.VISIBLE);
             }else{
-                binding.classFilter.filtersLayout.setVisibility(View.VISIBLE);
+                binding.classFilter.filtersLayout.setVisibility(View.GONE);
             }
         });
     }
@@ -41,5 +49,4 @@ public class ScalesFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
 }
