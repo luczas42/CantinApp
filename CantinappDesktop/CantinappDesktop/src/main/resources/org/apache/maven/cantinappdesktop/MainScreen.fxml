@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,12 +16,11 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: ffffff;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.apache.maven.cantinappdesktop.view.MainScreenController">
    <children>
       <Pane fx:id="employeePane" layoutX="257.0" layoutY="-7.0" prefHeight="684.0" prefWidth="1030.0">
          <children>
-            <TableView fx:id="employeeTable" layoutX="79.0" layoutY="91.0" prefHeight="550.0" prefWidth="930.0">
+            <TableView fx:id="employeeTable" layoutX="47.0" layoutY="121.0" prefHeight="550.0" prefWidth="930.0">
                <columns>
                   <TableColumn fx:id="employeeClass" editable="false" prefWidth="249.0" text="Turma" />
                   <TableColumn fx:id="employeeName" editable="false" minWidth="0.0" prefWidth="680.0" text="Nome" />
@@ -28,7 +28,7 @@
             </TableView>
          </children>
       </Pane>
-      <Pane fx:id="workdaysPane" layoutX="257.0" layoutY="-7.0" prefHeight="684.0" prefWidth="1030.0">
+      <Pane fx:id="workdaysPane" layoutX="257.0" layoutY="-7.0" prefHeight="684.0" prefWidth="1030.0" visible="false">
          <children>
             <TableView fx:id="workdaysTable" layoutX="63.0" layoutY="53.0" prefHeight="550.0" prefWidth="930.0">
                <columns>
@@ -40,9 +40,9 @@
             </TableView>
          </children>
       </Pane>
-      <Pane fx:id="productsPane" layoutX="257.0" layoutY="-7.0" prefHeight="684.0" prefWidth="1030.0">
+      <Pane fx:id="productsPane" layoutX="257.0" layoutY="-7.0" prefHeight="684.0" prefWidth="1030.0" visible="false">
          <children>
-            <TableView fx:id="productTable" layoutX="63.0" layoutY="53.0" onMouseClicked="#onProductSelected" prefHeight="550.0" prefWidth="930.0">
+            <TableView fx:id="productTable" layoutX="63.0" layoutY="53.0" prefHeight="550.0" prefWidth="930.0">
                <columns>
                   <TableColumn fx:id="productPrice" editable="false" prefWidth="249.0" text="Preço - R$" />
                   <TableColumn fx:id="productName" editable="false" minWidth="0.0" prefWidth="660.0" text="Nome" />
@@ -161,5 +161,31 @@
             </Button>
          </children>
       </VBox>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="1278.0">
+         <children>
+            <ToolBar id="toolbar" nodeOrientation="RIGHT_TO_LEFT" prefHeight="36.0" prefWidth="1280.0" style="-fx-background-color: #00A87D;">
+               <items>
+                  <Button id="toolbar-button" fx:id="closeAppButton" mnemonicParsing="false" onAction="#closeApp">
+                     <graphic>
+                        <ImageView fitHeight="12.0" fitWidth="12.0">
+                           <image>
+                              <Image url="@img/close-icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button id="toolbar-button" fx:id="minimizeAppButton" mnemonicParsing="false" onAction="#minimizeApp">
+                     <graphic>
+                        <ImageView fitHeight="12.0" fitWidth="12.0">
+                           <image>
+                              <Image url="@img/minimize-icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </items>
+            </ToolBar>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

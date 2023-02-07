@@ -5,11 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -17,21 +13,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane
-        maxHeight="-Infinity"
-        maxWidth="-Infinity"
-        minHeight="-Infinity"
-        minWidth="-Infinity"
-        prefHeight="720.0"
-        prefWidth="1280.0"
-        style="-fx-background-color: ffffff;"
-        stylesheets="@application.css"
-        xmlns="http://javafx.com/javafx/19"
-        xmlns:fx="http://javafx.com/fxml/1"
-        fx:controller="org.apache.maven.cantinappdesktop.view.LoginScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: ffffff;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.apache.maven.cantinappdesktop.view.LoginScreenController">
     <children>
       <VBox prefHeight="720.0" prefWidth="1280.0">
          <children>
@@ -63,150 +47,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="684.0" prefWidth="1280.0">
                <children>
-                  <Pane fx:id="employeePane" layoutX="247.0" layoutY="-17.0" prefHeight="684.0" prefWidth="1030.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                     <children>
-                        <TableView fx:id="employeeTable" layoutX="63.0" layoutY="53.0" prefHeight="550.0" prefWidth="930.0">
-                           <columns>
-                              <TableColumn fx:id="employeeClass" editable="false" prefWidth="249.0" text="Turma" />
-                              <TableColumn fx:id="employeeName" editable="false" minWidth="0.0" prefWidth="680.0" text="Nome" />
-                           </columns>
-                        </TableView>
-                     </children>
-                  </Pane>
-                  <Pane fx:id="workdaysPane" prefHeight="684.0" prefWidth="1030.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                     <children>
-                        <TableView fx:id="workdaysTable" layoutX="63.0" layoutY="53.0" prefHeight="550.0" prefWidth="930.0">
-                           <columns>
-                              <TableColumn fx:id="workdayDate" editable="false" prefWidth="100.0" text="Data" />
-                              <TableColumn fx:id="workdayClass" editable="false" minWidth="0.0" prefWidth="100.0" text="Turma" />
-                              <TableColumn fx:id="workdayPeriod" editable="false" minWidth="0.0" prefWidth="100.0" text="Turno" />
-                              <TableColumn fx:id="workdayEmployee" editable="false" minWidth="0.0" prefWidth="630.0" text="Alunos" />
-                           </columns>
-                        </TableView>
-                     </children>
-                  </Pane>
-                    <Pane fx:id="productsPane" prefHeight="684.0" prefWidth="1030.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                        <children>
-                            <TableView fx:id="productTable" layoutX="63.0" layoutY="53.0" onMouseClicked="#onProductSelected" prefHeight="550.0" prefWidth="930.0">
-                                <columns>
-                                    <TableColumn fx:id="productPrice" editable="false" prefWidth="249.0" text="Preço - R$" />
-                                    <TableColumn fx:id="productName" editable="false" minWidth="0.0" prefWidth="680.0" text="Nome" />
-                                </columns>
-                            </TableView>
-                        <Button id="table-aux-button" fx:id="newProductButton" layoutX="814.0" layoutY="626.0" mnemonicParsing="false" onAction="#openNewProductScreen" text="Cadastrar novo produto">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
-                        </Button>
-                        </children>
-                    </Pane>
                     <Pane fx:id="startPane" prefHeight="684.0" prefWidth="1030.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                    <VBox alignment="TOP_CENTER" prefHeight="684.0" prefWidth="250.0" style="-fx-background-color: #F4F4F0;" stylesheets="@application.css">
-                        <children>
-                            <Label alignment="BOTTOM_LEFT" prefHeight="94.0" prefWidth="250.0" style="-fx-label-padding: 16;" stylesheets="@application.css" text="Administrador">
-                                <font>
-                                    <Font name="System Bold" size="20.0" />
-                                </font>
-                           <VBox.margin>
-                              <Insets top="8.0" />
-                           </VBox.margin>
-                            </Label>
-                            <Line endX="149.58578491210938" endY="1.5497207641601562E-6" startX="-100.0" strokeLineCap="ROUND" strokeWidth="2.0" style="-fx-stroke: #E5E5E5;">
-                                <VBox.margin>
-                                    <Insets bottom="8.0" />
-                                </VBox.margin>
-                            </Line>
-                            <ToggleButton id="button-test" fx:id="productsButton" alignment="CENTER_LEFT" mnemonicParsing="false" onAction="#displayProducts" prefWidth="230.0" style="-fx-background-radius: 10;" text="Produtos">
-                                <font>
-                                    <Font name="System Bold" size="14.0" />
-                                </font>
-                                <VBox.margin>
-                                    <Insets bottom="4.0" />
-                                </VBox.margin>
-                           <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@img/products-icon.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                            </ToggleButton>
-                            <ToggleButton id="button-test" fx:id="shiftsButton" alignment="CENTER_LEFT" mnemonicParsing="false" onAction="#displayShifts" prefWidth="230.0" style="-fx-background-radius: 10;" text="Escalas">
-                                <font>
-                                    <Font name="System Bold" size="14.0" />
-                                </font>
-                                <VBox.margin>
-                                    <Insets bottom="4.0" />
-                                </VBox.margin>
-                           <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@img/workdays-icon.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                            </ToggleButton>
-                            <ToggleButton id="button-test" fx:id="employeesButton" alignment="CENTER_LEFT" mnemonicParsing="false" onAction="#displayEmployees" prefWidth="230.0" style="-fx-background-radius: 10;" text="Pessoas">
-                                <toggleGroup>
-                                    <ToggleGroup fx:id="frame" />
-                                </toggleGroup>
-                                <font>
-                                    <Font name="System Bold" size="14.0" />
-                                </font>
-                                <VBox.margin>
-                                    <Insets bottom="4.0" />
-                                </VBox.margin>
-                           <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@img/employees-icon.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                            </ToggleButton>
-                            <Line endX="149.58578491210938" endY="1.5497207641601562E-6" layoutX="111.0" layoutY="97.0" startX="-100.0" strokeLineCap="ROUND" strokeWidth="2.0" style="-fx-stroke: #E5E5E5;">
-                                <VBox.margin>
-                                    <Insets bottom="8.0" top="135.0" />
-                                </VBox.margin>
-                            </Line>
-                            <Button id="button-test" fx:id="configButton" alignment="TOP_LEFT" mnemonicParsing="false" prefWidth="230.0" style="-fx-background-radius: 10;" stylesheets="@application.css" text="Configurações">
-                                <font>
-                                    <Font name="System Bold" size="14.0" />
-                                </font>
-                                <VBox.margin>
-                                    <Insets bottom="4.0" />
-                                </VBox.margin>
-                           <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@img/configurations-icon.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                            </Button>
-                            <Button id="button-test" fx:id="exitButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#closeApplication" prefWidth="230.0" style="-fx-background-radius: 10;" stylesheets="@application.css" text="Desconectar">
-                                <font>
-                                    <Font name="System Bold" size="14.0" />
-                                </font>
-                                <VBox.margin>
-                                    <Insets bottom="4.0" />
-                                </VBox.margin>
-                           <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@img/exit-icon.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                            </Button>
-                        </children>
-                    </VBox>
                   <BorderPane fx:id="loginPane" prefHeight="684.0" prefWidth="1280.0">
                      <right>
                         <AnchorPane prefHeight="720.0" prefWidth="880.0" BorderPane.alignment="CENTER">

@@ -15,4 +15,6 @@ module org.apache.maven.cantinappdesktop {
     opens org.apache.maven.cantinappdesktop.view to
             javafx.fxml;
     exports org.apache.maven.cantinappdesktop.view;
+    opens org.apache.maven.cantinappdesktop.model to com.google.gson, javafx.base;
+    opens org.apache.maven.cantinappdesktop.retrofit to com.google.gson, javafx.base;
 }

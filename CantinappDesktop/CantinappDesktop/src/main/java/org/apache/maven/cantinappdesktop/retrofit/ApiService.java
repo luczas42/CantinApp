@@ -1,6 +1,8 @@
-package org.apache.maven.cantinappdesktop.data.service;
+package org.apache.maven.cantinappdesktop.retrofit;
 
 
+import org.apache.maven.cantinappdesktop.model.Products;
+import org.apache.maven.cantinappdesktop.model.Users;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;

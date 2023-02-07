@@ -1,5 +1,7 @@
-package org.apache.maven.cantinappdesktop.data.service;
+package org.apache.maven.cantinappdesktop.retrofit;
 
+import org.apache.maven.cantinappdesktop.model.Products;
+import org.apache.maven.cantinappdesktop.model.Users;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -33,7 +35,12 @@ public class RetrofitInit {
 
     // USUARIO
     public void addUser(Callback<Users> call, Users user, String password){
-        this.apiService.addUser(user.username, user.name, password, user.isUser, user.email).enqueue(call);
+        this.apiService.addUser(user.getUsername(),
+                        user.getName(),
+                        password,
+                        user.getIsUser(),
+                        user.getEmail())
+                .enqueue(call);
     }
 
     public void checkLogin(Callback<Users> call, String username, String password){

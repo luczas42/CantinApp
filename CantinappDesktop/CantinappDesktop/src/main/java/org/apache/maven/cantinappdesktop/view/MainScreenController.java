@@ -1,10 +1,12 @@
 package org.apache.maven.cantinappdesktop.view;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,8 +20,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.apache.maven.cantinappdesktop.App;
-import org.apache.maven.cantinappdesktop.data.service.Products;
-import org.apache.maven.cantinappdesktop.data.service.RetrofitInit;
+import org.apache.maven.cantinappdesktop.model.CloseButton;
+import org.apache.maven.cantinappdesktop.model.Products;
+import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,6 +39,9 @@ public class MainScreenController {
     ScheduledExecutorService productsRefreshExecutor = Executors.newSingleThreadScheduledExecutor();
     ScheduledExecutorService scaleRefreshExecutor;
     ScheduledExecutorService employeeRefreshExecutor;
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
     @FXML
     private Pane workdaysPane;
     @FXML
@@ -56,6 +62,26 @@ public class MainScreenController {
     private TableColumn<Products, String> productName;
     @FXML
     private TableColumn<Products, Float> productPrice;
+    @FXML
+    private TableColumn<?, ?> workdayClass;
+
+    @FXML
+    private TableColumn<?, ?> workdayDate;
+
+    @FXML
+    private TableColumn<?, ?> workdayEmployee;
+
+    @FXML
+    private TableColumn<?, ?> workdayPeriod;
+
+    @FXML
+    private TableView<?> workdaysTable;
+    @FXML
+    private TableColumn<?, ?> employeeClass;
+    @FXML
+    private TableColumn<?, ?> employeeName;
+    @FXML
+    private TableView<?> employeeTable;
 
     @FXML
     void displayProducts(ActionEvent event) {
@@ -162,5 +188,19 @@ public class MainScreenController {
             System.out.println(t.getMessage());
         }
     };
+
+    @FXML
+    void closeApplication(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("MainScreen.fxml"));
+        root = loader.load();
+
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    CloseButton closeApp = event -> Platform.exit();
 
 }

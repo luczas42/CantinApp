@@ -1,4 +1,4 @@
-package org.apache.maven.cantinappdesktop.data.service;
+package org.apache.maven.cantinappdesktop.model;
 
 
 import com.google.gson.annotations.SerializedName;

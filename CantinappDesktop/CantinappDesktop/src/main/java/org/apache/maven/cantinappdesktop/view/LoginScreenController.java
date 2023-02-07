@@ -12,8 +12,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.apache.maven.cantinappdesktop.App;
-import org.apache.maven.cantinappdesktop.data.service.RetrofitInit;
-import org.apache.maven.cantinappdesktop.data.service.Users;
+import org.apache.maven.cantinappdesktop.model.CloseButton;
+import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
+import org.apache.maven.cantinappdesktop.model.Users;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,8 +36,6 @@ public class LoginScreenController {
     private Button minimizeAppButton;
     @FXML
     private Button exitButton;
-
-
     @FXML
     private Button loginButton;
 
@@ -71,31 +70,10 @@ public class LoginScreenController {
     @FXML
     private Button configButton;
     @FXML
-    private TableColumn<?, ?> employeeClass;
-    @FXML
-    private TableColumn<?, ?> employeeName;
-    @FXML
-    private TableView<?> employeeTable;
-
-    @FXML
     private ToggleGroup frame;
 
     @FXML
     private Pane startPane;
-    @FXML
-    private TableColumn<?, ?> workdayClass;
-
-    @FXML
-    private TableColumn<?, ?> workdayDate;
-
-    @FXML
-    private TableColumn<?, ?> workdayEmployee;
-
-    @FXML
-    private TableColumn<?, ?> workdayPeriod;
-
-    @FXML
-    private TableView<?> workdaysTable;
 
     Callback<Users> checkLoginCallback = new Callback<Users>() {
         @Override
@@ -116,8 +94,6 @@ public class LoginScreenController {
     public void openMainScene(ActionEvent event) throws IOException{
         FXMLLoader loader = new FXMLLoader(App.class.getResource("MainScreen.fxml"));
         root = loader.load();
-
-        MainScreenController mainScreenController = loader.getController();
 
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -140,12 +116,6 @@ public class LoginScreenController {
 
 
     public LoginScreenController() {
-    }
-
-    @FXML
-    void closeApplication(ActionEvent event) {
-        this.loginPane.setVisible(true);
-        this.loginPane.toFront();
     }
 
     @FXML
@@ -174,14 +144,8 @@ public class LoginScreenController {
         retrofitInit.addUser(addUserCallback, user, password);
 
     }
-
-
-
     @FXML
-    void closeApp(ActionEvent event) {
-        Platform.exit();
-    }
-
+    CloseButton closeApp = event -> Platform.exit();
     @FXML
     void minimizeApp(ActionEvent event) {
         Stage stage = (Stage) minimizeAppButton.getScene().getWindow();
