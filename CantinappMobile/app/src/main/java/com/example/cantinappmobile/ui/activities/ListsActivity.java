@@ -41,12 +41,20 @@ public class ListsActivity extends AppCompatActivity {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.nav_host_fragment_content_lists, new ScalesFragment(), null);
             fragmentTransaction.commit();
-
+            contentListsBinding.backButton.setVisibility(View.VISIBLE);
 
         });
 
         contentListsBinding.buttonFilters.setOnClickListener(v -> {
             viewModel.setDisplayValue();
+        });
+        contentListsBinding.backButton.setOnClickListener(v -> {
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.nav_host_fragment_content_lists, new ScalesFragment(), null);
+            fragmentTransaction.commit();
+            contentListsBinding.backButton.setVisibility(View.GONE);
+            contentListsBinding.buttonWorkdays.setVisibility(View.VISIBLE);
+            contentListsBinding.buttonFilters.setVisibility(View.GONE);
         });
     }
 }
