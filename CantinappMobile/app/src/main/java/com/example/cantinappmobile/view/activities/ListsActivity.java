@@ -70,13 +70,13 @@ public class ListsActivity extends AppCompatActivity {
 
                 @Override
                 public boolean onQueryTextSubmit(String query) {
-                    productsViewModel.productSearchQuery.setValue(query);
+
                     return false;
                 }
 
                 @Override
                 public boolean onQueryTextChange(String newText) {
-
+                    productsViewModel.productSearchQuery.setValue(newText);
                     return false;
                 }
             });

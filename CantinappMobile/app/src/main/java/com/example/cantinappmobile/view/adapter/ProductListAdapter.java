@@ -13,13 +13,16 @@ import com.example.cantinappmobile.resources.MoneyFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ViewHolder> {
 
     private List<Product> productList = new ArrayList<>();
-    private List<Product> productListCopy = new ArrayList<>();
     private AdapterOnItemClick onItemClick;
+
+    public void setFilteredList(List<Product> filteredList) {
+        this.productList = filteredList;
+        notifyDataSetChanged();
+    }
 
     public void setOnClickListener(AdapterOnItemClick onItemClick) {
         this.onItemClick = onItemClick;
@@ -53,23 +56,16 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         notifyDataSetChanged();
     }
 
-     public void search(String query, List<Product> sortedList) {
-        if (query.isEmpty()){
-            productList.clear();
-            productList.addAll(sortedList);
-        }else{
-            for (Product product:sortedList
-                 ) {
-                if (product.getName().toLowerCase().contains(query.toLowerCase()))
-                productList.add(product);
+    public void search(String query, List<Product> sortedList) {
+        List<Product> filteredList = new ArrayList<>();
+
+        for (Product product : sortedList
+        ) {
+            if (product.getName().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(product);
             }
         }
-    }
-
-    public void onFilterCleared(){
-        productList.clear();
-        productList.addAll(productListCopy);
-        notifyDataSetChanged();
+        setFilteredList(filteredList);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -18,10 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.cantinappmobile.R;
 import com.example.cantinappmobile.databinding.FragmentProductsBinding;
 import com.example.cantinappmobile.model.Product;
-import com.example.cantinappmobile.repository.RepositoryImpl;
 import com.example.cantinappmobile.resources.MoneyFormatter;
 import com.example.cantinappmobile.view.adapter.ProductListAdapter;
-import com.example.cantinappmobile.view.adapter.AdapterOnItemClick;
 import com.example.cantinappmobile.view.viewmodel.Connection;
 import com.example.cantinappmobile.view.viewmodel.ProductsFragmentViewModel;
 
@@ -85,12 +82,8 @@ public class ProductsFragment extends Fragment {
         productAdapter.setOnClickListener((position, product) -> setupPopup(product));
 
         viewModel.productSearchQuery.observe(getViewLifecycleOwner(), query -> {
-            Log.i("apiCall", "createAdapter: "+query);
-            if (!query.isEmpty()){
-                productAdapter.search(query, productList);
-            }else{
-                productAdapter.search("", productList);
-            }
+            Log.i("apiCall", "createAdapter: " + query);
+            productAdapter.search(query, productList);
         });
     }
 
@@ -117,7 +110,6 @@ public class ProductsFragment extends Fragment {
             }
         });
     }
-
 
 
     @Override
