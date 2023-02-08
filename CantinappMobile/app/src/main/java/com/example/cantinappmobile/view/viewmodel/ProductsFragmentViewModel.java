@@ -2,6 +2,7 @@ package com.example.cantinappmobile.view.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
 import com.example.cantinappmobile.model.Product;
@@ -9,19 +10,25 @@ import com.example.cantinappmobile.repository.RepositoryImpl;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@HiltViewModel
 public class ProductsFragmentViewModel extends ViewModel {
-
-    private RepositoryImpl repository;
+    private final SavedStateHandle state;
+    private RepositoryImpl repository = new RepositoryImpl();
     private MutableLiveData<List<Product>> _productResponseLiveData = new MutableLiveData<>();
     public LiveData<List<Product>> productResponseLiveData = _productResponseLiveData;
     public MutableLiveData<Connection> connectionLiveData = new MutableLiveData<>();
+    public MutableLiveData<String> productSearchQuery = new MutableLiveData<>();
 
-    public ProductsFragmentViewModel(RepositoryImpl repository) {
-        this.repository = repository;
+    @Inject
+    public ProductsFragmentViewModel(SavedStateHandle state) {
+        this.state = state;
     }
 
     public void retrieveProductsFromRepository() {

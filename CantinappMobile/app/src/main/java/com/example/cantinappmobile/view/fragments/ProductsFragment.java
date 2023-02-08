@@ -2,14 +2,17 @@ package com.example.cantinappmobile.view.fragments;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.cantinappmobile.R;
@@ -28,7 +31,8 @@ public class ProductsFragment extends Fragment {
 
     private FragmentProductsBinding binding;
     ProductListAdapter productAdapter = new ProductListAdapter();
-    ProductsFragmentViewModel viewModel = new ProductsFragmentViewModel(new RepositoryImpl());
+    ProductsFragmentViewModel viewModel;
+
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
@@ -42,6 +46,7 @@ public class ProductsFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        viewModel = new ViewModelProvider(requireActivity()).get(ProductsFragmentViewModel.class);
         viewModel.retrieveProductsFromRepository();
         observeConnection(viewModel);
     }
@@ -78,6 +83,15 @@ public class ProductsFragment extends Fragment {
         binding.recyclerProducts.setLayoutManager(new LinearLayoutManager(requireContext()));
         productAdapter.append(productList);
         productAdapter.setOnClickListener((position, product) -> setupPopup(product));
+
+        viewModel.productSearchQuery.observe(getViewLifecycleOwner(), query -> {
+            Log.i("apiCall", "createAdapter: "+query);
+            if (!query.isEmpty()){
+                productAdapter.search(query, productList);
+            }else{
+                productAdapter.search("", productList);
+            }
+        });
     }
 
     private void setupPopup(Product product) {

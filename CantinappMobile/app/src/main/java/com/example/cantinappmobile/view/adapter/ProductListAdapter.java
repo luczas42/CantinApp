@@ -13,10 +13,12 @@ import com.example.cantinappmobile.resources.MoneyFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ViewHolder> {
 
-    private ArrayList<Product> productList = new ArrayList<>();
+    private List<Product> productList = new ArrayList<>();
+    private List<Product> productListCopy = new ArrayList<>();
     private AdapterOnItemClick onItemClick;
 
     public void setOnClickListener(AdapterOnItemClick onItemClick) {
@@ -48,6 +50,25 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     public void append(List<Product> newList) {
         this.productList.clear();
         this.productList.addAll(newList);
+        notifyDataSetChanged();
+    }
+
+     public void search(String query, List<Product> sortedList) {
+        if (query.isEmpty()){
+            productList.clear();
+            productList.addAll(sortedList);
+        }else{
+            for (Product product:sortedList
+                 ) {
+                if (product.getName().toLowerCase().contains(query.toLowerCase()))
+                productList.add(product);
+            }
+        }
+    }
+
+    public void onFilterCleared(){
+        productList.clear();
+        productList.addAll(productListCopy);
         notifyDataSetChanged();
     }
 
