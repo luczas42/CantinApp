@@ -9,7 +9,6 @@ public class Products {
     private int id;
     @SerializedName("image")
     private byte[] image;
-
     @SerializedName("name")
     private String name;
     @SerializedName("price")
