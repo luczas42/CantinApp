@@ -23,7 +23,7 @@
                   <Insets bottom="10.0" top="40.0" />
                </VBox.margin>
             </Label>
-            <ImageView fitHeight="156.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="productImageView" fitHeight="156.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>

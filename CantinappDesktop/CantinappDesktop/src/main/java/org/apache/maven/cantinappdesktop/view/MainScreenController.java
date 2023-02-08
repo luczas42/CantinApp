@@ -45,6 +45,10 @@ public class MainScreenController {
     @FXML
     private Button minimizeAppButton;
     @FXML
+    private Button newEmployeeButton;
+    @FXML
+    private Button newScaleButton;
+    @FXML
     private Pane workdaysPane;
     @FXML
     private ToggleButton employeesButton;
@@ -85,6 +89,9 @@ public class MainScreenController {
     @FXML
     private TableView<?> employeeTable;
 
+    ////
+    //// TABLE DISPLAYING FUNCTIONS: PRODUCTS, EMPLOYEES AND SCALES
+    ////
     @FXML
     void displayProducts(ActionEvent event) {
         this.employeesButton.setSelected(false);
@@ -100,7 +107,6 @@ public class MainScreenController {
                 throw new RuntimeException(e);
             }
         }, 0, 2, TimeUnit.SECONDS);
-
     }
 
     @FXML
@@ -123,11 +129,14 @@ public class MainScreenController {
         this.workdaysPane.toFront();
     }
 
+    ////
+    //// PRODUCT CLICKING ACTIONS (OPENS PRODUCT DETAILS SCREEN)
+    ////
+
     @FXML
     void productClick(MouseEvent event) {
         if(event.getClickCount()==2){
             Products selectedProduct = productTable.getSelectionModel().getSelectedItem();
-
             try {
                 Stage stage = new Stage();
                 FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("productDetailsScreen.fxml"));
@@ -148,16 +157,14 @@ public class MainScreenController {
             }
         }
     }
-    public void refreshProductsTable() throws InterruptedException {
-        retrofitInit.getProducts(this.listCallback);
-    }
 
     @FXML
     void openNewProductScreen(ActionEvent event) {
         try {
             Stage stage = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("productDetailsScreen.fxml"));
-            Scene scene = new Scene((Parent) fxmlLoader.load());
+            root = fxmlLoader.load();
+            Scene scene = new Scene((Parent) root);
             stage.setTitle("Cantinapp");
             stage.setScene(scene);
             stage.initStyle(StageStyle.UNDECORATED);
@@ -170,6 +177,26 @@ public class MainScreenController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    void openNewEmployeeScreen(ActionEvent event) {
+    }
+
+    @FXML
+    void openNewScaleScreen(ActionEvent event) {
+    }
+
+    ////
+    //// REFRESHING THE PRODUCTS TABLE
+    ////
+
+    public void refreshProductsTable() throws InterruptedException {
+        retrofitInit.getProducts(this.listCallback);
+    }
+
+    ////
+    //// RETURNING PRODUCTS FROM API
+    ////
 
     Callback<List<Products>> listCallback = new Callback<>() {
         public void onResponse(Call<List<Products>> call, Response<List<Products>> response) {
@@ -189,6 +216,10 @@ public class MainScreenController {
             System.out.println(t.getMessage());
         }
     };
+
+    ////
+    //// ADDITIONAL BUTTON ACTIONS (LOGOUT, CLOSE AND MINIMIZE)
+    ////
 
     @FXML
     void closeApp (ActionEvent event) throws IOException{

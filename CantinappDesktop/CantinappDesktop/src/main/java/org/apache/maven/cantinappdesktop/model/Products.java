@@ -19,6 +19,12 @@ public class Products {
         this.price = price;
     }
 
+    public Products(String name, Float price, byte[] image) {
+        this.name = name;
+        this.price = price;
+        this.image = image;
+    }
+
     public int getId() {
         return id;
     }
