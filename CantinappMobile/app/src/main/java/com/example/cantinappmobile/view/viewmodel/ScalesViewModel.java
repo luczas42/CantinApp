@@ -75,7 +75,7 @@ public class ScalesViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<List<Employee>> call, Throwable t) {
-
+                t.getMessage();
             }
         });
     }

@@ -29,6 +29,6 @@ public interface WebService {
     Call<List<Turn>> getTurns();
 
     @FormUrlEncoded
-    @POST("scales/getScales.php")
+    @POST("scales/getScale.php")
     Call<List<Employee>> getTurnEmployees(@Field("turn_id") int turnId);
 }

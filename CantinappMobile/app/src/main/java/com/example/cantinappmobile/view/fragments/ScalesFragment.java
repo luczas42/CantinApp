@@ -1,9 +1,12 @@
 package com.example.cantinappmobile.view.fragments;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -11,8 +14,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cantinappmobile.R;
 import com.example.cantinappmobile.databinding.FragmentScalesBinding;
 import com.example.cantinappmobile.model.Turn;
+import com.example.cantinappmobile.view.adapter.EmployeeAdapter;
 import com.example.cantinappmobile.view.adapter.ScaleListAdapter;
 import com.example.cantinappmobile.view.viewmodel.ScalesViewModel;
 
@@ -42,21 +47,52 @@ public class ScalesFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(ScalesViewModel.class);
         viewModel.getTurns();
         viewModel.turnLiveData.observe(getViewLifecycleOwner(), this::createAdapter);
-        viewModel.getDisplayValue().observe(getViewLifecycleOwner(),display -> {
-            if (display){
+        viewModel.getDisplayValue().observe(getViewLifecycleOwner(), display -> {
+            if (display) {
                 binding.classFilter.filtersLayout.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 binding.classFilter.filtersLayout.setVisibility(View.GONE);
             }
         });
     }
 
-    private void createAdapter(List<Turn> turns){
+    private void createAdapter(List<Turn> turns) {
         binding.recyclerDays.setAdapter(scaleAdapter);
         binding.recyclerDays.setLayoutManager(new LinearLayoutManager(requireContext()));
         scaleAdapter.append(turns);
         scaleAdapter.setOnClickListener((position, turn) -> {
+            setupPopup(turn);
+        });
+    }
 
+    private void setupPopup(Turn turn) {
+        Dialog myDialog = new Dialog(requireActivity());
+        myDialog.setContentView(R.layout.scale_detail_popup);
+
+        Button closeButton = myDialog.findViewById(R.id.bt_popup_close);
+        TextView popupName = myDialog.findViewById(R.id.tv_popup_name);
+        TextView scaleDate = myDialog.findViewById(R.id.tv_day_info);
+        TextView employeeClass = myDialog.findViewById(R.id.tv_employee_class_info);
+        EmployeeAdapter employeeAdapter = new EmployeeAdapter();
+        employeeAdapter.append(turn.getEmployeeList());
+        RecyclerView employeeRecycler = myDialog.findViewById(R.id.recycler_day_employees);
+        employeeRecycler.setLayoutManager(new LinearLayoutManager(requireContext()));
+        employeeRecycler.setAdapter(employeeAdapter);
+
+        popupName.setText("Responsáveis");
+        scaleDate.setText(turn.getFormatedDate().concat(" - ").concat(turn.getLiteralPeriod()));
+        employeeClass.setText(turn.getEmployeeClass());
+
+        setPopupClick(myDialog, closeButton);
+        myDialog.show();
+    }
+
+    private void setPopupClick(Dialog myDialog, Button closeButton) {
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
         });
     }
 

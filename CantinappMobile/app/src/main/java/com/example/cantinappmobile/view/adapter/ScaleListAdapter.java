@@ -64,7 +64,7 @@ public class ScaleListAdapter extends RecyclerView.Adapter<ScaleListAdapter.View
         }
 
         public void bind(Turn turn) {
-            binding.recyclerDaysDayDate.setText(turn.getDay().concat(" - ").concat(turn.getLiteralPeriod()));
+            binding.recyclerDaysDayDate.setText(turn.getFormatedDate().concat(" - ").concat(turn.getLiteralPeriod()));
             binding.classTextView.setText(turn.getEmployeeClass().toUpperCase());
             if (turn.getEmployeeClass().equalsIgnoreCase("inf4am")) {
                 binding.recyclerDaysCardviewClass.setCardBackgroundColor(Color.parseColor("#1849C7"));

@@ -1,5 +1,6 @@
 package com.example.cantinappmobile.model;
 
+import com.example.cantinappmobile.resources.DateFormatter;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -25,6 +26,10 @@ public class Turn {
 
     public String getDay() {
         return day;
+    }
+
+    public String getFormatedDate(){
+        return DateFormatter.dateFormat(day);
     }
 
     public void setDay(String day) {
