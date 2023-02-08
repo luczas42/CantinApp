@@ -12,14 +12,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.apache.maven.cantinappdesktop.App;
-import org.apache.maven.cantinappdesktop.model.CloseButton;
 import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
 import org.apache.maven.cantinappdesktop.model.Users;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import javax.swing.*;
 import java.io.IOException;
 
 public class LoginScreenController {

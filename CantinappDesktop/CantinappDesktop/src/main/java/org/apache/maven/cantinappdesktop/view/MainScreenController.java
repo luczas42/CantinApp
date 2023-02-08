@@ -20,13 +20,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.apache.maven.cantinappdesktop.App;
-import org.apache.maven.cantinappdesktop.model.CloseButton;
 import org.apache.maven.cantinappdesktop.model.Products;
 import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.FieldMap;
 
 import java.io.IOException;
 import java.util.List;
@@ -116,39 +114,39 @@ public class MainScreenController {
     }
 
     @FXML
-    void onProductSelected(MouseEvent event) {
-        Products selectedProduct = productTable.getSelectionModel().getSelectedItem();
-
-        try {
-            Stage stage = new Stage();
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("productEditScreen.fxml"));
-            Scene scene = new Scene((Parent) fxmlLoader.load());
-            stage.setTitle("Cantinapp");
-            stage.setScene(scene);
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            ProductEditScreen productEditScreenController = fxmlLoader.getController();
-            productEditScreenController.productEdit(selectedProduct);
-            productsRefreshExecutor.wait();
-            stage.showAndWait();
-            productsRefreshExecutor.notify();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-    @FXML
-    void displayShifts(ActionEvent event) {
+    void displayScales(ActionEvent event) {
         this.productsButton.setSelected(false);
         productsButton.setDisable(false);
         this.employeesButton.setSelected(false);
         employeesButton.setDisable(false);
         shiftsButton.setDisable(true);
         this.workdaysPane.toFront();
+    }
 
+    @FXML
+    void productClick(MouseEvent event) {
+        if(event.getClickCount()==2){
+            Products selectedProduct = productTable.getSelectionModel().getSelectedItem();
+
+            try {
+                Stage stage = new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("productEditScreen.fxml"));
+                Scene scene = new Scene((Parent) fxmlLoader.load());
+                stage.setTitle("Cantinapp");
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UNDECORATED);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                ProductEditScreen productEditScreenController = fxmlLoader.getController();
+                productEditScreenController.productEdit(selectedProduct);
+                Thread.sleep(100);
+                stage.showAndWait();
+                productsRefreshExecutor.notify();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
     public void refreshProductsTable() throws InterruptedException {
         retrofitInit.getProducts(this.listCallback);

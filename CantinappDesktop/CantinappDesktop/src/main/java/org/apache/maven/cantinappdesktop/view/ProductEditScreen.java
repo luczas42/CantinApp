@@ -41,11 +41,7 @@ public class ProductEditScreen {
                 System.out.println(response.code());
                 return;
             }
-
             Products postResponse = response.body();
-            System.out.println(response.code());
-            System.out.println(postResponse.name);
-
         }
 
         @Override
@@ -63,8 +59,6 @@ public class ProductEditScreen {
             }
 
             Products postResponse = response.body();
-            System.out.println(response.code());
-            System.out.println(postResponse.name);
         }
 
         @Override
@@ -112,7 +106,7 @@ public class ProductEditScreen {
 
     @FXML
     void deleteProduct(ActionEvent event) {
-        retrofitInit.deleteProduct(deleteProductCallback, myProduct.id);
+        retrofitInit.deleteProduct(deleteProductCallback, myProduct.getId());
         Stage stage = (Stage) productRegisterButton.getScene().getWindow();
         stage.close();
     }
@@ -122,8 +116,8 @@ public class ProductEditScreen {
         String productName = productNameField.getText();
         System.out.println(productName);
         float productPrice = Float.parseFloat(productPriceField.getText());
-        myProduct.name = productName;
-        myProduct.price = productPrice;
+        myProduct.setName(productName);
+        myProduct.setPrice(productPrice);
         retrofitInit.editProducts(editProductCallback, myProduct);
         Stage stage = (Stage) productRegisterButton.getScene().getWindow();
         stage.close();
@@ -154,7 +148,7 @@ public class ProductEditScreen {
         productRegisterButton.setVisible(false);
         productRegisterButton.setManaged(false);
         myProduct = selectedProduct;
-        productNameField.setText(selectedProduct.name);
-        productPriceField.setText(selectedProduct.price.toString());
+        productNameField.setText(selectedProduct.getName());
+        productPriceField.setText(selectedProduct.getPrice().toString());
     }
 }

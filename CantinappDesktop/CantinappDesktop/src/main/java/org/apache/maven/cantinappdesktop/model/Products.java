@@ -6,20 +6,22 @@ import com.google.gson.annotations.SerializedName;
 public class Products {
 
     @SerializedName("id")
-    public int id;
-
-    public int getId() {
-        return id;
-    }
+    private int id;
+    @SerializedName("image")
+    private byte[] image;
 
     @SerializedName("name")
-    public String name;
+    private String name;
     @SerializedName("price")
-    public Float price;
+    private Float price;
 
     public Products(String name, Float price) {
         this.name = name;
         this.price = price;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -36,5 +38,17 @@ public class Products {
 
     public void setPrice(Float price) {
         this.price = price;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }

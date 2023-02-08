@@ -20,13 +20,13 @@ public class RetrofitInit {
         this.apiService.getProducts().enqueue(callback);
     }
 
-    public void addProducts(Callback<Products> call, Products post) {
-        this.apiService.addProduct(post.name, post.price).enqueue(call);
+    public void addProducts(Callback<Products> call, Products product) {
+        this.apiService.addProduct(product.getName(), product.getPrice()).enqueue(call);
 
     }
 
     public void editProducts(Callback<Products> call, Products products) {
-        this.apiService.editProduct(products.name, products.price, products.id).enqueue(call);
+        this.apiService.editProduct(products.getName(), products.getPrice(), products.getId()).enqueue(call);
     }
 
     public void deleteProduct(Callback<Void> call, int id) {
