@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cantinappmobile.databinding.DaysListitemBinding;
+import com.example.cantinappmobile.model.Employee;
 import com.example.cantinappmobile.model.Turn;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class ScaleListAdapter extends RecyclerView.Adapter<ScaleListAdapter.ViewHolder> {
 
-    private ArrayList<Turn> turnList = new ArrayList<>();
+    private List<Turn> turnList = new ArrayList<>();
     private ScaleOnItemClick onItemClick;
 
     public void setOnClickListener(ScaleOnItemClick onItemClick) {
@@ -49,6 +50,30 @@ public class ScaleListAdapter extends RecyclerView.Adapter<ScaleListAdapter.View
     public void append(List<Turn> newList) {
         this.turnList.clear();
         this.turnList.addAll(newList);
+        notifyDataSetChanged();
+    }
+
+    public void search(String query, List<Turn> sortedList) {
+        List<Turn> filteredList = new ArrayList<>();
+        if (!query.equalsIgnoreCase("")){
+            for (Turn turn : sortedList
+            ) {
+                if (turn.getEmployeeList() != null) {
+                    for (Employee employee :
+                            turn.getEmployeeList()) {
+                        if (employee.getName().toLowerCase().contains(query.toLowerCase())) {
+                            filteredList.add(turn);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        setFilteredList(filteredList);
+    }
+
+    private void setFilteredList(List<Turn> filteredList) {
+        this.turnList = filteredList;
         notifyDataSetChanged();
     }
 

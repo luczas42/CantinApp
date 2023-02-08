@@ -19,6 +19,8 @@ import com.example.cantinappmobile.databinding.FragmentScalesBinding;
 import com.example.cantinappmobile.model.Turn;
 import com.example.cantinappmobile.view.adapter.EmployeeAdapter;
 import com.example.cantinappmobile.view.adapter.ScaleListAdapter;
+import com.example.cantinappmobile.view.viewmodel.Connection;
+import com.example.cantinappmobile.view.viewmodel.ProductsFragmentViewModel;
 import com.example.cantinappmobile.view.viewmodel.ScalesViewModel;
 
 import java.util.List;
@@ -46,7 +48,9 @@ public class ScalesFragment extends Fragment {
 
         viewModel = new ViewModelProvider(requireActivity()).get(ScalesViewModel.class);
         viewModel.getTurns();
-        viewModel.turnLiveData.observe(getViewLifecycleOwner(), this::createAdapter);
+
+        observeConnection();
+
         viewModel.getDisplayValue().observe(getViewLifecycleOwner(), display -> {
             if (display) {
                 binding.classFilter.filtersLayout.setVisibility(View.VISIBLE);
@@ -56,12 +60,44 @@ public class ScalesFragment extends Fragment {
         });
     }
 
+    private void observeScale() {
+        viewModel.turnLiveData.observe(getViewLifecycleOwner(), this::createAdapter);
+    }
+
+    private void observeEmployees(List<Turn> turns){
+        viewModel.employeeConnectionLiveData.observe(getViewLifecycleOwner(), connection -> {
+            if (connection == Connection.Successfull){
+                observeSearch(turns);
+            }
+        });
+    }
+
+    private void observeConnection() {
+        viewModel.connectionLiveData.observe(getViewLifecycleOwner(), connection -> {
+                    if (connection == Connection.Successfull) {
+                        observeScale();
+                    }
+                }
+        );
+    }
+
     private void createAdapter(List<Turn> turns) {
         binding.recyclerDays.setAdapter(scaleAdapter);
         binding.recyclerDays.setLayoutManager(new LinearLayoutManager(requireContext()));
         scaleAdapter.append(turns);
+
         scaleAdapter.setOnClickListener((position, turn) -> {
             setupPopup(turn);
+        });
+
+        observeEmployees(turns);
+    }
+
+    private void observeSearch(List<Turn> turns) {
+        viewModel.employeeSearchQuery.observe(getViewLifecycleOwner(), query -> {
+            if (!query.equalsIgnoreCase("")){
+                scaleAdapter.search(query, turns);
+            }
         });
     }
 
@@ -94,6 +130,11 @@ public class ScalesFragment extends Fragment {
                 myDialog.dismiss();
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override

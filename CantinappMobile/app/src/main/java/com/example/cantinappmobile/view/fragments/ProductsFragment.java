@@ -82,7 +82,6 @@ public class ProductsFragment extends Fragment {
         productAdapter.setOnClickListener((position, product) -> setupPopup(product));
 
         viewModel.productSearchQuery.observe(getViewLifecycleOwner(), query -> {
-            Log.i("apiCall", "createAdapter: " + query);
             productAdapter.search(query, productList);
         });
     }

@@ -50,8 +50,10 @@ public class ListsActivity extends AppCompatActivity {
 
     private void configureSearchView(ContentListsBinding contentListsBinding) {
         if (currentFragment == 2) {
+            contentListsBinding.searchView.setIconified(true);
+            contentListsBinding.searchView.setIconified(true);
+            contentListsBinding.searchView.clearFocus();
             contentListsBinding.searchView.setQueryHint("Pesquisar por aluno");
-
             contentListsBinding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
@@ -60,17 +62,20 @@ public class ListsActivity extends AppCompatActivity {
 
                 @Override
                 public boolean onQueryTextChange(String newText) {
+                    scalesViewModel.employeeSearchQuery.setValue(newText);
                     return false;
                 }
             });
         } else if (currentFragment == 1) {
+            contentListsBinding.searchView.setIconified(true);
+            contentListsBinding.searchView.setIconified(true);
+            contentListsBinding.searchView.clearFocus();
             contentListsBinding.searchView.setQueryHint("Pesquisar por produto");
 
             contentListsBinding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
                 @Override
                 public boolean onQueryTextSubmit(String query) {
-
                     return false;
                 }
 
@@ -94,7 +99,7 @@ public class ListsActivity extends AppCompatActivity {
             goToProducts(fragmentManager);
             contentListsBinding.backButton.setVisibility(View.GONE);
             contentListsBinding.buttonWorkdays.setVisibility(View.VISIBLE);
-            contentListsBinding.buttonFilters.setVisibility(View.GONE);
+            contentListsBinding.buttonFilters.setVisibility(View.INVISIBLE);
             configureSearchView(contentListsBinding);
         });
     }

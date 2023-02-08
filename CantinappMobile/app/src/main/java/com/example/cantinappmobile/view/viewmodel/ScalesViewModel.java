@@ -9,6 +9,7 @@ import com.example.cantinappmobile.model.Employee;
 import com.example.cantinappmobile.model.Turn;
 import com.example.cantinappmobile.repository.RepositoryImpl;
 
+import java.net.HttpCookie;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -21,10 +22,15 @@ import retrofit2.Response;
 @HiltViewModel
 public class ScalesViewModel extends ViewModel {
     private final SavedStateHandle state;
+    public MutableLiveData<String> employeeSearchQuery = new MutableLiveData<>();
     private RepositoryImpl repository = new RepositoryImpl();
 
     private MutableLiveData<List<Turn>> _turnLiveData = new MutableLiveData<>();
     public LiveData<List<Turn>> turnLiveData = _turnLiveData;
+
+    public MutableLiveData<Connection> connectionLiveData = new MutableLiveData<>();
+
+    public MutableLiveData<Connection> employeeConnectionLiveData = new MutableLiveData<>();
     public MutableLiveData<Boolean> displayFilters;
 
     @Inject
@@ -47,6 +53,7 @@ public class ScalesViewModel extends ViewModel {
             @Override
             public void onResponse(Call<List<Turn>> call, Response<List<Turn>> response) {
                 if (response.body()!=null){
+                    connectionLiveData.setValue(Connection.Successfull);
                     _turnLiveData.setValue(response.body());
                     int position = 0;
                     for (Turn turns :
@@ -54,6 +61,8 @@ public class ScalesViewModel extends ViewModel {
                         getTurnEmployees(turns.getId(), position);
                         position++;
                     }
+                }else{
+                    connectionLiveData.setValue(Connection.Failed);
                 }
             }
 
@@ -70,7 +79,12 @@ public class ScalesViewModel extends ViewModel {
         employeeCall.enqueue(new Callback<List<Employee>>() {
             @Override
             public void onResponse(Call<List<Employee>> call, Response<List<Employee>> response) {
-                _turnLiveData.getValue().get(position).setEmployeeList(response.body());
+                if (!(response.body() ==null)){
+                    employeeConnectionLiveData.setValue(Connection.Successfull);
+                    _turnLiveData.getValue().get(position).setEmployeeList(response.body());
+                }else{
+                    employeeConnectionLiveData.setValue(Connection.Failed);
+                }
             }
 
             @Override
