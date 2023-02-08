@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="485.0" prefWidth="400.0" style="-fx-background-radius: 10; -fx-background-color: #F4F4F0;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.apache.maven.cantinappdesktop.view.ProductEditScreen">
+<AnchorPane prefHeight="485.0" prefWidth="400.0" style="-fx-background-radius: 10; -fx-background-color: #F4F4F0;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.apache.maven.cantinappdesktop.view.ProductDetailsScreen">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="485.0" prefWidth="400.0">
          <children>

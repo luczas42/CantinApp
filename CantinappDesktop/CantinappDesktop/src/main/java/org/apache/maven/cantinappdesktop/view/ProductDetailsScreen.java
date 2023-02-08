@@ -5,16 +5,51 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.maven.cantinappdesktop.model.Image;
 import org.apache.maven.cantinappdesktop.model.Products;
 import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import javax.swing.text.html.ImageView;
+import java.io.File;
 import java.io.IOException;
 
-public class ProductEditScreen {
+public class ProductDetailsScreen {
+
+    private Image productImage;
+    private Stage stage;
+    @FXML
+    private ImageView productImageView;
+
+    RetrofitInit retrofitInit = new RetrofitInit();
+
+    @FXML
+    private Button addProductImageButton;
+
+    @FXML
+    private Button cancelProductEditButton;
+
+    @FXML
+    private Button productDeleteButton;
+
+    @FXML
+    private Button productEditButton;
+
+    @FXML
+    private Label productEditLabel;
+
+    @FXML
+    private TextField productNameField;
+
+    @FXML
+    private TextField productPriceField;
+
+    @FXML
+    private Button productRegisterButton;
 
     Products myProduct = null;
 
@@ -67,35 +102,19 @@ public class ProductEditScreen {
         }
     };
 
-    RetrofitInit retrofitInit = new RetrofitInit();
-
-    @FXML
-    private Button addProductImageButton;
-
-    @FXML
-    private Button cancelProductEditButton;
-
-    @FXML
-    private Button productDeleteButton;
-
-    @FXML
-    private Button productEditButton;
-
-    @FXML
-    private Label productEditLabel;
-
-    @FXML
-    private TextField productNameField;
-
-    @FXML
-    private TextField productPriceField;
-
-    @FXML
-    private Button productRegisterButton;
-
     @FXML
     void addProductImage(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
+                "IMG files (*.png, *.jpg, *.jpeg) ", "*.png", "*.jpg", "*.jpeg");
+        fileChooser.getExtensionFilters().add(extFilter);
+        fileChooser.setTitle("Select an Image");
+        fileChooser.showOpenDialog(stage);
 
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        if(selectedFile!=null){
+            productImage = new Image(selectedFile);
+        }
     }
 
     @FXML

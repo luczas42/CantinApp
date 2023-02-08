@@ -130,14 +130,14 @@ public class MainScreenController {
 
             try {
                 Stage stage = new Stage();
-                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("productEditScreen.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("productDetailsScreen.fxml"));
                 Scene scene = new Scene((Parent) fxmlLoader.load());
                 stage.setTitle("Cantinapp");
                 stage.setScene(scene);
                 stage.initStyle(StageStyle.UNDECORATED);
                 stage.initModality(Modality.APPLICATION_MODAL);
-                ProductEditScreen productEditScreenController = fxmlLoader.getController();
-                productEditScreenController.productEdit(selectedProduct);
+                ProductDetailsScreen productDetailsScreenController = fxmlLoader.getController();
+                productDetailsScreenController.productEdit(selectedProduct);
                 Thread.sleep(100);
                 stage.showAndWait();
                 productsRefreshExecutor.notify();
@@ -156,14 +156,14 @@ public class MainScreenController {
     void openNewProductScreen(ActionEvent event) {
         try {
             Stage stage = new Stage();
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("productEditScreen.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("productDetailsScreen.fxml"));
             Scene scene = new Scene((Parent) fxmlLoader.load());
             stage.setTitle("Cantinapp");
             stage.setScene(scene);
             stage.initStyle(StageStyle.UNDECORATED);
             stage.initModality(Modality.APPLICATION_MODAL);
-            ProductEditScreen productEditScreenController = fxmlLoader.getController();
-            productEditScreenController.productAdd();
+            ProductDetailsScreen productDetailsScreenController = fxmlLoader.getController();
+            productDetailsScreenController.productAdd();
             stage.showAndWait();
             refreshProductsTable();
         } catch (IOException | InterruptedException e) {
