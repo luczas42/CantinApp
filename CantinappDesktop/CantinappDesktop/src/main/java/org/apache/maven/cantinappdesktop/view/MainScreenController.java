@@ -20,6 +20,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.apache.maven.cantinappdesktop.App;
+import org.apache.maven.cantinappdesktop.model.Employee;
 import org.apache.maven.cantinappdesktop.model.Products;
 import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
 import retrofit2.Call;
@@ -177,6 +178,32 @@ public class MainScreenController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    void employeeCLick(MouseEvent event){
+        if(event.getClickCount()==2){
+            Employee selectedEmployee = employeeTable.getSelectionModel().getSelectedItem();
+            try {
+                Stage stage = new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("productDetailsScreen.fxml"));
+                Scene scene = new Scene((Parent) fxmlLoader.load());
+                stage.setTitle("Cantinapp");
+                stage.initStyle(StageStyle.UNDECORATED);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                ProductDetailsScreen productDetailsScreenController = fxmlLoader.getController();
+                productDetailsScreenController.productEdit(selectedEmployee);
+                Thread.sleep(100);
+                stage.setScene(scene);
+                stage.showAndWait();
+                productsRefreshExecutor.notify();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
 
     @FXML
     void openNewEmployeeScreen(ActionEvent event) {
