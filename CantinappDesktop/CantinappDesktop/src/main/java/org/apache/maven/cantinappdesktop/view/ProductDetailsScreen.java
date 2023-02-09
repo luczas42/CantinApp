@@ -15,14 +15,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import javax.imageio.ImageIO;
 import javax.imageio.stream.FileImageInputStream;
 import javax.imageio.stream.ImageOutputStream;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+import java.awt.image.WritableRaster;
 import java.io.*;
 import java.nio.ByteBuffer;
 
 public class ProductDetailsScreen {
 
     private Image productImage;
+
+    private File selectedFile;
     private Stage stage;
     private Parent root;
     RetrofitInit retrofitInit = new RetrofitInit();
@@ -86,7 +92,8 @@ public class ProductDetailsScreen {
 
         @Override
         public void onFailure(Call<Products> call, Throwable t) {
-            System.out.println(t.getMessage());
+            System.out.println(t.getMessage() + t.getCause());
+            t.printStackTrace();
         }
     };
 
@@ -118,7 +125,7 @@ public class ProductDetailsScreen {
                 "IMG files (*.png, *.jpg, *.jpeg) ", "*.png", "*.jpg", "*.jpeg");
         fileChooser.getExtensionFilters().add(extFilter);
         fileChooser.setTitle("Select an Image");
-        File selectedFile = fileChooser.showOpenDialog(stage);
+        selectedFile = fileChooser.showOpenDialog(stage);
 
         if(selectedFile!=null){
             productImage = new Image(selectedFile.getAbsolutePath());
@@ -160,40 +167,26 @@ public class ProductDetailsScreen {
         Products products;
         String productName = productNameField.getText();
         Float productPrice = Float.valueOf(productPriceField.getText());
-        if(productImageView.getImage()!=null){
+        if(selectedFile!=null){
             byte[] image = imageToByteArray();
-            products = new Products(productName, productPrice, image);
+
+//            products = new Products(productName, productPrice, image);
+//            retrofitInit.addProducts(addProductCallback, products);
         }else{
-            products = new Products(productName, productPrice);
+            System.out.println("sem imagem");
+//            products = new Products(productName, productPrice);
         }
-        retrofitInit.addProducts(addProductCallback, products);
 
         Stage stage = (Stage) productRegisterButton.getScene().getWindow();
         stage.close();
     }
 
-    private byte[] imageToByteArray() {
-        Image image = productImageView.getImage();
+    private byte[] imageToByteArray() throws IOException {
+        BufferedImage bufferedImage = ImageIO.read(selectedFile);
 
-        int w = (int) image.getWidth();
-        int h = (int) image.getHeight();
-        byte[] buffer = new byte[w * h * 4];
-        PixelReader pxr = image.getPixelReader();
-        pxr.getPixels(0, 0, w, h, PixelFormat.getByteBgraInstance(), buffer, 0, w*4);
-        try{
-            BufferedOutputStream bos = new BufferedOutputStream(new ByteArrayOutputStream());
-            for(int i = 0; i<buffer.length; i+=4){
-                bos.write(buffer[i + 2]);
-                bos.write(buffer[i + 1]);
-                bos.write(buffer[i]);
-                bos.write(buffer[i + 3]);
-            }
-            bos.flush();
-            bos.close();
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-        return new byte[0];
+        WritableRaster raster = bufferedImage .getRaster();
+        DataBufferByte data   = (DataBufferByte) raster.getDataBuffer();
+        return ( data.getData() );
     }
 
     ////

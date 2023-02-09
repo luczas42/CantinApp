@@ -24,7 +24,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("products/addProduct.php")
     Call<Products> addProduct(@Field("name") String name,
-                              @Field("price") Float price);
+                              @Field("price") Float price,
+                              @Field("byte_array") byte[] image);
 
     @FormUrlEncoded
     @POST("products/deleteProduct.php")
