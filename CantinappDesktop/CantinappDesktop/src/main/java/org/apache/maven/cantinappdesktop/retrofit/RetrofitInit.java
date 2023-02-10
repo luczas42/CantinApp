@@ -1,7 +1,7 @@
 package org.apache.maven.cantinappdesktop.retrofit;
 
-import org.apache.maven.cantinappdesktop.model.Products;
-import org.apache.maven.cantinappdesktop.model.Users;
+import org.apache.maven.cantinappdesktop.model.Product;
+import org.apache.maven.cantinappdesktop.model.User;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -16,17 +16,17 @@ public class RetrofitInit {
         this.apiService = (ApiService) this.retrofit.create(ApiService.class);
     }
 
-    public void getProducts(Callback<List<Products>> callback) {
+    public void getProducts(Callback<List<Product>> callback) {
         this.apiService.getProducts().enqueue(callback);
     }
 
-    public void addProducts(Callback<Products> call, Products product) {
+    public void addProducts(Callback<Product> call, Product product) {
         this.apiService.addProduct(product.getName(), product.getPrice(), product.getImage()).enqueue(call);
 
     }
 
-    public void editProducts(Callback<Products> call, Products products) {
-        this.apiService.editProduct(products.getName(), products.getPrice(), products.getId()).enqueue(call);
+    public void editProducts(Callback<Product> call, Product product) {
+        this.apiService.editProduct(product.getName(), product.getPrice(), product.getId()).enqueue(call);
     }
 
     public void deleteProduct(Callback<Void> call, int id) {
@@ -34,7 +34,7 @@ public class RetrofitInit {
     }
 
     // USUARIO
-    public void addUser(Callback<Users> call, Users user, String password){
+    public void addUser(Callback<User> call, User user, String password){
         this.apiService.addUser(user.getUsername(),
                         user.getName(),
                         password,
@@ -43,7 +43,7 @@ public class RetrofitInit {
                 .enqueue(call);
     }
 
-    public void checkLogin(Callback<Users> call, String username, String password){
+    public void checkLogin(Callback<User> call, String username, String password){
         this.apiService.userLogin(username, password).enqueue(call);
     }
 

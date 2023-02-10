@@ -153,3 +153,10 @@
 .table-view > .virtual-flow > .scroll-bar > .decrement-button {
     -fx-opacity: 0;
 }
+
+#cbEmployeeClass{
+    -fx-text-fill: #00A87D;
+    -fx-font-size:14px;
+    -fx-background-color: transparent;
+    -fx-background-radius: 10;
+}

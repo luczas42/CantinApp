@@ -9,20 +9,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.apache.maven.cantinappdesktop.model.Products;
+import org.apache.maven.cantinappdesktop.model.Product;
 import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import javax.imageio.ImageIO;
-import javax.imageio.stream.FileImageInputStream;
-import javax.imageio.stream.ImageOutputStream;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.awt.image.WritableRaster;
 import java.io.*;
-import java.nio.ByteBuffer;
 
 public class ProductDetailsScreen {
 
@@ -58,7 +55,7 @@ public class ProductDetailsScreen {
     @FXML
     private Button productRegisterButton;
 
-    Products myProduct = null;
+    Product myProduct = null;
 
     ////
     //// DELETE, EDIT AND ADD ENDPOINTS
@@ -80,36 +77,36 @@ public class ProductDetailsScreen {
         }
     };
 
-    Callback<Products> addProductCallback = new Callback<Products>() {
+    Callback<Product> addProductCallback = new Callback<Product>() {
         @Override
-        public void onResponse(Call<Products> call, Response<Products> response) {
+        public void onResponse(Call<Product> call, Response<Product> response) {
             if (!response.isSuccessful()) {
                 System.out.println(response.code());
                 return;
             }
-            Products postResponse = response.body();
+            Product postResponse = response.body();
         }
 
         @Override
-        public void onFailure(Call<Products> call, Throwable t) {
+        public void onFailure(Call<Product> call, Throwable t) {
             System.out.println(t.getMessage() + t.getCause());
             t.printStackTrace();
         }
     };
 
-    Callback<Products> editProductCallback = new Callback<Products>() {
+    Callback<Product> editProductCallback = new Callback<Product>() {
         @Override
-        public void onResponse(Call<Products> call, Response<Products> response) {
+        public void onResponse(Call<Product> call, Response<Product> response) {
             if (!response.isSuccessful()) {
                 System.out.println(response.code());
                 return;
             }
 
-            Products postResponse = response.body();
+            Product postResponse = response.body();
         }
 
         @Override
-        public void onFailure(Call<Products> call, Throwable t) {
+        public void onFailure(Call<Product> call, Throwable t) {
             System.out.println(t.getMessage());
         }
     };
@@ -164,7 +161,7 @@ public class ProductDetailsScreen {
 
     @FXML
     void registerProduct(ActionEvent event) throws IOException {
-        Products products;
+        Product product;
         String productName = productNameField.getText();
         Float productPrice = Float.valueOf(productPriceField.getText());
         if(selectedFile!=null){
@@ -199,7 +196,7 @@ public class ProductDetailsScreen {
         productEditButton.setManaged(false);
     }
 
-    public void productEdit(Products selectedProduct) {
+    public void productEdit(Product selectedProduct) {
         productEditLabel.setText("Edição de Produto");
         productRegisterButton.setVisible(false);
         productRegisterButton.setManaged(false);

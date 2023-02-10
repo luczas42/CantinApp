@@ -13,7 +13,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.apache.maven.cantinappdesktop.App;
 import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
-import org.apache.maven.cantinappdesktop.model.Users;
+import org.apache.maven.cantinappdesktop.model.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -22,7 +22,7 @@ import java.io.IOException;
 
 public class LoginScreenController {
     RetrofitInit retrofitInit = new RetrofitInit();
-    Users connectedUser;
+    User connectedUser;
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -74,9 +74,9 @@ public class LoginScreenController {
     @FXML
     private Pane startPane;
 
-    Callback<Users> checkLoginCallback = new Callback<Users>() {
+    Callback<User> checkLoginCallback = new Callback<User>() {
         @Override
-        public void onResponse(Call<Users> call, Response<Users> response) {
+        public void onResponse(Call<User> call, Response<User> response) {
 //            connectedUser = response.body();
 //            System.out.println(connectedUser.getName());
 
@@ -84,7 +84,7 @@ public class LoginScreenController {
         }
 
         @Override
-        public void onFailure(Call<Users> call, Throwable throwable) {
+        public void onFailure(Call<User> call, Throwable throwable) {
             System.out.println("teste");
             throwable.printStackTrace();
         }
@@ -100,14 +100,14 @@ public class LoginScreenController {
         stage.show();
     }
 
-    Callback<Users> addUserCallback = new Callback<Users>() {
+    Callback<User> addUserCallback = new Callback<User>() {
         @Override
-        public void onResponse(Call<Users> call, Response<Users> response) {
+        public void onResponse(Call<User> call, Response<User> response) {
             System.out.println(response.code());
         }
 
         @Override
-        public void onFailure(Call<Users> call, Throwable throwable) {
+        public void onFailure(Call<User> call, Throwable throwable) {
             System.out.println(throwable.getMessage());
         }
     };
@@ -139,7 +139,7 @@ public class LoginScreenController {
         String email = textFieldSignupEmail.getText();
         String password = textFieldSignupPassword.getText();
         System.out.println(password);
-        Users user = new Users(username, name, email);
+        User user = new User(username, name, email);
         retrofitInit.addUser(addUserCallback, user, password);
 
     }

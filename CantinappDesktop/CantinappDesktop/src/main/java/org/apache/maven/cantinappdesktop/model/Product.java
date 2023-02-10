@@ -3,7 +3,7 @@ package org.apache.maven.cantinappdesktop.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Products {
+public class Product {
 
     @SerializedName("id")
     private int id;
@@ -14,12 +14,12 @@ public class Products {
     @SerializedName("price")
     private Float price;
 
-    public Products(String name, Float price) {
+    public Product(String name, Float price) {
         this.name = name;
         this.price = price;
     }
 
-    public Products(String name, Float price, byte[] image) {
+    public Product(String name, Float price, byte[] image) {
         this.name = name;
         this.price = price;
         this.image = image;

@@ -2,7 +2,7 @@ package org.apache.maven.cantinappdesktop.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Users {
+public class User {
     @SerializedName("username")
     String username;
     @SerializedName("name")
@@ -12,14 +12,14 @@ public class Users {
     @SerializedName("email")
     String email;
 
-    public Users(String username, String name, int isUser, String email) {
+    public User(String username, String name, int isUser, String email) {
         this.username = username;
         this.name = name;
         this.isUser = isUser;
         this.email = email;
     }
 
-    public Users(String username, String name, String email) {
+    public User(String username, String name, String email) {
         this.username = username;
         this.name = name;
         this.email = email;

@@ -1,8 +1,8 @@
 package org.apache.maven.cantinappdesktop.retrofit;
 
 
-import org.apache.maven.cantinappdesktop.model.Products;
-import org.apache.maven.cantinappdesktop.model.Users;
+import org.apache.maven.cantinappdesktop.model.Product;
+import org.apache.maven.cantinappdesktop.model.User;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -12,20 +12,20 @@ import java.util.List;
 
 public interface ApiService {
     @POST("products/getProducts.php")
-    Call<List<Products>> getProducts();
+    Call<List<Product>> getProducts();
 
 
     @FormUrlEncoded
     @POST("products/editProduct.php")
-    Call<Products> editProduct(@Field("name") String name,
-                               @Field("price") Float price,
-                               @Field("id") int id);
+    Call<Product> editProduct(@Field("name") String name,
+                              @Field("price") Float price,
+                              @Field("id") int id);
 
     @FormUrlEncoded
     @POST("products/addProduct.php")
-    Call<Products> addProduct(@Field("name") String name,
-                              @Field("price") Float price,
-                              @Field("byte_array") byte[] image);
+    Call<Product> addProduct(@Field("name") String name,
+                             @Field("price") Float price,
+                             @Field("byte_array") byte[] image);
 
     @FormUrlEncoded
     @POST("products/deleteProduct.php")
@@ -33,13 +33,13 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("users/addUser.php")
-    Call<Users> addUser(@Field("username") String username,
-                        @Field("name") String name,
-                        @Field("password") String password,
-                        @Field("isUser") int isUser,
-                        @Field("email") String email);
+    Call<User> addUser(@Field("username") String username,
+                       @Field("name") String name,
+                       @Field("password") String password,
+                       @Field("isUser") int isUser,
+                       @Field("email") String email);
 
     @FormUrlEncoded
     @POST("users/login.php")
-    Call<Users> userLogin(@Field("username") String username, @Field("password") String password);
+    Call<User> userLogin(@Field("username") String username, @Field("password") String password);
 }
