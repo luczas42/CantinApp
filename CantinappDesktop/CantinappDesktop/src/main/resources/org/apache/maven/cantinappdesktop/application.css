@@ -154,9 +154,9 @@
     -fx-opacity: 0;
 }
 
-#cbEmployeeClass{
+#comboBox{
     -fx-text-fill: #00A87D;
     -fx-font-size:14px;
-    -fx-background-color: transparent;
-    -fx-background-radius: 10;
+   -fx-background-color: white;
+       -fx-background-radius:10;
 }

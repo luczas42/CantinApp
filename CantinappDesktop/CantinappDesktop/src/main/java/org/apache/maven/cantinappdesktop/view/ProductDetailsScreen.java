@@ -189,14 +189,14 @@ public class ProductDetailsScreen {
     ////
     //// ALTERNATE BETWEEN EDIT AND ADD POPUP
     ////
-    public void productAdd() {
+    public void swichToProductAddScreen() {
         productDeleteButton.setVisible(false);
         productDeleteButton.setManaged(false);
         productEditButton.setVisible(false);
         productEditButton.setManaged(false);
     }
 
-    public void productEdit(Product selectedProduct) {
+    public void switchToProductEditScreen(Product selectedProduct) {
         productEditLabel.setText("Edição de Produto");
         productRegisterButton.setVisible(false);
         productRegisterButton.setManaged(false);

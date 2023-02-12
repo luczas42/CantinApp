@@ -165,7 +165,7 @@ public class MainScreenController {
                 stage.initStyle(StageStyle.UNDECORATED);
                 stage.initModality(Modality.APPLICATION_MODAL);
                 ProductDetailsScreen productDetailsScreenController = fxmlLoader.getController();
-                productDetailsScreenController.productEdit(selectedProduct);
+                productDetailsScreenController.switchToProductEditScreen(selectedProduct);
                 Thread.sleep(100);
                 stage.showAndWait();
                 productsRefreshExecutor.notify();
@@ -189,7 +189,7 @@ public class MainScreenController {
             stage.initStyle(StageStyle.UNDECORATED);
             stage.initModality(Modality.APPLICATION_MODAL);
             ProductDetailsScreen productDetailsScreenController = fxmlLoader.getController();
-            productDetailsScreenController.productAdd();
+            productDetailsScreenController.swichToProductAddScreen();
             stage.showAndWait();
             refreshProductsTable();
         } catch (IOException | InterruptedException e) {
@@ -198,7 +198,7 @@ public class MainScreenController {
     }
 
     @FXML
-    void onEmployeeCLick(MouseEvent event){
+    void employeeCLick(MouseEvent event){
         if (event.getClickCount() == 2) {
             Employee selectedEmployee = employeeTableView.getSelectionModel().getSelectedItem();
             try {
@@ -210,7 +210,7 @@ public class MainScreenController {
                 stage.initStyle(StageStyle.UNDECORATED);
                 stage.initModality(Modality.APPLICATION_MODAL);
                 EmployeeDetailsScreen employeeDetailsScreen = fxmlLoader.getController();
-                employeeDetailsScreen.employeeEdit(selectedEmployee);
+                employeeDetailsScreen.switchToEmployeeEditScreen(selectedEmployee);
                 Thread.sleep(100);
                 stage.showAndWait();
                 productsRefreshExecutor.notify();
@@ -233,7 +233,7 @@ public class MainScreenController {
             stage.initStyle(StageStyle.UNDECORATED);
             stage.initModality(Modality.APPLICATION_MODAL);
             EmployeeDetailsScreen employeeDetailsScreenController = fxmlLoader.getController();
-            employeeDetailsScreenController.employeeAdd();
+            employeeDetailsScreenController.switchToEmployeeAddScreen();
             stage.showAndWait();
 
             refreshProductsTable();

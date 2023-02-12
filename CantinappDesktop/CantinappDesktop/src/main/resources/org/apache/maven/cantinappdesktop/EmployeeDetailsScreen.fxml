@@ -22,7 +22,7 @@
                   <Insets bottom="10.0" top="40.0" />
                </VBox.margin>
             </Label>
-            <ComboBox id="cbEmployeeClass" fx:id="cbEmployeeClass" prefHeight="40.0" prefWidth="300.0" promptText="Turma" visibleRowCount="3" />
+            <ComboBox id="comboBox" fx:id="cbEmployeeClass" prefHeight="40.0" prefWidth="300.0" promptText="Turma" visibleRowCount="3" />
             <TextField id="aux-fields" fx:id="employeeNameField" promptText="Nome">
                <font>
                   <Font size="16.0" />

@@ -25,14 +25,14 @@ public class EmployeeDetailsScreen {
     ////
     //// ALTERNATE BETWEEN EDIT AND ADD POPUP
     ////
-    public void employeeAdd() {
+    public void switchToEmployeeAddScreen() {
         employeeDeleteButton.setVisible(false);
         employeeDeleteButton.setManaged(false);
         employeeEditButton.setVisible(false);
         employeeEditButton.setManaged(false);
     }
 
-    public void employeeEdit(Employee selectedEmployee) {
+    public void switchToEmployeeEditScreen(Employee selectedEmployee) {
         employeeNameField.setText("Edição de Produto");
         employeeRegisterButton.setVisible(false);
         employeeRegisterButton.setManaged(false);
