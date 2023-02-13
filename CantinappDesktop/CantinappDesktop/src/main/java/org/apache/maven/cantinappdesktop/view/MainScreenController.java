@@ -30,6 +30,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -93,6 +95,9 @@ public class MainScreenController {
     private TableColumn<Employee, String> employeeNameTableColumn;
     @FXML
     private TableView<Employee> employeeTableView;
+
+    public MainScreenController() throws NoSuchAlgorithmException, KeyManagementException {
+    }
 
     ////
     //// TABLE DISPLAYING FUNCTIONS: PRODUCTS, EMPLOYEES AND SCALES
@@ -197,30 +202,30 @@ public class MainScreenController {
         }
     }
 
-    @FXML
-    void employeeCLick(MouseEvent event){
-        if (event.getClickCount() == 2) {
-            Employee selectedEmployee = employeeTableView.getSelectionModel().getSelectedItem();
-            try {
-                Stage stage = new Stage();
-                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("EmployeeDetailsScreen.fxml"));
-                Scene scene = new Scene((Parent) fxmlLoader.load());
-                stage.setTitle("Cantinapp");
-                stage.setScene(scene);
-                stage.initStyle(StageStyle.UNDECORATED);
-                stage.initModality(Modality.APPLICATION_MODAL);
-                EmployeeDetailsScreen employeeDetailsScreen = fxmlLoader.getController();
-                employeeDetailsScreen.switchToEmployeeEditScreen(selectedEmployee);
-                Thread.sleep(100);
-                stage.showAndWait();
-                productsRefreshExecutor.notify();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
+//    @FXML
+//    void employeeCLick(MouseEvent event){
+//        if (event.getClickCount() == 2) {
+//            Employee selectedEmployee = employeeTableView.getSelectionModel().getSelectedItem();
+//            try {
+//                Stage stage = new Stage();
+//                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("EmployeeDetailsScreen.fxml"));
+//                Scene scene = new Scene((Parent) fxmlLoader.load());
+//                stage.setTitle("Cantinapp");
+//                stage.setScene(scene);
+//                stage.initStyle(StageStyle.UNDECORATED);
+//                stage.initModality(Modality.APPLICATION_MODAL);
+//                EmployeeDetailsScreen employeeDetailsScreen = fxmlLoader.getController();
+//                employeeDetailsScreen.switchToEmployeeEditScreen(selectedEmployee);
+//                Thread.sleep(100);
+//                stage.showAndWait();
+//                productsRefreshExecutor.notify();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+//    }
     @FXML
     void openNewEmployeeScreen(ActionEvent event) {
         try {

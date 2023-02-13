@@ -163,7 +163,7 @@
                                           <TableColumn fx:id="employeeNameTableColumn" editable="false" minWidth="0.0" prefWidth="680.0" text="Nome" />
                                        </columns>
                                     </TableView>
-                                    <Button id="table-aux-button" fx:id="newEmployeeButton" layoutX="800.0" layoutY="620.0" mnemonicParsing="false" onAction="#openNewEmployeeScreen" onMouseClicked="#employeeClick" text="Cadastrar nova pessoa">
+                                    <Button id="table-aux-button" fx:id="newEmployeeButton" layoutX="800.0" layoutY="620.0" mnemonicParsing="false" onAction="#openNewEmployeeScreen"  text="Cadastrar nova pessoa">
                                        <font>
                                           <Font size="14.0" />
                                        </font>

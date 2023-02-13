@@ -19,6 +19,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 
 public class LoginScreenController {
     RetrofitInit retrofitInit = new RetrofitInit();
@@ -114,7 +116,7 @@ public class LoginScreenController {
 
 
 
-    public LoginScreenController() {
+    public LoginScreenController() throws NoSuchAlgorithmException, KeyManagementException {
     }
 
     @FXML

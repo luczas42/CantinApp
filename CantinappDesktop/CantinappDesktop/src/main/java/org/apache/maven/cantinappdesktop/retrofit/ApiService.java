@@ -1,12 +1,12 @@
 package org.apache.maven.cantinappdesktop.retrofit;
 
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import org.apache.maven.cantinappdesktop.model.Product;
 import org.apache.maven.cantinappdesktop.model.User;
 import retrofit2.Call;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.POST;
+import retrofit2.http.*;
 
 import java.util.List;
 
@@ -21,11 +21,16 @@ public interface ApiService {
                               @Field("price") Float price,
                               @Field("id") int id);
 
-    @FormUrlEncoded
     @POST("products/addProduct.php")
-    Call<Product> addProduct(@Field("name") String name,
-                             @Field("price") Float price,
-                             @Field("byte_array") byte[] image);
+    @Multipart
+    Call<Product> addProduct(@Part("pname") RequestBody name,
+                             @Part("price") RequestBody price,
+                             @Part MultipartBody.Part image);
+
+    @POST("products/addProduct.php")
+    @Multipart
+    Call<Product> addProduct(@Part("pname") RequestBody name,
+                             @Part("price") RequestBody price);
 
     @FormUrlEncoded
     @POST("products/deleteProduct.php")

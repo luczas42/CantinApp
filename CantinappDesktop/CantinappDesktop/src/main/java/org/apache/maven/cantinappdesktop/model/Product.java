@@ -3,12 +3,17 @@ package org.apache.maven.cantinappdesktop.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.File;
+
 public class Product {
 
     @SerializedName("id")
     private int id;
     @SerializedName("image")
-    private byte[] image;
+    private File image;
+
+
+    private byte[] imageFromServer;
     @SerializedName("name")
     private String name;
     @SerializedName("price")
@@ -19,10 +24,26 @@ public class Product {
         this.price = price;
     }
 
-    public Product(String name, Float price, byte[] image) {
+    public Product(String name, Float price, File image) {
         this.name = name;
         this.price = price;
         this.image = image;
+    }
+
+    public File getImage() {
+        return image;
+    }
+
+    public void setImage(File image) {
+        this.image = image;
+    }
+
+    public byte[] getImageFromServer() {
+        return imageFromServer;
+    }
+
+    public void setImageFromServer(byte[] imageFromServer) {
+        this.imageFromServer = imageFromServer;
     }
 
     public int getId() {
@@ -49,11 +70,5 @@ public class Product {
         this.id = id;
     }
 
-    public byte[] getImage() {
-        return image;
-    }
 
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
 }

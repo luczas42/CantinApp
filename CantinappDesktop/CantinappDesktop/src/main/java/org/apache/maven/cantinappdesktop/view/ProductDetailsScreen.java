@@ -6,9 +6,13 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import org.apache.maven.cantinappdesktop.model.Product;
 import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
 import retrofit2.Call;
@@ -19,7 +23,11 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.awt.image.WritableRaster;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 
 public class ProductDetailsScreen {
 
@@ -82,15 +90,13 @@ public class ProductDetailsScreen {
         public void onResponse(Call<Product> call, Response<Product> response) {
             if (!response.isSuccessful()) {
                 System.out.println(response.code());
-                return;
+                response.body().getImage().getName();
             }
-            Product postResponse = response.body();
         }
 
         @Override
         public void onFailure(Call<Product> call, Throwable t) {
-            System.out.println(t.getMessage() + t.getCause());
-            t.printStackTrace();
+            System.out.println(t.getMessage());
         }
     };
 
@@ -111,6 +117,9 @@ public class ProductDetailsScreen {
         }
     };
 
+    public ProductDetailsScreen() throws NoSuchAlgorithmException, KeyManagementException {
+    }
+
     ////
     //// IMAGE PROCESS
     ////
@@ -124,7 +133,7 @@ public class ProductDetailsScreen {
         fileChooser.setTitle("Select an Image");
         selectedFile = fileChooser.showOpenDialog(stage);
 
-        if(selectedFile!=null){
+        if (selectedFile != null) {
             productImage = new Image(selectedFile.getAbsolutePath());
             productImageView.setImage(productImage);
         }
@@ -161,29 +170,25 @@ public class ProductDetailsScreen {
 
     @FXML
     void registerProduct(ActionEvent event) throws IOException {
-        Product product;
         String productName = productNameField.getText();
         Float productPrice = Float.valueOf(productPriceField.getText());
-        if(selectedFile!=null){
-            byte[] image = imageToByteArray();
+        if (selectedFile != null) {
 
-//            products = new Products(productName, productPrice, image);
-//            retrofitInit.addProducts(addProductCallback, products);
-        }else{
-            System.out.println("sem imagem");
-//            products = new Products(productName, productPrice);
+            Product products = new Product(productName, productPrice, selectedFile);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), selectedFile);
+            MultipartBody.Part file = MultipartBody.Part.createFormData("image", selectedFile.getName(), requestBody);
+            RequestBody name = RequestBody.create(MediaType.parse("text/plain"), products.getName());
+            RequestBody price = RequestBody.create(MediaType.parse("text/plain"), products.getPrice().toString());
+            retrofitInit.addProducts(addProductCallback, name, price, file);
+        } else {
+            Product products = new Product(productName, productPrice);
+            RequestBody name = RequestBody.create(MediaType.parse("text/plain"), products.getName());
+            RequestBody price = RequestBody.create(MediaType.parse("text/plain"), products.getPrice().toString());
+            retrofitInit.addProducts(addProductCallback, name, price);
         }
 
         Stage stage = (Stage) productRegisterButton.getScene().getWindow();
         stage.close();
-    }
-
-    private byte[] imageToByteArray() throws IOException {
-        BufferedImage bufferedImage = ImageIO.read(selectedFile);
-
-        WritableRaster raster = bufferedImage .getRaster();
-        DataBufferByte data   = (DataBufferByte) raster.getDataBuffer();
-        return ( data.getData() );
     }
 
     ////
@@ -202,8 +207,8 @@ public class ProductDetailsScreen {
         productRegisterButton.setManaged(false);
 
         myProduct = selectedProduct;
-        if(myProduct.getImage()!=null){
-            Image image = new Image(new ByteArrayInputStream(selectedProduct.getImage()));
+        if (myProduct.getImage() != null) {
+            Image image = new Image(new ByteArrayInputStream(selectedProduct.getImageFromServer()));
             productImageView.setImage(image);
         }
 
