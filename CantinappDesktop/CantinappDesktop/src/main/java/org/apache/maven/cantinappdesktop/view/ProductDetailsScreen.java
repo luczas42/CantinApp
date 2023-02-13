@@ -13,16 +13,13 @@ import javafx.stage.Stage;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import org.apache.maven.cantinappdesktop.model.Product;
 import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.awt.image.WritableRaster;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -90,7 +87,7 @@ public class ProductDetailsScreen {
         public void onResponse(Call<Product> call, Response<Product> response) {
             if (!response.isSuccessful()) {
                 System.out.println(response.code());
-                response.body().getImage().getName();
+                response.body().getImageFile().getName();
             }
         }
 
@@ -207,13 +204,38 @@ public class ProductDetailsScreen {
         productRegisterButton.setManaged(false);
 
         myProduct = selectedProduct;
-        if (myProduct.getImage() != null) {
-            Image image = new Image(new ByteArrayInputStream(selectedProduct.getImageFromServer()));
-            productImageView.setImage(image);
+        if (myProduct.getImageFromServer() != null) {
+            System.out.println("teste");
+            RequestBody imageName = RequestBody.create(MediaType.parse("text/plain"), myProduct.getImageFromServer());
+            retrofitInit.getImage(productImageCallback, imageName);
         }
 
 
         productNameField.setText(selectedProduct.getName());
         productPriceField.setText(selectedProduct.getPrice().toString());
     }
+
+    Callback<ResponseBody> productImageCallback = new Callback<ResponseBody>() {
+        @Override
+        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            if (response.isSuccessful()) {
+                try {
+                    assert response.body() != null;
+                    byte[] data = response.body().bytes();
+                    Image img = new Image(new ByteArrayInputStream(data));
+                    System.out.println("image");
+                    productImageView.setImage(img);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<ResponseBody> call, Throwable t) {
+            t.printStackTrace();
+            System.out.println(t.getMessage());
+        }
+    };
+
 }

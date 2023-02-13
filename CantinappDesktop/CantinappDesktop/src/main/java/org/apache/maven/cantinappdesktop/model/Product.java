@@ -9,11 +9,10 @@ public class Product {
 
     @SerializedName("id")
     private int id;
+    private File imageFile;
+
     @SerializedName("image")
-    private File image;
-
-
-    private byte[] imageFromServer;
+    private String imageName;
     @SerializedName("name")
     private String name;
     @SerializedName("price")
@@ -24,26 +23,26 @@ public class Product {
         this.price = price;
     }
 
-    public Product(String name, Float price, File image) {
+    public Product(String name, Float price, File imageFile) {
         this.name = name;
         this.price = price;
-        this.image = image;
+        this.imageFile = imageFile;
     }
 
-    public File getImage() {
-        return image;
+    public File getImageFile() {
+        return imageFile;
     }
 
-    public void setImage(File image) {
-        this.image = image;
+    public void setImageFile(File imageFile) {
+        this.imageFile = imageFile;
     }
 
-    public byte[] getImageFromServer() {
-        return imageFromServer;
+    public String getImageFromServer() {
+        return imageName;
     }
 
-    public void setImageFromServer(byte[] imageFromServer) {
-        this.imageFromServer = imageFromServer;
+    public void setImageFromServer(String imageName) {
+        this.imageName = imageName;
     }
 
     public int getId() {

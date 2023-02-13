@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import org.apache.maven.cantinappdesktop.model.Employee;
 import org.apache.maven.cantinappdesktop.model.Product;
 import org.apache.maven.cantinappdesktop.model.User;
@@ -33,6 +34,10 @@ public class RetrofitInit {
 
     public void getProducts(Callback<List<Product>> callback) {
         this.apiService.getProducts().enqueue(callback);
+    }
+
+    public void getImage(Callback<ResponseBody> callback, RequestBody imageName){
+        this.apiService.getImage(imageName).enqueue(callback);
     }
 
     public void getEmployees(Callback<List<Employee>> callback) {

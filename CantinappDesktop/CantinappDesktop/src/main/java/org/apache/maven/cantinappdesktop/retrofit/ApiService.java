@@ -3,6 +3,7 @@ package org.apache.maven.cantinappdesktop.retrofit;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import org.apache.maven.cantinappdesktop.model.Employee;
 import org.apache.maven.cantinappdesktop.model.Product;
 import org.apache.maven.cantinappdesktop.model.User;
@@ -14,6 +15,10 @@ import java.util.List;
 public interface ApiService {
     @POST("products/getProducts.php")
     Call<List<Product>> getProducts();
+
+    @Multipart
+    @POST("/get_image")
+    Call<ResponseBody> getImage(@Part("image_name") RequestBody imageName);
 
     @POST("employees/getEmployees.php")
     Call<List<Employee>> getEmployees();

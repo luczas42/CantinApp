@@ -29,6 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.io.File;
 import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -96,8 +97,6 @@ public class MainScreenController {
     @FXML
     private TableView<Employee> employeeTableView;
 
-    public MainScreenController() throws NoSuchAlgorithmException, KeyManagementException {
-    }
 
     ////
     //// TABLE DISPLAYING FUNCTIONS: PRODUCTS, EMPLOYEES AND SCALES
@@ -110,13 +109,16 @@ public class MainScreenController {
         shiftsButton.setDisable(false);
         this.productsPane.toFront();
         productsButton.setDisable(true);
+        System.out.println("entrou");
         productsRefreshExecutor.scheduleAtFixedRate(() -> {
             try {
                 refreshProductsTable();
+                System.out.println("entrou");
+
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        }, 0, 2, TimeUnit.SECONDS);
+        }, 0, 4, TimeUnit.SECONDS);
     }
 
     @FXML
@@ -127,13 +129,13 @@ public class MainScreenController {
         shiftsButton.setDisable(false);
         this.employeePane.toFront();
         employeesButton.setDisable(true);
-        productsRefreshExecutor.scheduleAtFixedRate(() -> {
-            try {
-                refreshProductsTable();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }, 0, 2, TimeUnit.SECONDS);
+//        productsRefreshExecutor.scheduleAtFixedRate(() -> {
+//            try {
+//                refreshProductsTable();
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }, 0, 2, TimeUnit.SECONDS);
     }
 
     @FXML
@@ -144,13 +146,13 @@ public class MainScreenController {
         employeesButton.setDisable(false);
         shiftsButton.setDisable(true);
         this.workdaysPane.toFront();
-        productsRefreshExecutor.scheduleAtFixedRate(() -> {
-            try {
-                refreshProductsTable();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }, 0, 2, TimeUnit.SECONDS);
+//        productsRefreshExecutor.scheduleAtFixedRate(() -> {
+//            try {
+//                refreshProductsTable();
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }, 0, 2, TimeUnit.SECONDS);
     }
 
     ////
@@ -240,8 +242,8 @@ public class MainScreenController {
             EmployeeDetailsScreen employeeDetailsScreenController = fxmlLoader.getController();
             employeeDetailsScreenController.switchToEmployeeAddScreen();
             stage.showAndWait();
-            refreshProductsTable();
-        } catch (IOException | InterruptedException e) {
+//            refreshProductsTable();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -262,7 +264,7 @@ public class MainScreenController {
                 scaleDetailsScreen.switchToScaleEditScreen(selectedScale);
                 Thread.sleep(100);
                 stage.showAndWait();
-                productsRefreshExecutor.notify();
+//                productsRefreshExecutor.notify();
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
@@ -285,8 +287,8 @@ public class MainScreenController {
             ScaleDetailsScreen scaleDetailsScreenController = fxmlLoader.getController();
             scaleDetailsScreenController.swichToScaleAddScreen();
             stage.showAndWait();
-            refreshProductsTable();
-        } catch (IOException | InterruptedException e) {
+//            refreshProductsTable();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -310,10 +312,11 @@ public class MainScreenController {
     //// RETURNING PRODUCTS FROM API
     ////
 
+
     Callback<List<Product>> productCallback = new Callback<>() {
         public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
             List<Product> productList = response.body();
-
+            System.out.println(response.code());
             assert productList != null;
 
             ObservableList<Product> productObservableList = FXCollections.observableList(productList);
