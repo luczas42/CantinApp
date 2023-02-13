@@ -3,6 +3,7 @@ package org.apache.maven.cantinappdesktop.retrofit;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import org.apache.maven.cantinappdesktop.model.Employee;
 import org.apache.maven.cantinappdesktop.model.Product;
 import org.apache.maven.cantinappdesktop.model.User;
 import retrofit2.Call;
@@ -13,6 +14,9 @@ import java.util.List;
 public interface ApiService {
     @POST("products/getProducts.php")
     Call<List<Product>> getProducts();
+
+    @POST("employees/getEmployees.php")
+    Call<List<Employee>> getEmployees();
 
 
     @FormUrlEncoded

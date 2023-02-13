@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import org.apache.maven.cantinappdesktop.model.Employee;
 import org.apache.maven.cantinappdesktop.model.Product;
 import org.apache.maven.cantinappdesktop.model.User;
 import org.apache.maven.cantinappdesktop.util.FileTypeAdapter;
@@ -22,32 +23,33 @@ public class RetrofitInit {
     Retrofit retrofit = (new Retrofit.Builder()).baseUrl("http://54.207.241.251/CantinappServer/").addConverterFactory(GsonConverterFactory.create(gson)).build();
     ApiService apiService;
 
+    /// RETROFIT INSTANCE
+
     public RetrofitInit() {
         this.apiService = (ApiService) this.retrofit.create(ApiService.class);
     }
+
+    /// GETS
 
     public void getProducts(Callback<List<Product>> callback) {
         this.apiService.getProducts().enqueue(callback);
     }
 
+    public void getEmployees(Callback<List<Employee>> callback) {
+        this.apiService.getEmployees().enqueue(callback);
+    }
+
+    /// INSERTS
+
     public void addProducts(Callback<Product> call, RequestBody name, RequestBody price, MultipartBody.Part file) {
         this.apiService.addProduct(name, price, file).enqueue(call);
 
     }
+
     public void addProducts(Callback<Product> call, RequestBody name, RequestBody price) {
         this.apiService.addProduct(name, price).enqueue(call);
-
     }
 
-    public void editProducts(Callback<Product> call, Product product) {
-        this.apiService.editProduct(product.getName(), product.getPrice(), product.getId()).enqueue(call);
-    }
-
-    public void deleteProduct(Callback<Void> call, int id) {
-        this.apiService.deleteProduct(id).enqueue(call);
-    }
-
-    // USUARIO
     public void addUser(Callback<User> call, User user, String password) {
         this.apiService.addUser(user.getUsername(),
                         user.getName(),
@@ -57,9 +59,25 @@ public class RetrofitInit {
                 .enqueue(call);
     }
 
+    // USUARIO
+
+
+    /// EDITS
+
+    public void editProducts(Callback<Product> call, Product product) {
+        this.apiService.editProduct(product.getName(), product.getPrice(), product.getId()).enqueue(call);
+    }
+
+    /// DELETES
+
+    public void deleteProduct(Callback<Void> call, int id) {
+        this.apiService.deleteProduct(id).enqueue(call);
+    }
+
+    /// VERIFICATION
+
     public void checkLogin(Callback<User> call, String username, String password) {
         this.apiService.userLogin(username, password).enqueue(call);
     }
-
 
 }
