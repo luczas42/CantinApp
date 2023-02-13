@@ -119,6 +119,18 @@ public class MainScreenController {
                 throw new RuntimeException(e);
             }
         }, 0, 4, TimeUnit.SECONDS);
+        try {
+            refreshProductsTable();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+//        productsRefreshExecutor.scheduleAtFixedRate(() -> {
+//            try {
+//
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }, 0, 2, TimeUnit.SECONDS);
     }
 
     @FXML
@@ -129,6 +141,11 @@ public class MainScreenController {
         shiftsButton.setDisable(false);
         this.employeePane.toFront();
         employeesButton.setDisable(true);
+        try {
+            refreshEmployeeTable();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 //        productsRefreshExecutor.scheduleAtFixedRate(() -> {
 //            try {
 //                refreshProductsTable();
@@ -303,7 +320,7 @@ public class MainScreenController {
     public void refreshEmployeeTable() throws InterruptedException {
         retrofitInit.getEmployees(this.employeeCallback);
     }
-//    public void refreshProductsTable() throws InterruptedException {
+//    public void refreshScalesTable() throws InterruptedException {
 //        retrofitInit.getProducts(this.productCallback);
 //    }
 

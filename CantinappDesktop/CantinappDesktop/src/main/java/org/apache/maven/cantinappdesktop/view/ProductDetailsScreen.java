@@ -210,7 +210,6 @@ public class ProductDetailsScreen {
             retrofitInit.getImage(productImageCallback, imageName);
         }
 
-
         productNameField.setText(selectedProduct.getName());
         productPriceField.setText(selectedProduct.getPrice().toString());
     }

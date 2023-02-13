@@ -64,8 +64,9 @@ public class RetrofitInit {
                 .enqueue(call);
     }
 
-    // USUARIO
-
+    public void addEmployee(Callback<Employee> call, Employee employee){
+        this.apiService.addEmployee(employee.getName(), employee.getClasS()).enqueue(call);
+    }
 
     /// EDITS
 

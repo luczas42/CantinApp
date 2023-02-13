@@ -1,6 +1,7 @@
 package org.apache.maven.cantinappdesktop.retrofit;
 
 
+import javafx.fxml.FXML;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -56,4 +57,9 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("users/login.php")
     Call<User> userLogin(@Field("username") String username, @Field("password") String password);
+
+    @POST("employees/addEmployee.php")
+    @Multipart
+    Call<Employee> addEmployee(@Part("name") String name,
+                           @Part("class") String clasS);
 }
