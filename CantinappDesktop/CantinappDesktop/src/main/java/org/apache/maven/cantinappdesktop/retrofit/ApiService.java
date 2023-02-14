@@ -19,7 +19,7 @@ public interface ApiService {
     Call<List<Product>> getProducts();
 
     @Multipart
-    @POST("/get_image")
+    @POST("products/getProductImage.php")
     Call<ResponseBody> getImage(@Part("image_name") RequestBody imageName);
 
     @POST("employees/getEmployees.php")
