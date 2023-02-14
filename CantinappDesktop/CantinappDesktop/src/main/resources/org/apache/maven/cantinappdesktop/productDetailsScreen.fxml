@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="485.0" prefWidth="400.0" style="-fx-background-radius: 10; -fx-background-color: #F4F4F0;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.apache.maven.cantinappdesktop.view.ProductDetailsScreen">
+   <children>
+      <VBox alignment="TOP_CENTER" prefHeight="485.0" prefWidth="400.0">
+         <children>
+            <Label fx:id="productEditLabel" style="-fx-text-fill: #00A87D;" text="Cadastro de Produtos" textAlignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="40.0" />
+               </VBox.margin>
+            </Label>
+            <ImageView fx:id="productImageView" fitHeight="156.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+               <image>
+                  <Image url="@img/image-placeholder.png" />
+               </image>
+            </ImageView>
+            <Button id="general-button-style" fx:id="addProductImageButton" mnemonicParsing="false" onAction="#addProductImage" text="Adicionar Imagem">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Button>
+            <TextField id="aux-fields" fx:id="productNameField" promptText="Nome">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="50.0" right="50.0" top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField id="aux-fields" fx:id="productPriceField" promptText="Preço">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="50.0" right="50.0" />
+               </VBox.margin>
+            </TextField>
+            <HBox alignment="CENTER" prefHeight="54.0" prefWidth="400.0">
+               <children>
+                  <Button id="general-button-style" fx:id="productEditButton" mnemonicParsing="false" onAction="#editProduct" text="Alterar">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <HBox.margin>
+                        <Insets right="8.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Button>
+                  <Button id="general-button-style" fx:id="productRegisterButton" mnemonicParsing="false" onAction="#registerProduct" text="Cadastrar">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="8.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Button>
+                  <Button id="general-button-style" fx:id="productDeleteButton" mnemonicParsing="false" onAction="#deleteProduct" text="Excluir">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets right="8.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button id="general-button-style" fx:id="cancelProductEditButton" cancelButton="true" mnemonicParsing="false" onAction="#closeProductEditScreen" text="Cancelar">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
