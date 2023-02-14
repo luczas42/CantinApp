@@ -71,6 +71,20 @@ public class ScaleListAdapter extends RecyclerView.Adapter<ScaleListAdapter.View
         }
         setFilteredList(filteredList);
     }
+    public void updateItems(List<Turn> allTurns, boolean showInf4am, boolean showInf4at, boolean showRefri) {
+        List<Turn> switchFilteredList = new ArrayList<>();
+        for (Turn turn : allTurns) {
+            if (showInf4am && turn.getEmployeeClass().equalsIgnoreCase("inf4am")) {
+                switchFilteredList.add(turn);
+            } else if (showInf4at && turn.getEmployeeClass().equalsIgnoreCase("inf4at")) {
+                switchFilteredList.add(turn);
+            } else if (showRefri && turn.getEmployeeClass().equalsIgnoreCase("refri4am")) {
+                switchFilteredList.add(turn);
+            }
+        }
+        this.turnList = switchFilteredList;
+        notifyDataSetChanged();
+    }
 
     private void setFilteredList(List<Turn> filteredList) {
         this.turnList = filteredList;
@@ -95,7 +109,7 @@ public class ScaleListAdapter extends RecyclerView.Adapter<ScaleListAdapter.View
                 binding.recyclerDaysCardviewClass.setCardBackgroundColor(Color.parseColor("#1849C7"));
             } else if (turn.getEmployeeClass().equalsIgnoreCase("inf4at")) {
                 binding.recyclerDaysCardviewClass.setCardBackgroundColor(Color.parseColor("#000103"));
-            } else if (turn.getEmployeeClass().equalsIgnoreCase("refri4at")) {
+            } else if (turn.getEmployeeClass().equalsIgnoreCase("refri4am")) {
                 binding.recyclerDaysCardviewClass.setCardBackgroundColor(Color.parseColor("#921835"));
             }
         }

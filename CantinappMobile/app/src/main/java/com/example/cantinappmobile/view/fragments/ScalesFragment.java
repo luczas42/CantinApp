@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,7 +21,6 @@ import com.example.cantinappmobile.model.Turn;
 import com.example.cantinappmobile.view.adapter.EmployeeAdapter;
 import com.example.cantinappmobile.view.adapter.ScaleListAdapter;
 import com.example.cantinappmobile.view.viewmodel.Connection;
-import com.example.cantinappmobile.view.viewmodel.ProductsFragmentViewModel;
 import com.example.cantinappmobile.view.viewmodel.ScalesViewModel;
 
 import java.util.List;
@@ -32,6 +32,9 @@ public class ScalesFragment extends Fragment {
     ScaleListAdapter scaleAdapter = new ScaleListAdapter();
 
     private FragmentScalesBinding binding;
+    SwitchCompat inf4amFilter;
+    SwitchCompat inf4atFilter;
+    SwitchCompat refriFilter;
     private ScalesViewModel viewModel;
 
     @Override
@@ -46,9 +49,12 @@ public class ScalesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+         inf4amFilter = binding.classFilter.filterSwitchInf4am;
+         inf4atFilter = binding.classFilter.filterSwitchInf4at;
+         refriFilter = binding.classFilter.filterSwitchRefri4am;
+
         viewModel = new ViewModelProvider(requireActivity()).get(ScalesViewModel.class);
         viewModel.getTurns();
-
         observeConnection();
 
         viewModel.getDisplayValue().observe(getViewLifecycleOwner(), display -> {
@@ -64,9 +70,9 @@ public class ScalesFragment extends Fragment {
         viewModel.turnLiveData.observe(getViewLifecycleOwner(), this::createAdapter);
     }
 
-    private void observeEmployees(List<Turn> turns){
+    private void observeEmployees(List<Turn> turns) {
         viewModel.employeeConnectionLiveData.observe(getViewLifecycleOwner(), connection -> {
-            if (connection == Connection.Successfull){
+            if (connection == Connection.Successfull) {
                 observeSearch(turns);
             }
         });
@@ -85,7 +91,7 @@ public class ScalesFragment extends Fragment {
         binding.recyclerDays.setAdapter(scaleAdapter);
         binding.recyclerDays.setLayoutManager(new LinearLayoutManager(requireContext()));
         scaleAdapter.append(turns);
-
+        setupFilters(turns);
         scaleAdapter.setOnClickListener((position, turn) -> {
             setupPopup(turn);
         });
@@ -95,9 +101,34 @@ public class ScalesFragment extends Fragment {
 
     private void observeSearch(List<Turn> turns) {
         viewModel.employeeSearchQuery.observe(getViewLifecycleOwner(), query -> {
-            if (!query.equalsIgnoreCase("")){
+            if (!query.equalsIgnoreCase("")) {
+                resetFilters();
                 scaleAdapter.search(query, turns);
+            }else{
+                scaleAdapter.append(turns);
             }
+        });
+    }
+
+    private void resetFilters() {
+        inf4amFilter.setChecked(true);
+        inf4atFilter.setChecked(true);
+        refriFilter.setChecked(true);
+    }
+
+    private void setupFilters(List<Turn> turns) {
+
+
+        binding.classFilter.filterSwitchInf4am.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            scaleAdapter.updateItems(turns, inf4amFilter.isChecked(), inf4atFilter.isChecked(), refriFilter.isChecked());
+        });
+
+        binding.classFilter.filterSwitchInf4at.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            scaleAdapter.updateItems(turns, inf4amFilter.isChecked(), inf4atFilter.isChecked(), refriFilter.isChecked());
+        });
+
+        binding.classFilter.filterSwitchRefri4am.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            scaleAdapter.updateItems(turns, inf4amFilter.isChecked(), inf4atFilter.isChecked(), refriFilter.isChecked());
         });
     }
 
