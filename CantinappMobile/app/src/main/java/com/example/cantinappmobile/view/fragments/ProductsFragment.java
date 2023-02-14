@@ -1,12 +1,15 @@
 package com.example.cantinappmobile.view.fragments;
 
 import android.app.Dialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -68,6 +71,7 @@ public class ProductsFragment extends Fragment {
 
     private void observeProducts(ProductsFragmentViewModel viewModel) {
         binding.tvError.setVisibility(View.GONE);
+        System.out.println("productsYes");
         viewModel.productResponseLiveData.observe(getViewLifecycleOwner(), this::createAdapter);
     }
 
@@ -78,6 +82,7 @@ public class ProductsFragment extends Fragment {
     private void createAdapter(List<Product> productList) {
         binding.recyclerProducts.setAdapter(productAdapter);
         binding.recyclerProducts.setLayoutManager(new LinearLayoutManager(requireContext()));
+
         productAdapter.append(productList);
         productAdapter.setOnClickListener((position, product) -> setupPopup(product));
 
@@ -93,9 +98,14 @@ public class ProductsFragment extends Fragment {
         Button closeButton = myDialog.findViewById(R.id.bt_popup_close);
         TextView productName = myDialog.findViewById(R.id.tv_popup_name);
         TextView productPrice = myDialog.findViewById(R.id.tv_popup_price);
+        ImageView imageView = myDialog.findViewById(R.id.iv_popup_image);
 
         productName.setText(product.getName());
         productPrice.setText(MoneyFormatter.moneyFormat(product.getPrice()));
+        if (product.getImageView()!=null){
+            Bitmap bmp= BitmapFactory.decodeByteArray(product.getImageView(),0,product.getImageView().length);
+            imageView.setImageBitmap(bmp);
+        }
 
         setPopupClick(myDialog, closeButton);
         myDialog.show();

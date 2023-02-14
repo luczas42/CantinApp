@@ -1,8 +1,11 @@
 package com.example.cantinappmobile.view.adapter;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +16,7 @@ import com.example.cantinappmobile.resources.MoneyFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ViewHolder> {
 
@@ -82,6 +86,12 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         public void bind(Product product) {
             binding.recyclerProductName.setText(product.getName());
             binding.recyclerProductPrice.setText(MoneyFormatter.moneyFormat(product.getPrice()));
+            if (product.getImageView()!=null){
+                System.out.println(product.getName());
+                System.out.println(product.getImage());
+                Bitmap bmp= BitmapFactory.decodeByteArray(product.getImageView(),0,product.getImageView().length);
+                binding.recyclerProductImage.setImageBitmap(bmp);
+            }
         }
     }
 

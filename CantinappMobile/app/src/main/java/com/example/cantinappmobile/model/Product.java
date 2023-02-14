@@ -9,9 +9,32 @@ public class Product {
     @SerializedName("price")
     Float price;
     @SerializedName("image")
-    byte[] image;
+    String image;
 
-    public Product(String name, Float price, byte[] image) {
+    byte[] imageView;
+
+    public Product(String name, Float price, String image, byte[] imageView) {
+        this.name = name;
+        this.price = price;
+        this.image = image;
+        this.imageView = imageView;
+    }
+
+    public Product(String name, Float price, byte[] imageView) {
+        this.name = name;
+        this.price = price;
+        this.imageView = imageView;
+    }
+
+    public byte[] getImageView() {
+        return imageView;
+    }
+
+    public void setImageView(byte[] imageView) {
+        this.imageView = imageView;
+    }
+
+    public Product(String name, Float price, String image) {
         this.name = name;
         this.price = price;
         this.image = image;
@@ -22,11 +45,11 @@ public class Product {
         this.price = price;
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

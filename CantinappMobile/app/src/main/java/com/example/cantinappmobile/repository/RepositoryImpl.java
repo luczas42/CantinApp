@@ -9,6 +9,8 @@ import com.example.cantinappmobile.retrofit.WebService;
 
 import java.util.List;
 
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 
 public class RepositoryImpl implements Repository {
@@ -20,6 +22,10 @@ public class RepositoryImpl implements Repository {
     @Override
     public Call<List<Product>> retrieveProductsFromWebService() {
         return webService.retrieveProducts();
+    }
+
+    public Call<ResponseBody> getImage(RequestBody imageName){
+        return webService.getImage(imageName);
     }
 
     public Call<List<User>> userLogin(String username, String password){

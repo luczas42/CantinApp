@@ -8,11 +8,16 @@ import androidx.lifecycle.ViewModel;
 import com.example.cantinappmobile.model.Product;
 import com.example.cantinappmobile.repository.RepositoryImpl;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,6 +40,7 @@ public class ProductsFragmentViewModel extends ViewModel {
 
         Call<List<Product>> productCall = repository.retrieveProductsFromWebService();
 
+
         productCall.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
@@ -45,6 +51,14 @@ public class ProductsFragmentViewModel extends ViewModel {
                     if (data != null) {
                         connectionLiveData.setValue(Connection.Successfull);
                         _productResponseLiveData.setValue(data);
+                        int position = 0;
+                        for (Product product :
+                                Objects.requireNonNull(productResponseLiveData.getValue())) {
+                            retrieveProductImage(product);
+                            System.out.println("leesgo");
+                            position++;
+                        }
+
                     } else {
                         //dá pra melhorar usando outro tipo de erro, pra saber se é erro de conexao ou se veio nulo, mas nao é importante agora
                         connectionLiveData.setValue(Connection.Failed);
@@ -57,6 +71,37 @@ public class ProductsFragmentViewModel extends ViewModel {
                 connectionLiveData.setValue(Connection.Failed);
             }
         });
+    }
+
+    public void retrieveProductImage(Product currentProduct) {
+        if (currentProduct.getImage() != null && !currentProduct.getImage().equals("")) {
+            RequestBody imageName = RequestBody.create(MediaType.parse("text/plain"), currentProduct.getImage());
+            Call<ResponseBody> productImageCallback = repository.getImage(imageName);
+            productImageCallback.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response.isSuccessful()) {
+                        try {
+                            assert response.body() != null;
+                            byte[] data = response.body().bytes();
+                            currentProduct.setImageView(data);
+                            System.out.println(currentProduct.getImageView().length);
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    t.printStackTrace();
+                    t.getMessage();
+                }
+            });
+        }
+
+
     }
 }
 

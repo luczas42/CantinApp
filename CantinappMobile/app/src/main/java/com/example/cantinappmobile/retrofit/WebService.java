@@ -7,15 +7,23 @@ import com.example.cantinappmobile.model.User;
 
 import java.util.List;
 
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 public interface WebService {
 
     @POST("products/getProducts.php")
     Call<List<Product>> retrieveProducts();
+
+    @Multipart
+    @POST("products/getProductImage.php")
+    Call<ResponseBody> getImage(@Part("image_name") RequestBody imageName);
 
     @FormUrlEncoded
     @POST("users/login.php")
