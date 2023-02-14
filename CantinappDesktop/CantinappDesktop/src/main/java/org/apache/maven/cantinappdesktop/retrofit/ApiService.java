@@ -7,6 +7,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import org.apache.maven.cantinappdesktop.model.Employee;
 import org.apache.maven.cantinappdesktop.model.Product;
+import org.apache.maven.cantinappdesktop.model.Scale;
 import org.apache.maven.cantinappdesktop.model.User;
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -60,6 +61,10 @@ public interface ApiService {
 
     @POST("employees/addEmployee.php")
     @Multipart
-    Call<Employee> addEmployee(@Part("name") String name,
-                           @Part("class") String clasS);
+    Call<Employee> addEmployee(@Part("name") RequestBody name,
+                           @Part("class") RequestBody clasS);
+
+    @POST("scales/getScale.php")
+    @Multipart
+    Call<Scale> getScales(@Part("turn_id") RequestBody turn_id);
 }

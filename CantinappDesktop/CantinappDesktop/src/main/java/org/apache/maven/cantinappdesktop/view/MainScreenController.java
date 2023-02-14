@@ -110,27 +110,20 @@ public class MainScreenController {
         this.productsPane.toFront();
         productsButton.setDisable(true);
         System.out.println("entrou");
-        productsRefreshExecutor.scheduleAtFixedRate(() -> {
-            try {
-                refreshProductsTable();
-                System.out.println("entrou");
-
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }, 0, 4, TimeUnit.SECONDS);
+//        productsRefreshExecutor.scheduleAtFixedRate(() -> {
+//            try {
+//                refreshProductsTable();
+//                System.out.println("entrou");
+//
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }, 0, 4, TimeUnit.SECONDS);
         try {
             refreshProductsTable();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-//        productsRefreshExecutor.scheduleAtFixedRate(() -> {
-//            try {
-//
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }, 0, 2, TimeUnit.SECONDS);
     }
 
     @FXML
@@ -163,6 +156,11 @@ public class MainScreenController {
         employeesButton.setDisable(false);
         shiftsButton.setDisable(true);
         this.workdaysPane.toFront();
+        try {
+                refreshScalesTable();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
 //        productsRefreshExecutor.scheduleAtFixedRate(() -> {
 //            try {
 //                refreshProductsTable();
@@ -320,9 +318,9 @@ public class MainScreenController {
     public void refreshEmployeeTable() throws InterruptedException {
         retrofitInit.getEmployees(this.employeeCallback);
     }
-//    public void refreshScalesTable() throws InterruptedException {
-//        retrofitInit.getProducts(this.productCallback);
-//    }
+    public void refreshScalesTable() throws InterruptedException {
+//        retrofitInit.getScales(this.scalesCallback);
+    }
 
 
     ////
@@ -358,7 +356,7 @@ public class MainScreenController {
             ObservableList<Employee> employeeObservableList = FXCollections.observableList(employeeList);
 
             MainScreenController.this.employeeNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
-            MainScreenController.this.employeeClassTableColumn.setCellValueFactory(new PropertyValueFactory<>("Class"));
+            MainScreenController.this.employeeClassTableColumn.setCellValueFactory(new PropertyValueFactory<>("ClasS"));
             MainScreenController.this.employeeTableView.setItems(employeeObservableList);
             productsTableView.refresh();
         }

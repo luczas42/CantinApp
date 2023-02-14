@@ -71,9 +71,26 @@ public class ScaleDetailsScreen {
     }
 
     @FXML
-    void closeProductEditScreen(ActionEvent event) {
+    void closeDetailsScreen(ActionEvent event) {
         Stage stage = (Stage) closeScaleDetailsScreenButton.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    void addEmployeeToScale(){
+
+    }
+    @FXML
+    void editScale(){
+
+    }
+    @FXML
+    void deleteScale(){
+
+    }
+    @FXML
+    void registerScale(){
+
     }
 
 }

@@ -7,6 +7,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import org.apache.maven.cantinappdesktop.model.Employee;
 import org.apache.maven.cantinappdesktop.model.Product;
+import org.apache.maven.cantinappdesktop.model.Scale;
 import org.apache.maven.cantinappdesktop.model.User;
 import org.apache.maven.cantinappdesktop.util.FileTypeAdapter;
 import retrofit2.Callback;
@@ -44,6 +45,10 @@ public class RetrofitInit {
         this.apiService.getEmployees().enqueue(callback);
     }
 
+    public void getScales(Callback<Scale> callback, RequestBody turn_id){
+        this.apiService.getScales(turn_id).enqueue(callback);
+    }
+
     /// INSERTS
 
     public void addProducts(Callback<Product> call, RequestBody name, RequestBody price, MultipartBody.Part file) {
@@ -64,8 +69,8 @@ public class RetrofitInit {
                 .enqueue(call);
     }
 
-    public void addEmployee(Callback<Employee> call, Employee employee){
-        this.apiService.addEmployee(employee.getName(), employee.getClasS()).enqueue(call);
+    public void addEmployee(Callback<Employee> call, RequestBody name, RequestBody clasS){
+        this.apiService.addEmployee(name, clasS).enqueue(call);
     }
 
     /// EDITS

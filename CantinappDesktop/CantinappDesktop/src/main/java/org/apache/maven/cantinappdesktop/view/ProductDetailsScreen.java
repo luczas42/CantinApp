@@ -124,8 +124,7 @@ public class ProductDetailsScreen {
     @FXML
     void addProductImage(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
-                "IMG files (*.png, *.jpg, *.jpeg) ", "*.png", "*.jpg", "*.jpeg");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("IMG files (*.png, *.jpg, *.jpeg) ", "*.png", "*.jpg", "*.jpeg");
         fileChooser.getExtensionFilters().add(extFilter);
         fileChooser.setTitle("Select an Image");
         selectedFile = fileChooser.showOpenDialog(stage);

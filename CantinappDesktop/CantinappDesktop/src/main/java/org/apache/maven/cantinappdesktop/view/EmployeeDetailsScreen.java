@@ -1,6 +1,5 @@
 package org.apache.maven.cantinappdesktop.view;
 
-import com.sun.javafx.collections.ImmutableObservableList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -8,14 +7,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import org.apache.maven.cantinappdesktop.model.Employee;
 import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import java.util.ArrayList;
-import java.util.Objects;
 
 public class EmployeeDetailsScreen {
 
@@ -65,8 +63,10 @@ public class EmployeeDetailsScreen {
         String employeeClass = cbEmployeeClass.getSelectionModel().getSelectedItem().toString();
 
         Employee newEmployee = new Employee(employeeName, employeeClass);
-        retrofitInit.addEmployee(addEmployeeCallback, newEmployee);
-        System.out.println(newEmployee.getName() + newEmployee.getClasS());
+        RequestBody name = RequestBody.create(MediaType.parse("text/plain"), employeeName);
+        RequestBody clasS = RequestBody.create(MediaType.parse("text/plain"), employeeClass);
+
+        retrofitInit.addEmployee(addEmployeeCallback, name, clasS);
 
     }
 
@@ -95,9 +95,7 @@ public class EmployeeDetailsScreen {
             }else{
                 System.out.println("sucesso");
             }
-
         }
-
         @Override
         public void onFailure(Call<Employee> call, Throwable t) {
             System.out.println(t.getMessage());
