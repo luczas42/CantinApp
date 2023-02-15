@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -71,7 +72,6 @@ public class ProductsFragment extends Fragment {
 
     private void observeProducts(ProductsFragmentViewModel viewModel) {
         binding.tvError.setVisibility(View.GONE);
-        System.out.println("productsYes");
         viewModel.productResponseLiveData.observe(getViewLifecycleOwner(), this::createAdapter);
     }
 
@@ -82,10 +82,8 @@ public class ProductsFragment extends Fragment {
     private void createAdapter(List<Product> productList) {
         binding.recyclerSaltyProducts.setAdapter(productAdapter);
         binding.recyclerSaltyProducts.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
-
         productAdapter.append(productList);
         productAdapter.setOnClickListener((position, product) -> setupPopup(product));
-
         viewModel.productSearchQuery.observe(getViewLifecycleOwner(), query -> {
             productAdapter.search(query, productList);
         });

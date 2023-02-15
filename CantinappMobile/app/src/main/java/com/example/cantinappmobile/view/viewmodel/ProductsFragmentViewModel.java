@@ -55,7 +55,6 @@ public class ProductsFragmentViewModel extends ViewModel {
                         for (Product product :
                                 Objects.requireNonNull(productResponseLiveData.getValue())) {
                             retrieveProductImage(product);
-                            System.out.println("leesgo");
                             position++;
                         }
 
@@ -85,8 +84,6 @@ public class ProductsFragmentViewModel extends ViewModel {
                             assert response.body() != null;
                             byte[] data = response.body().bytes();
                             currentProduct.setImageView(data);
-                            System.out.println(currentProduct.getImageView().length);
-
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
