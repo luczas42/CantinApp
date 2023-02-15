@@ -2,10 +2,7 @@ package org.apache.maven.cantinappdesktop.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Scale {
@@ -17,7 +14,7 @@ public class Scale {
     private String clasS;
     /// clasS is used as a substitute for the word 'class', which is marked as a key word
     @SerializedName("day")
-    private Date day;
+    private String day;
     @SerializedName("period")
     private int period;
     /// period = 0 means morning
@@ -33,14 +30,14 @@ public class Scale {
         this.employeeList = employeeList;
     }
 
-    public Scale(String clasS, Date day, int period, List<Employee> employeeList) {
+    public Scale(String clasS, String day, int period, List<Employee> employeeList) {
         this.clasS = clasS;
         this.day = day;
         this.period = period;
         this.employeeList = employeeList;
     }
 
-    public Scale(String clasS, Date day, int period) {
+    public Scale(String clasS, String day, int period) {
         this.clasS = clasS;
         this.day = day;
         this.period = period;
@@ -85,11 +82,11 @@ public class Scale {
         this.period = period;
     }
 
-    public Date getDay() {
+    public String getDay() {
         return day;
     }
 
-    public void setDay(Date day) {
+    public void setDay(String day) {
         this.day = day;
     }
 
@@ -108,5 +105,8 @@ public class Scale {
 
     public void setEmployeeNamesString(List<String> employeeNamesString) {
         this.employeeNamesString = employeeNamesString;
+    }
+    public void formatDay(){
+
     }
 }

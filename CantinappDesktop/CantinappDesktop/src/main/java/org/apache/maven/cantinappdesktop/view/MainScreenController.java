@@ -43,7 +43,8 @@ public class MainScreenController {
     ScheduledExecutorService scaleRefreshExecutor;
     ScheduledExecutorService employeeRefreshExecutor = Executors.newSingleThreadScheduledExecutor();
 
-    List<Scale> turnList;
+    List<Scale> turnList = new ArrayList<>();
+    List<Scale> auxScaleList = new ArrayList<>();
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -331,7 +332,6 @@ public class MainScreenController {
     Callback<List<Product>> productCallback = new Callback<>() {
         public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
             List<Product> productList = response.body();
-            System.out.println(response.code());
             assert productList != null;
 
             ObservableList<Product> productObservableList = FXCollections.observableList(productList);
@@ -368,9 +368,11 @@ public class MainScreenController {
     Callback<List<Scale>> scalesCallback = new Callback<List<Scale>>() {
         @Override
         public void onResponse(Call<List<Scale>> call, Response<List<Scale>> response) {
+
             turnList = response.body();
             assert turnList != null;
-            metodo(turnList);
+            populateScaleEmployees();
+
         }
 
         @Override
@@ -378,33 +380,14 @@ public class MainScreenController {
 
         }
     };
-    List<Scale> auxScaleList = new ArrayList<>();
 
+    void populateScaleEmployees() {
 
-    void metodo(List<Scale> list) {
         Callback<List<Employee>> scalesEmployeeCallback = new Callback<List<Employee>>() {
             @Override
             public void onResponse(Call<List<Employee>> call, Response<List<Employee>> response) {
                 if (response.isSuccessful()) {
-                    for (Scale scale :
-                            list) {
-                        scale.setEmployeeList(response.body());
-                        method(scale);
-                    }
-                    setDefaultList(auxScaleList);
-                    ObservableList<Scale> turnObservableList = FXCollections.observableList(turnList);
-
-                    for (Scale scale :
-                            turnObservableList) {
-                        scale.createNameString();
-                    }
-
-                    MainScreenController.this.scaleClassTableColumn.setCellValueFactory(new PropertyValueFactory<>("ClasS"));
-                    MainScreenController.this.scaleDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
-                    MainScreenController.this.scalePeriodTableColumn.setCellValueFactory(new PropertyValueFactory<>("Period"));
-                    MainScreenController.this.scaleEmployeeTableColumn.setCellValueFactory(new PropertyValueFactory<>("employeeNamesString"));
-                    MainScreenController.this.scaleTableView.setItems(turnObservableList);
-                    productsTableView.refresh();
+                    extracted(response);
                 }
             }
 
@@ -413,22 +396,41 @@ public class MainScreenController {
                 throwable.getMessage();
             }
         };
+
+        /// SERVER CALL FROM EACH SCALE (GETTING EMPLOYEES)
         for (Scale scale :
-                list) {
+                turnList) {
             retrofitInit.getScalesEmployee(scalesEmployeeCallback, scale.getTurn_id());
         }
+
     }
 
-    private void setDefaultList(List<Scale> auxScaleList) {
+    private void extracted(Response<List<Employee>> response) {
+        setEmployeesToScale(response);
         turnList = auxScaleList;
-        System.out.println(turnList.size());
+        ObservableList<Scale> turnObservableList = FXCollections.observableList(turnList);
+
+        for (Scale scale :
+                turnObservableList) {
+            scale.createNameString();
+        }
+
+        MainScreenController.this.scaleClassTableColumn.setCellValueFactory(new PropertyValueFactory<>("ClasS"));
+        MainScreenController.this.scaleDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("Day"));
+        MainScreenController.this.scalePeriodTableColumn.setCellValueFactory(new PropertyValueFactory<>("Period"));
+        MainScreenController.this.scaleEmployeeTableColumn.setCellValueFactory(new PropertyValueFactory<>("EmployeeNamesString"));
+        MainScreenController.this.scaleTableView.setItems(turnObservableList);
+        productsTableView.refresh();
     }
 
-    private void method(Scale scale) {
-        auxScaleList.add(scale);
-        System.out.println(auxScaleList.size() + "dentro");
-    }
+    private void setEmployeesToScale(Response<List<Employee>> response) {
+        auxScaleList = turnList;
+        for (Scale scale :
+                auxScaleList) {
+            scale.setEmployeeList(response.body());
+        }
 
+    }
 
     ////
     //// ADDITIONAL BUTTON ACTIONS (LOGOUT, CLOSE AND MINIMIZE)

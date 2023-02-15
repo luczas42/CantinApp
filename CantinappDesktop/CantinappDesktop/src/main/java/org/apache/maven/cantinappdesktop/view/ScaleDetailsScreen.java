@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 import org.apache.maven.cantinappdesktop.model.Employee;
 import org.apache.maven.cantinappdesktop.model.Scale;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class ScaleDetailsScreen {
