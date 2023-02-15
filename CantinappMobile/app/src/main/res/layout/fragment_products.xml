@@ -2,31 +2,83 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     style="@style/background"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.activities.ListsActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_products"
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_salty"
+        style="@style/productCardTitle"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/product_listitem"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_salty_products"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:itemCount="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_salty_text"
+                tools:listitem="@layout/product_listitem" />
+
+            <TextView
+                android:id="@+id/tv_salty_text"
+                style="@style/productCardTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="Salgados"
+                android:textSize="20sp"
+                tools:layout_editor_absoluteX="8dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_sweet_text"
+        android:text="Doces"
+        android:layout_marginStart="8dp"
+        app:layout_constraintTop_toBottomOf="@id/card_salty"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/recycler_sweet_products"
+        style="@style/productCardTitle"
+        android:textSize="20sp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_sweet_products"
+        android:layout_width="0dp"
+        tools:itemCount="1"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_sweet_text"
+        app:layout_constraintVertical_bias="0"
+        tools:listitem="@layout/product_listitem" />
 
     <TextView
         android:id="@+id/tv_error"
+        style="@style/productCardDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/an_error_has_ocurred"
         android:textAlignment="center"
         android:visibility="gone"
-        style="@style/productCardDescription"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

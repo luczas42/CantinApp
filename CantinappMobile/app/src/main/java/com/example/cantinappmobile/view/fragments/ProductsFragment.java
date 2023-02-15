@@ -80,8 +80,8 @@ public class ProductsFragment extends Fragment {
     }
 
     private void createAdapter(List<Product> productList) {
-        binding.recyclerProducts.setAdapter(productAdapter);
-        binding.recyclerProducts.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.recyclerSaltyProducts.setAdapter(productAdapter);
+        binding.recyclerSaltyProducts.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
 
         productAdapter.append(productList);
         productAdapter.setOnClickListener((position, product) -> setupPopup(product));

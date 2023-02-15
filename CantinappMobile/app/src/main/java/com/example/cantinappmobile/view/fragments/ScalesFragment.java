@@ -118,7 +118,6 @@ public class ScalesFragment extends Fragment {
 
     private void setupFilters(List<Turn> turns) {
 
-
         binding.classFilter.filterSwitchInf4am.setOnCheckedChangeListener((buttonView, isChecked) -> {
             scaleAdapter.updateItems(turns, inf4amFilter.isChecked(), inf4atFilter.isChecked(), refriFilter.isChecked());
         });

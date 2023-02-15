@@ -33,7 +33,7 @@ public interface WebService {
     @POST("users/addUser.php")
     Call<User> addUser(@Field("username")String username, @Field("name") String name, @Field("password") String password, @Field("isUser") int isUser, @Field("email") String email );
 
-    @POST("turn/getTurns.php")
+    @POST("turns/getTurns.php")
     Call<List<Turn>> getTurns();
 
     @FormUrlEncoded
