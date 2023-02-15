@@ -165,7 +165,7 @@ public class ProductDetailsScreen {
     }
 
     @FXML
-    void registerProduct(ActionEvent event) throws IOException {
+    void registerProduct() throws IOException {
         String productName = productNameField.getText();
         Float productPrice = Float.valueOf(productPriceField.getText());
         if (selectedFile != null) {

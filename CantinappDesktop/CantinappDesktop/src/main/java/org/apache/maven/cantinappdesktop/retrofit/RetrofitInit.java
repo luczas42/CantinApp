@@ -5,10 +5,7 @@ import com.google.gson.GsonBuilder;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import org.apache.maven.cantinappdesktop.model.Employee;
-import org.apache.maven.cantinappdesktop.model.Product;
-import org.apache.maven.cantinappdesktop.model.Scale;
-import org.apache.maven.cantinappdesktop.model.User;
+import org.apache.maven.cantinappdesktop.model.*;
 import org.apache.maven.cantinappdesktop.util.FileTypeAdapter;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -45,8 +42,12 @@ public class RetrofitInit {
         this.apiService.getEmployees().enqueue(callback);
     }
 
-    public void getScales(Callback<Scale> callback, RequestBody turn_id){
-        this.apiService.getScales(turn_id).enqueue(callback);
+    public void getScalesEmployee(Callback<List<Employee>> callback, int turn_id){
+        this.apiService.getScalesEmployee(turn_id).enqueue(callback);
+    }
+
+    public void getScalesTurn(Callback<List<Scale>> callback){
+        this.apiService.getTurns().enqueue(callback);
     }
 
     /// INSERTS

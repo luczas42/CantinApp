@@ -4,15 +4,24 @@ import com.google.gson.annotations.SerializedName;
 
 public class Employee {
 
+    @SerializedName("id_emp")
+    private int employeeId;
+    @SerializedName("id_scale")
+    private int scaleId;
     @SerializedName("name")
     private String name;
-
     @SerializedName("class")
     private String clasS;
 
     public Employee(String name, String clasS) {
         this.name = name;
         this.clasS = clasS;
+    }
+
+    public Employee(int employeeId, int scaleId, String name) {
+        this.employeeId = employeeId;
+        this.scaleId = scaleId;
+        this.name = name;
     }
 
     public String getName() {

@@ -1,14 +1,10 @@
 package org.apache.maven.cantinappdesktop.retrofit;
 
 
-import javafx.fxml.FXML;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import org.apache.maven.cantinappdesktop.model.Employee;
-import org.apache.maven.cantinappdesktop.model.Product;
-import org.apache.maven.cantinappdesktop.model.Scale;
-import org.apache.maven.cantinappdesktop.model.User;
+import org.apache.maven.cantinappdesktop.model.*;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -64,7 +60,10 @@ public interface ApiService {
     Call<Employee> addEmployee(@Part("name") RequestBody name,
                            @Part("class") RequestBody clasS);
 
+    @FormUrlEncoded
     @POST("scales/getScale.php")
-    @Multipart
-    Call<Scale> getScales(@Part("turn_id") RequestBody turn_id);
+    Call<List<Employee>> getScalesEmployee(@Field("turn_id") int turn_id);
+
+    @POST("turns/getTurns.php")
+    Call<List<Scale>> getTurns();
 }

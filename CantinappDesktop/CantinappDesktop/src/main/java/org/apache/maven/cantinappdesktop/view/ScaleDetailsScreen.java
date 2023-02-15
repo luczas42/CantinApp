@@ -1,17 +1,14 @@
 package org.apache.maven.cantinappdesktop.view;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.apache.maven.cantinappdesktop.model.Employee;
-import org.apache.maven.cantinappdesktop.model.Product;
 import org.apache.maven.cantinappdesktop.model.Scale;
 
-import java.io.ByteArrayInputStream;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class ScaleDetailsScreen {
@@ -64,8 +61,8 @@ public class ScaleDetailsScreen {
 
         System.out.println(employeeNameList);
 
-        dayTextField.setText(myScale.getTurn().getDate());
-        selectClassComboBox.setItems(FXCollections.observableArrayList(myScale.getTurn().getClasS()));
+        dayTextField.setText(myScale.getDay().toString());
+        selectClassComboBox.setItems(FXCollections.observableArrayList(myScale.getClasS()));
         selectEmployeeComboBox.setItems(FXCollections.observableArrayList(employeeNameList));
 
     }

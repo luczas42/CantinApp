@@ -62,12 +62,12 @@ public class EmployeeDetailsScreen {
         String employeeName = employeeNameField.getText();
         String employeeClass = cbEmployeeClass.getSelectionModel().getSelectedItem().toString();
 
-        Employee newEmployee = new Employee(employeeName, employeeClass);
         RequestBody name = RequestBody.create(MediaType.parse("text/plain"), employeeName);
         RequestBody clasS = RequestBody.create(MediaType.parse("text/plain"), employeeClass);
 
         retrofitInit.addEmployee(addEmployeeCallback, name, clasS);
-
+        Stage stage = (Stage) employeeRegisterButton.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
@@ -77,7 +77,13 @@ public class EmployeeDetailsScreen {
 
     @FXML
     void deleteEmployee() {
-
+//
+//        RequestBody emp_id = RequestBody.create(MediaType.parse("text/plain"), employeeName);
+//        RequestBody clasS = RequestBody.create(MediaType.parse("text/plain"), employeeClass);
+//
+//        retrofitInit.addEmployee(addEmployeeCallback, name, clasS);
+//        Stage stage = (Stage) employeeRegisterButton.getScene().getWindow();
+//        stage.close();
     }
 
     @FXML

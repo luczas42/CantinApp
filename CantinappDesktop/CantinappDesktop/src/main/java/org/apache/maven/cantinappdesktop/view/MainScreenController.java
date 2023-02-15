@@ -23,20 +23,16 @@ import org.apache.maven.cantinappdesktop.App;
 import org.apache.maven.cantinappdesktop.model.Employee;
 import org.apache.maven.cantinappdesktop.model.Product;
 import org.apache.maven.cantinappdesktop.model.Scale;
-import org.apache.maven.cantinappdesktop.model.Turn;
 import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import java.io.File;
 import java.io.IOException;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class MainScreenController {
 
@@ -46,6 +42,8 @@ public class MainScreenController {
     ScheduledExecutorService productsRefreshExecutor = Executors.newSingleThreadScheduledExecutor();
     ScheduledExecutorService scaleRefreshExecutor;
     ScheduledExecutorService employeeRefreshExecutor = Executors.newSingleThreadScheduledExecutor();
+
+    List<Scale> turnList;
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -77,16 +75,16 @@ public class MainScreenController {
     @FXML
     private TableColumn<Product, Float> productPriceTableColumn;
     @FXML
-    private TableColumn<Turn, String> scaleClassTableColumn;
+    private TableColumn<Scale, String> scaleClassTableColumn;
 
     @FXML
-    private TableColumn<Turn, String> scaleDateTableColumn;
+    private TableColumn<Scale, String> scaleDateTableColumn;
 
     @FXML
     private TableColumn<Employee, String> scaleEmployeeTableColumn;
 
     @FXML
-    private TableColumn<Turn, String> scalePeriodTableColumn;
+    private TableColumn<Scale, String> scalePeriodTableColumn;
 
     @FXML
     private TableView<Scale> scaleTableView;
@@ -157,10 +155,10 @@ public class MainScreenController {
         shiftsButton.setDisable(true);
         this.workdaysPane.toFront();
         try {
-                refreshScalesTable();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            refreshScalesTable();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 //        productsRefreshExecutor.scheduleAtFixedRate(() -> {
 //            try {
 //                refreshProductsTable();
@@ -219,7 +217,7 @@ public class MainScreenController {
         }
     }
 
-//    @FXML
+    //    @FXML
 //    void employeeCLick(MouseEvent event){
 //        if (event.getClickCount() == 2) {
 //            Employee selectedEmployee = employeeTableView.getSelectionModel().getSelectedItem();
@@ -264,7 +262,7 @@ public class MainScreenController {
     }
 
     @FXML
-    void scaleClick(MouseEvent event){
+    void scaleClick(MouseEvent event) {
         if (event.getClickCount() == 2) {
             Scale selectedScale = scaleTableView.getSelectionModel().getSelectedItem();
             try {
@@ -315,11 +313,13 @@ public class MainScreenController {
     public void refreshProductsTable() throws InterruptedException {
         retrofitInit.getProducts(this.productCallback);
     }
+
     public void refreshEmployeeTable() throws InterruptedException {
         retrofitInit.getEmployees(this.employeeCallback);
     }
+
     public void refreshScalesTable() throws InterruptedException {
-//        retrofitInit.getScales(this.scalesCallback);
+        retrofitInit.getScalesTurn(this.scalesCallback);
     }
 
 
@@ -365,40 +365,86 @@ public class MainScreenController {
             System.out.println(t.getMessage());
         }
     };
-//
-//    Callback<List<Scale>> scaleCallback = new Callback<>() {
-//        public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-//            List<Product> productList = response.body();
-//
-//            assert productList != null;
-//
-//            ObservableList<Product> productObservableList = FXCollections.observableList(productList);
-//
-//            MainScreenController.this.productNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
-//            MainScreenController.this.productPriceTableColumn.setCellValueFactory(new PropertyValueFactory<>("Price"));
-//            MainScreenController.this.productsTableView.setItems(productObservableList);
-//            productsTableView.refresh();
-//        }
-//
-//        public void onFailure(Call<List<Product>> call, Throwable t) {
-//            System.out.println(t.getMessage());
-//        }
-//    };
+    Callback<List<Scale>> scalesCallback = new Callback<List<Scale>>() {
+        @Override
+        public void onResponse(Call<List<Scale>> call, Response<List<Scale>> response) {
+            turnList = response.body();
+            assert turnList != null;
+            metodo(turnList);
+        }
+
+        @Override
+        public void onFailure(Call<List<Scale>> call, Throwable throwable) {
+
+        }
+    };
+    List<Scale> auxScaleList = new ArrayList<>();
+
+
+    void metodo(List<Scale> list) {
+        Callback<List<Employee>> scalesEmployeeCallback = new Callback<List<Employee>>() {
+            @Override
+            public void onResponse(Call<List<Employee>> call, Response<List<Employee>> response) {
+                if (response.isSuccessful()) {
+                    for (Scale scale :
+                            list) {
+                        scale.setEmployeeList(response.body());
+                        method(scale);
+                    }
+                    setDefaultList(auxScaleList);
+                    ObservableList<Scale> turnObservableList = FXCollections.observableList(turnList);
+
+                    for (Scale scale :
+                            turnObservableList) {
+                        scale.createNameString();
+                    }
+
+                    MainScreenController.this.scaleClassTableColumn.setCellValueFactory(new PropertyValueFactory<>("ClasS"));
+                    MainScreenController.this.scaleDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
+                    MainScreenController.this.scalePeriodTableColumn.setCellValueFactory(new PropertyValueFactory<>("Period"));
+                    MainScreenController.this.scaleEmployeeTableColumn.setCellValueFactory(new PropertyValueFactory<>("employeeNamesString"));
+                    MainScreenController.this.scaleTableView.setItems(turnObservableList);
+                    productsTableView.refresh();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Employee>> call, Throwable throwable) {
+                throwable.getMessage();
+            }
+        };
+        for (Scale scale :
+                list) {
+            retrofitInit.getScalesEmployee(scalesEmployeeCallback, scale.getTurn_id());
+        }
+    }
+
+    private void setDefaultList(List<Scale> auxScaleList) {
+        turnList = auxScaleList;
+        System.out.println(turnList.size());
+    }
+
+    private void method(Scale scale) {
+        auxScaleList.add(scale);
+        System.out.println(auxScaleList.size() + "dentro");
+    }
+
 
     ////
     //// ADDITIONAL BUTTON ACTIONS (LOGOUT, CLOSE AND MINIMIZE)
     ////
 
     @FXML
-    void closeApp (ActionEvent event) throws IOException{
+    void closeApp(ActionEvent event) throws IOException {
         Platform.exit();
     }
 
-    @FXML void logOut(ActionEvent event) throws IOException{
+    @FXML
+    void logOut(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("LoginScreen.fxml"));
         root = loader.load();
 
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
