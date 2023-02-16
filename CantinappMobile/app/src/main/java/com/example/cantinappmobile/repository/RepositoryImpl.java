@@ -24,10 +24,6 @@ public class RepositoryImpl implements Repository {
         return webService.retrieveProducts();
     }
 
-    public Call<ResponseBody> getImage(RequestBody imageName){
-        return webService.getImage(imageName);
-    }
-
     public Call<List<User>> userLogin(String username, String password){
         return webService.userLogin(username, password);
     }

@@ -51,13 +51,6 @@ public class ProductsFragmentViewModel extends ViewModel {
                     if (data != null) {
                         connectionLiveData.setValue(Connection.Successfull);
                         _productResponseLiveData.setValue(data);
-                        int position = 0;
-                        for (Product product :
-                                Objects.requireNonNull(productResponseLiveData.getValue())) {
-                            retrieveProductImage(product);
-                            position++;
-                        }
-
                     } else {
                         //dá pra melhorar usando outro tipo de erro, pra saber se é erro de conexao ou se veio nulo, mas nao é importante agora
                         connectionLiveData.setValue(Connection.Failed);
@@ -72,33 +65,33 @@ public class ProductsFragmentViewModel extends ViewModel {
         });
     }
 
-    public void retrieveProductImage(Product currentProduct) {
-        if (currentProduct.getImage() != null && !currentProduct.getImage().equals("")) {
-            RequestBody imageName = RequestBody.create(MediaType.parse("text/plain"), currentProduct.getImage());
-            Call<ResponseBody> productImageCallback = repository.getImage(imageName);
-            productImageCallback.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    if (response.isSuccessful()) {
-                        try {
-                            assert response.body() != null;
-                            byte[] data = response.body().bytes();
-                            currentProduct.setImageView(data);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    t.printStackTrace();
-                    t.getMessage();
-                }
-            });
-        }
-
-
-    }
+//    public void retrieveProductImage(Product currentProduct) {
+//        if (currentProduct.getImage() != null && !currentProduct.getImage().equals("")) {
+//            RequestBody imageName = RequestBody.create(MediaType.parse("text/plain"), currentProduct.getImage());
+//            Call<ResponseBody> productImageCallback = repository.getImage(imageName);
+//            productImageCallback.enqueue(new Callback<ResponseBody>() {
+//                @Override
+//                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                    if (response.isSuccessful()) {
+//                        try {
+//                            assert response.body() != null;
+//                            byte[] data = response.body().bytes();
+//                            currentProduct.setImageView(data);
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                    t.printStackTrace();
+//                    t.getMessage();
+//                }
+//            });
+//        }
+//
+//
+//    }
 }
 

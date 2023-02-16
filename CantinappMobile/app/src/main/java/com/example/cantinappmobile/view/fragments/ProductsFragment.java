@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -100,8 +101,9 @@ public class ProductsFragment extends Fragment {
 
         productName.setText(product.getName());
         productPrice.setText(MoneyFormatter.moneyFormat(product.getPrice()));
-        if (product.getImageView()!=null){
-            Bitmap bmp= BitmapFactory.decodeByteArray(product.getImageView(),0,product.getImageView().length);
+        if (product.getImage()!=null){
+            byte[] imageData = Base64.decode(product.getImage(), Base64.DEFAULT);
+            Bitmap bmp= BitmapFactory.decodeByteArray(imageData,0,imageData.length);
             imageView.setImageBitmap(bmp);
         }
 

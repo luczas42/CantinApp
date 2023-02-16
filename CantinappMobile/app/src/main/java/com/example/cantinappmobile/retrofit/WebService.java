@@ -20,11 +20,6 @@ public interface WebService {
 
     @POST("products/getProducts.php")
     Call<List<Product>> retrieveProducts();
-
-    @Multipart
-    @POST("products/getProductImage.php")
-    Call<ResponseBody> getImage(@Part("image_name") RequestBody imageName);
-
     @FormUrlEncoded
     @POST("users/login.php")
     Call<List<User>> userLogin(@Field("username") String username, @Field("password") String password);
