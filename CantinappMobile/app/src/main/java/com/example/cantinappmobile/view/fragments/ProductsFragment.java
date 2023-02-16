@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -32,7 +30,9 @@ import java.util.List;
 public class ProductsFragment extends Fragment {
 
     private FragmentProductsBinding binding;
-    ProductListAdapter productAdapter = new ProductListAdapter();
+    ProductListAdapter saltyProductAdapter = new ProductListAdapter();
+    ProductListAdapter sweetProductAdapter = new ProductListAdapter();
+    ProductListAdapter homemadeProductAdapter = new ProductListAdapter();
     ProductsFragmentViewModel viewModel;
 
     @Override
@@ -73,20 +73,41 @@ public class ProductsFragment extends Fragment {
 
     private void observeProducts(ProductsFragmentViewModel viewModel) {
         binding.tvError.setVisibility(View.GONE);
-        viewModel.productResponseLiveData.observe(getViewLifecycleOwner(), this::createAdapter);
+        viewModel.productSaltyResponse.observe(getViewLifecycleOwner(), this::createSaltyAdapter);
+        viewModel.productSweetResponse.observe(getViewLifecycleOwner(), this::createSweetAdapter);
+        viewModel.productHomemadeResponse.observe(getViewLifecycleOwner(), this::createHomemadeAdapter);
     }
 
     private void apiError() {
         binding.tvError.setVisibility(View.VISIBLE);
     }
 
-    private void createAdapter(List<Product> productList) {
-        binding.recyclerSaltyProducts.setAdapter(productAdapter);
+    private void createSaltyAdapter(List<Product>  saltyList) {
+        System.out.println( saltyList.size()+ "listaSize");
+        binding.recyclerSaltyProducts.setAdapter(saltyProductAdapter);
         binding.recyclerSaltyProducts.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
-        productAdapter.append(productList);
-        productAdapter.setOnClickListener((position, product) -> setupPopup(product));
+        saltyProductAdapter.append( saltyList);
+        saltyProductAdapter.setOnClickListener((position, product) -> setupPopup(product));
         viewModel.productSearchQuery.observe(getViewLifecycleOwner(), query -> {
-            productAdapter.search(query, productList);
+            saltyProductAdapter.search(query,  saltyList);
+        });
+    }
+   private void createSweetAdapter(List<Product> sweetList) {
+        binding.recyclerSweetProducts.setAdapter(sweetProductAdapter);
+        binding.recyclerSweetProducts.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+       sweetProductAdapter.append(sweetList);
+       sweetProductAdapter.setOnClickListener((position, product) -> setupPopup(product));
+        viewModel.productSearchQuery.observe(getViewLifecycleOwner(), query -> {
+            sweetProductAdapter.search(query, sweetList);
+        });
+    }
+   private void createHomemadeAdapter(List<Product> homemadeList) {
+        binding.recyclerHomemadeProducts.setAdapter(homemadeProductAdapter);
+        binding.recyclerHomemadeProducts.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+       homemadeProductAdapter.append(homemadeList);
+       homemadeProductAdapter.setOnClickListener((position, product) -> setupPopup(product));
+        viewModel.productSearchQuery.observe(getViewLifecycleOwner(), query -> {
+            homemadeProductAdapter.search(query, homemadeList);
         });
     }
 

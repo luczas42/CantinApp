@@ -8,16 +8,12 @@ import androidx.lifecycle.ViewModel;
 import com.example.cantinappmobile.model.Product;
 import com.example.cantinappmobile.repository.RepositoryImpl;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,8 +22,14 @@ import retrofit2.Response;
 public class ProductsFragmentViewModel extends ViewModel {
     private final SavedStateHandle state;
     private RepositoryImpl repository = new RepositoryImpl();
-    private MutableLiveData<List<Product>> _productResponseLiveData = new MutableLiveData<>();
-    public LiveData<List<Product>> productResponseLiveData = _productResponseLiveData;
+    private MutableLiveData<List<Product>>  _productSaltyResponse = new MutableLiveData<>();
+    public LiveData<List<Product>> productSaltyResponse = _productSaltyResponse;
+
+    private MutableLiveData<List<Product>> _productSweetResponse = new MutableLiveData<>();
+    public LiveData<List<Product>> productSweetResponse = _productSweetResponse;
+
+    private MutableLiveData<List<Product>> _productHomemadeResponse = new MutableLiveData<>();
+    public LiveData<List<Product>> productHomemadeResponse = _productHomemadeResponse;
     public MutableLiveData<Connection> connectionLiveData = new MutableLiveData<>();
     public MutableLiveData<String> productSearchQuery = new MutableLiveData<>();
 
@@ -46,11 +48,35 @@ public class ProductsFragmentViewModel extends ViewModel {
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
 
                 if (response.isSuccessful()) {
-                    List<Product> data = response.body();
+                    List<Product> saltyList = new ArrayList<>();
+                    List<Product> sweetList = new ArrayList<>();
+                    List<Product> homemadeList = new ArrayList<>();
 
-                    if (data != null) {
+                    if (response.body() != null) {
                         connectionLiveData.setValue(Connection.Successfull);
-                        _productResponseLiveData.setValue(data);
+                        for (Product product :
+                                response.body()
+                        ) {
+                            System.out.println(product.getProductType());
+                            switch (product.getProductType()) {
+                                case 1:
+                                    System.out.println("entrou sal");
+                                    saltyList.add(product);
+                                    break;
+                                case 2:
+                                    System.out.println("entrou sweet");
+                                    sweetList.add(product);
+                                    break;
+                                case 3:
+                                    System.out.println("entrou shee");
+                                    homemadeList.add(product);
+                                    break;
+                            }
+                        }
+                        _productSaltyResponse.setValue(saltyList);
+                        System.out.println(saltyList.size());
+                        _productSweetResponse.setValue(sweetList);
+                        _productHomemadeResponse.setValue(homemadeList);
                     } else {
                         //dá pra melhorar usando outro tipo de erro, pra saber se é erro de conexao ou se veio nulo, mas nao é importante agora
                         connectionLiveData.setValue(Connection.Failed);
