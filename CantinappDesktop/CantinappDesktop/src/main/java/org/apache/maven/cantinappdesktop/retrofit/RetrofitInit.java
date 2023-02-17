@@ -42,12 +42,12 @@ public class RetrofitInit {
         this.apiService.getEmployees().enqueue(callback);
     }
 
-    public void getScalesEmployee(Callback<List<Employee>> callback, int turn_id){
-        this.apiService.getScalesEmployee(turn_id).enqueue(callback);
+    public void getEmployeesWithClass(Callback<List<Employee>> callback, String clasS){
+        this.apiService.getEmployeesWithClass(clasS).enqueue(callback);
     }
 
-    public void getScalesTurn(Callback<List<Scale>> callback){
-        this.apiService.getTurns().enqueue(callback);
+    public void getScales(Callback<List<Scale>> callback){
+        this.apiService.getScales().enqueue(callback);
     }
 
     /// INSERTS
@@ -92,4 +92,7 @@ public class RetrofitInit {
         this.apiService.userLogin(username, password).enqueue(call);
     }
 
+    public void addScale(String day, int period, String clasS, Employee[] employees) {
+        this.apiService.addScale(day, period, clasS, employees);
+    }
 }

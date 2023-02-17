@@ -58,12 +58,19 @@ public interface ApiService {
     @POST("employees/addEmployee.php")
     @Multipart
     Call<Employee> addEmployee(@Part("name") RequestBody name,
-                           @Part("class") RequestBody clasS);
+                               @Part("class") RequestBody clasS);
+
+    @POST("scales/getScale.php")
+    Call<List<Scale>> getScales();
 
     @FormUrlEncoded
-    @POST("scales/getScale.php")
-    Call<List<Employee>> getScalesEmployee(@Field("turn_id") int turn_id);
+    @POST("employees/getEmployeesWithClass.php")
+    Call<List<Employee>> getEmployeesWithClass(@Field("class") String clasS);
 
-    @POST("turns/getTurns.php")
-    Call<List<Scale>> getTurns();
+    @FormUrlEncoded
+    @POST("scales/addScale")
+    Call<Void> addScale(@Field("day") String day,
+                        @Field("period") int period,
+                        @Field("class") String clasS,
+                        @Field("employee_array") Employee[] employees);
 }

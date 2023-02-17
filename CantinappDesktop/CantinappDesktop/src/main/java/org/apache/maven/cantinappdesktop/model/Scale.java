@@ -20,6 +20,7 @@ public class Scale {
     /// period = 0 means morning
     /// period = 1 means afternoon
     /// period = 2 means night
+    @SerializedName("employee_array")
     private List<Employee> employeeList;
 
     public List<Employee> getEmployeeList() {
@@ -30,17 +31,12 @@ public class Scale {
         this.employeeList = employeeList;
     }
 
-    public Scale(String clasS, String day, int period, List<Employee> employeeList) {
+    public Scale(int turn_id, String clasS, String day, int period, List<Employee> employeeList) {
+        this.turn_id = turn_id;
         this.clasS = clasS;
         this.day = day;
         this.period = period;
         this.employeeList = employeeList;
-    }
-
-    public Scale(String clasS, String day, int period) {
-        this.clasS = clasS;
-        this.day = day;
-        this.period = period;
     }
 
     @Override
@@ -93,7 +89,7 @@ public class Scale {
     public void createNameString(){
         List<String> auxList = new ArrayList<>();
         for (Employee employee :
-                this.employeeList) {
+                employeeList) {
             auxList.add(employee.getName());
         }
         setEmployeeNamesString(auxList);

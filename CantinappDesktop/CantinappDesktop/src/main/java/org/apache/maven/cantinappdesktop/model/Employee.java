@@ -39,4 +39,20 @@ public class Employee {
     public void setClasS(String clasS) {
         this.clasS = clasS;
     }
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public int getScaleId() {
+        return scaleId;
+    }
+
+    public void setScaleId(int scaleId) {
+        this.scaleId = scaleId;
+    }
 }

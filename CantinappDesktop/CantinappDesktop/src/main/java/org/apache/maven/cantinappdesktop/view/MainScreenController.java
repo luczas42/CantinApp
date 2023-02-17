@@ -43,8 +43,10 @@ public class MainScreenController {
     ScheduledExecutorService scaleRefreshExecutor;
     ScheduledExecutorService employeeRefreshExecutor = Executors.newSingleThreadScheduledExecutor();
 
-    List<Scale> turnList = new ArrayList<>();
-    List<Scale> auxScaleList = new ArrayList<>();
+//    List<Scale> turnList = new ArrayList<>();
+//    List<Scale> auxScaleList = new ArrayList<>();
+
+    List<Scale> scaleList = new ArrayList<>();
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -320,7 +322,7 @@ public class MainScreenController {
     }
 
     public void refreshScalesTable() throws InterruptedException {
-        retrofitInit.getScalesTurn(this.scalesCallback);
+        retrofitInit.getScales(this.scalesCallback);
     }
 
 
@@ -365,72 +367,34 @@ public class MainScreenController {
             System.out.println(t.getMessage());
         }
     };
+
     Callback<List<Scale>> scalesCallback = new Callback<List<Scale>>() {
         @Override
         public void onResponse(Call<List<Scale>> call, Response<List<Scale>> response) {
 
-            turnList = response.body();
-            assert turnList != null;
-            populateScaleEmployees();
+            scaleList = response.body();
+            assert scaleList != null;
+
+            ObservableList<Scale> scaleObservableList = FXCollections.observableList(scaleList);
+
+            for (Scale scale :
+                    scaleObservableList) {
+                scale.createNameString();
+            }
+            MainScreenController.this.scaleClassTableColumn.setCellValueFactory(new PropertyValueFactory<>("ClasS"));
+            MainScreenController.this.scaleDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("Day"));
+            MainScreenController.this.scalePeriodTableColumn.setCellValueFactory(new PropertyValueFactory<>("Period"));
+            MainScreenController.this.scaleEmployeeTableColumn.setCellValueFactory(new PropertyValueFactory<>("EmployeeNamesString"));
+            MainScreenController.this.scaleTableView.setItems(scaleObservableList);
+            scaleTableView.refresh();
 
         }
 
         @Override
         public void onFailure(Call<List<Scale>> call, Throwable throwable) {
-
+            System.out.println(throwable.getMessage());
         }
     };
-
-    void populateScaleEmployees() {
-
-        Callback<List<Employee>> scalesEmployeeCallback = new Callback<List<Employee>>() {
-            @Override
-            public void onResponse(Call<List<Employee>> call, Response<List<Employee>> response) {
-                if (response.isSuccessful()) {
-                    extracted(response);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Employee>> call, Throwable throwable) {
-                throwable.getMessage();
-            }
-        };
-
-        /// SERVER CALL FROM EACH SCALE (GETTING EMPLOYEES)
-        for (Scale scale :
-                turnList) {
-            retrofitInit.getScalesEmployee(scalesEmployeeCallback, scale.getTurn_id());
-        }
-
-    }
-
-    private void extracted(Response<List<Employee>> response) {
-        setEmployeesToScale(response);
-        turnList = auxScaleList;
-        ObservableList<Scale> turnObservableList = FXCollections.observableList(turnList);
-
-        for (Scale scale :
-                turnObservableList) {
-            scale.createNameString();
-        }
-
-        MainScreenController.this.scaleClassTableColumn.setCellValueFactory(new PropertyValueFactory<>("ClasS"));
-        MainScreenController.this.scaleDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("Day"));
-        MainScreenController.this.scalePeriodTableColumn.setCellValueFactory(new PropertyValueFactory<>("Period"));
-        MainScreenController.this.scaleEmployeeTableColumn.setCellValueFactory(new PropertyValueFactory<>("EmployeeNamesString"));
-        MainScreenController.this.scaleTableView.setItems(turnObservableList);
-        productsTableView.refresh();
-    }
-
-    private void setEmployeesToScale(Response<List<Employee>> response) {
-        auxScaleList = turnList;
-        for (Scale scale :
-                auxScaleList) {
-            scale.setEmployeeList(response.body());
-        }
-
-    }
 
     ////
     //// ADDITIONAL BUTTON ACTIONS (LOGOUT, CLOSE AND MINIMIZE)
