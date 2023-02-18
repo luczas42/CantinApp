@@ -92,11 +92,11 @@ public class LoginScreenController {
         }
     };
 
-    public void openMainScene(ActionEvent event) throws IOException{
+    public void openMainScene(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("MainScreen.fxml"));
         root = loader.load();
 
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -105,15 +105,19 @@ public class LoginScreenController {
     Callback<User> addUserCallback = new Callback<User>() {
         @Override
         public void onResponse(Call<User> call, Response<User> response) {
-            System.out.println(response.code());
+
+            if (response.isSuccessful()){
+                System.out.println("sucesso na resposta");
+            }else{
+                System.out.println("falha na resposta");
+            }
         }
 
         @Override
         public void onFailure(Call<User> call, Throwable throwable) {
-            System.out.println(throwable.getMessage());
+            System.out.println("falha "+ throwable.getMessage());
         }
     };
-
 
 
     public LoginScreenController() throws NoSuchAlgorithmException, KeyManagementException {
@@ -128,7 +132,7 @@ public class LoginScreenController {
     void onLogin(ActionEvent event) {
         String username = textFieldLoginUsername.getText();
         String password = textFieldLoginPassword.getText();
-        retrofitInit.checkLogin(checkLoginCallback,username,password);
+        retrofitInit.checkLogin(checkLoginCallback, username, password);
 //        if (Objects.equals(username, connectedUser.getUsername())){
 //            this.loginPane.setVisible(false);
 //        }
@@ -136,19 +140,53 @@ public class LoginScreenController {
 
     @FXML
     void onSignup(ActionEvent event) {
-        String username = textFieldSignupUsername.getText();
-        String name = textFieldSignupName.getText();
-        String email = textFieldSignupEmail.getText();
-        String password = textFieldSignupPassword.getText();
-        System.out.println(password);
-        User user = new User(username, name, email);
-        retrofitInit.addUser(addUserCallback, user, password);
+        if (!textFieldSignupUsername.getText().isEmpty()) {
+            if (!textFieldSignupName.getText().isEmpty()) {
+                if (!textFieldSignupEmail.getText().isEmpty()) {
+                    if (!textFieldSignupPassword.getText().isEmpty()) {
+                        if (!textFieldSignupPasswordConfirm.getText().isEmpty()) {
+                            if (textFieldSignupPassword.getText().equals(textFieldSignupPasswordConfirm.getText())) {
+                                String username = textFieldSignupUsername.getText();
+                                String name = textFieldSignupName.getText();
+                                String email = textFieldSignupEmail.getText();
+                                User user = new User(username, name, email);
 
+                                String password = textFieldSignupPassword.getText();
+                                retrofitInit.addUser(addUserCallback, user, password);
+                                clearCamps();
+                            } else {
+
+                            }
+                        } else {
+
+                        }
+                    } else {
+
+                    }
+                } else {
+
+                }
+            } else {
+
+            }
+        } else {
+
+        }
     }
+
+    private void clearCamps() {
+        textFieldSignupName.clear();
+        textFieldSignupUsername.clear();
+        textFieldSignupEmail.clear();
+        textFieldSignupPassword.clear();
+        textFieldSignupPasswordConfirm.clear();
+    }
+
     @FXML
-    void closeApp (ActionEvent event) {
+    void closeApp(ActionEvent event) {
         Platform.exit();
     }
+
     @FXML
     void minimizeApp(ActionEvent event) {
         Stage stage = (Stage) minimizeAppButton.getScene().getWindow();
