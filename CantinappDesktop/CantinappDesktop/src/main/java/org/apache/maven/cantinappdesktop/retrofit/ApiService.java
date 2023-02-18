@@ -8,6 +8,7 @@ import org.apache.maven.cantinappdesktop.model.*;
 import retrofit2.Call;
 import retrofit2.http.*;
 
+import java.text.Normalizer;
 import java.util.List;
 
 public interface ApiService {
@@ -68,9 +69,17 @@ public interface ApiService {
     Call<List<Employee>> getEmployeesWithClass(@Field("class") String clasS);
 
     @FormUrlEncoded
-    @POST("scales/addScale")
-    Call<Void> addScale(@Field("day") String day,
+    @POST("scales/addScale.php")
+    Call<Scale> addScale(@Field("day") String day,
                         @Field("period") int period,
                         @Field("class") String clasS,
-                        @Field("employee_array") Employee[] employees);
+                        @Field("employee_array") int[] employees);
+
+    @FormUrlEncoded
+    @POST("employees/editEmployee.php")
+    Call<Employee> editEmployee(@Field("id") int employeeId, @Field("name") String employeeName, @Field("class") String employeeClass);
+
+    @FormUrlEncoded
+    @POST("employees/deleteEmployee.php")
+    Call<Void> deleteEmployee(@Field("id") int id);
 }

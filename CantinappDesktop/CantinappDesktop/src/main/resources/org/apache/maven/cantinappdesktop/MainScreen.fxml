@@ -157,13 +157,13 @@
                            <children>
                               <Pane fx:id="employeePane" pickOnBounds="false" prefHeight="684.0" prefWidth="1030.0">
                                  <children>
-                                    <TableView fx:id="employeeTableView" layoutX="40.0" layoutY="48.0" prefHeight="550.0" prefWidth="930.0">
+                                    <TableView fx:id="employeeTableView" layoutX="40.0" layoutY="48.0" onMouseClicked="#employeeClick" prefHeight="550.0" prefWidth="930.0">
                                        <columns>
                                           <TableColumn fx:id="employeeClassTableColumn" editable="false" prefWidth="249.0" text="Turma" />
                                           <TableColumn fx:id="employeeNameTableColumn" editable="false" minWidth="0.0" prefWidth="680.0" text="Nome" />
                                        </columns>
                                     </TableView>
-                                    <Button id="table-aux-button" fx:id="newEmployeeButton" layoutX="800.0" layoutY="620.0" mnemonicParsing="false" onAction="#openNewEmployeeScreen"  text="Cadastrar nova pessoa">
+                                    <Button id="table-aux-button" fx:id="newEmployeeButton" layoutX="800.0" layoutY="620.0" mnemonicParsing="false" onAction="#openNewEmployeeScreen" text="Cadastrar nova pessoa">
                                        <font>
                                           <Font size="14.0" />
                                        </font>

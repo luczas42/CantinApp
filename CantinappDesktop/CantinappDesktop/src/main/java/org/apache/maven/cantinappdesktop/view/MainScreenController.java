@@ -220,30 +220,31 @@ public class MainScreenController {
         }
     }
 
-    //    @FXML
-//    void employeeCLick(MouseEvent event){
-//        if (event.getClickCount() == 2) {
-//            Employee selectedEmployee = employeeTableView.getSelectionModel().getSelectedItem();
-//            try {
-//                Stage stage = new Stage();
-//                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("EmployeeDetailsScreen.fxml"));
-//                Scene scene = new Scene((Parent) fxmlLoader.load());
-//                stage.setTitle("Cantinapp");
-//                stage.setScene(scene);
-//                stage.initStyle(StageStyle.UNDECORATED);
-//                stage.initModality(Modality.APPLICATION_MODAL);
-//                EmployeeDetailsScreen employeeDetailsScreen = fxmlLoader.getController();
-//                employeeDetailsScreen.switchToEmployeeEditScreen(selectedEmployee);
-//                Thread.sleep(100);
-//                stage.showAndWait();
-//                productsRefreshExecutor.notify();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
-//    }
+    @FXML
+    void employeeClick(MouseEvent event) {
+        if (event.getClickCount() == 2) {
+            Employee selectedEmployee = employeeTableView.getSelectionModel().getSelectedItem();
+            try {
+                Stage stage = new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("EmployeeDetailsScreen.fxml"));
+                Scene scene = new Scene((Parent) fxmlLoader.load());
+                stage.setTitle("Cantinapp");
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UNDECORATED);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                EmployeeDetailsScreen employeeDetailsScreen = fxmlLoader.getController();
+                employeeDetailsScreen.switchToEmployeeEditScreen(selectedEmployee);
+                Thread.sleep(100);
+                stage.showAndWait();
+                employeeRefreshExecutor.notify();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
     @FXML
     void openNewEmployeeScreen(ActionEvent event) {
         try {

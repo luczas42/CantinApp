@@ -34,7 +34,7 @@ public class RetrofitInit {
         this.apiService.getProducts().enqueue(callback);
     }
 
-    public void getImage(Callback<ResponseBody> callback, RequestBody imageName){
+    public void getImage(Callback<ResponseBody> callback, RequestBody imageName) {
         this.apiService.getImage(imageName).enqueue(callback);
     }
 
@@ -42,11 +42,11 @@ public class RetrofitInit {
         this.apiService.getEmployees().enqueue(callback);
     }
 
-    public void getEmployeesWithClass(Callback<List<Employee>> callback, String clasS){
+    public void getEmployeesWithClass(Callback<List<Employee>> callback, String clasS) {
         this.apiService.getEmployeesWithClass(clasS).enqueue(callback);
     }
 
-    public void getScales(Callback<List<Scale>> callback){
+    public void getScales(Callback<List<Scale>> callback) {
         this.apiService.getScales().enqueue(callback);
     }
 
@@ -70,7 +70,7 @@ public class RetrofitInit {
                 .enqueue(call);
     }
 
-    public void addEmployee(Callback<Employee> call, RequestBody name, RequestBody clasS){
+    public void addEmployee(Callback<Employee> call, RequestBody name, RequestBody clasS) {
         this.apiService.addEmployee(name, clasS).enqueue(call);
     }
 
@@ -86,13 +86,20 @@ public class RetrofitInit {
         this.apiService.deleteProduct(id).enqueue(call);
     }
 
+    public void deleteEmployee(Callback<Void> call, int id){
+        this.apiService.deleteEmployee(id).enqueue(call);
+    }
     /// VERIFICATION
 
     public void checkLogin(Callback<User> call, String username, String password) {
         this.apiService.userLogin(username, password).enqueue(call);
     }
 
-    public void addScale(String day, int period, String clasS, Employee[] employees) {
-        this.apiService.addScale(day, period, clasS, employees);
+    public void addScale(Callback<Scale> call, String day, int period, String clasS, int[] employees) {
+        this.apiService.addScale(day, period, clasS, employees).enqueue(call);
+    }
+
+    public void editEmployee(Callback<Employee> call, Employee employee) {
+        this.apiService.editEmployee(employee.getEmployeeId(), employee.getName(), employee.getClasS()).enqueue(call);
     }
 }

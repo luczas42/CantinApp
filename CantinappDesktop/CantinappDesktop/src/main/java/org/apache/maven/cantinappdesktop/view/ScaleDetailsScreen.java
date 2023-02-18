@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import org.apache.maven.cantinappdesktop.model.Employee;
 import org.apache.maven.cantinappdesktop.model.Scale;
 import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
@@ -15,6 +17,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ScaleDetailsScreen {
@@ -161,8 +164,11 @@ public class ScaleDetailsScreen {
                         String day = dayTextField.getText();
                         int period = transformPeriod(selectPeriodComboBox.getSelectionModel().getSelectedItem());
                         String clasS = selectClassComboBox.getSelectionModel().getSelectedItem();
-                        Employee[] employeeArray = employeeTableViewList.toArray(new Employee[employeeTableViewList.size()]);
-                        retrofitInit.addScale(day, period, clasS, employeeArray);
+                        int []employeeArray = arrayConverter(employeeTableViewList);
+                        apiCall(day, period, clasS, employeeArray);
+
+                        Stage stage = (Stage) scaleRegisterButton.getScene().getWindow();
+                        stage.close();
                     } else {
                         System.out.println("erro");
                     }
@@ -170,6 +176,43 @@ public class ScaleDetailsScreen {
             }
         }
 
+    }
+
+    private void apiCall(String string_day, int int_period, String string_class, int[] int_employeeArray) {
+//        RequestBody day = RequestBody.create(MediaType.parse("text/plain"), string_day);
+//        RequestBody period = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(int_period));
+//        RequestBody clasS = RequestBody.create(MediaType.parse("text/plain"), string_class);
+//        retrofitInit.addScale(scaleCallback, day, period, clasS, int_employeeArray);
+        retrofitInit.addScale(scaleCallback, string_day, int_period, string_class, int_employeeArray);
+    }
+
+    Callback<Scale> scaleCallback = new Callback<Scale>() {
+        @Override
+        public void onResponse(Call<Scale> call, Response<Scale> response) {
+            if (response.isSuccessful()){
+                System.out.println("sucesso na response");
+            }else{
+                System.out.println("falha na response");
+            }
+        }
+
+        @Override
+        public void onFailure(Call<Scale> call, Throwable throwable) {
+            System.out.println(throwable.getMessage());
+        }
+    };
+
+    private int[] arrayConverter(List<Employee> oldList) {
+        int i = 0;
+        int[] intArray = new int[oldList.size()];
+        for (Employee employee :
+                oldList) {
+            intArray[i] = employee.getEmployeeId();
+            System.out.println(intArray[i]);
+            i++;
+
+        }
+        return intArray;
     }
 
     private int transformPeriod(String selectedItem) {
