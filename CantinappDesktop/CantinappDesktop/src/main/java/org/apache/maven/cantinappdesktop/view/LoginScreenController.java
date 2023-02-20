@@ -1,5 +1,6 @@
 package org.apache.maven.cantinappdesktop.view;
 
+import com.sun.javafx.application.HostServicesDelegate;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,6 +9,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -18,7 +21,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URI;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 
@@ -124,8 +129,8 @@ public class LoginScreenController {
     }
 
     @FXML
-    void onForgotPasswordClick(ActionEvent event) {
-
+    void onForgotPasswordClick(ActionEvent event) throws IOException {
+        Desktop.getDesktop().browse(URI.create("http://54.207.241.251/CantinappServer/users/passwordEmailReset.php"));
     }
 
     @FXML
