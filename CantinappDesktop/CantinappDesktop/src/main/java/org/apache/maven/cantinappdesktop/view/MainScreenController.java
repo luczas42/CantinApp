@@ -377,15 +377,17 @@ public class MainScreenController {
             assert scaleList != null;
 
             ObservableList<Scale> scaleObservableList = FXCollections.observableList(scaleList);
-
-            for (Scale scale :
-                    scaleObservableList) {
-                scale.createNameString();
-            }
             MainScreenController.this.scaleClassTableColumn.setCellValueFactory(new PropertyValueFactory<>("ClasS"));
             MainScreenController.this.scaleDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("Day"));
             MainScreenController.this.scalePeriodTableColumn.setCellValueFactory(new PropertyValueFactory<>("Period"));
-            MainScreenController.this.scaleEmployeeTableColumn.setCellValueFactory(new PropertyValueFactory<>("EmployeeNamesString"));
+            for (Scale scale :
+                    scaleObservableList) {
+                if (scale.getEmployeeList() !=null){
+                    scale.createNameString();
+                    MainScreenController.this.scaleEmployeeTableColumn.setCellValueFactory(new PropertyValueFactory<>("EmployeeNamesString"));
+                }
+
+            }
             MainScreenController.this.scaleTableView.setItems(scaleObservableList);
             scaleTableView.refresh();
 
