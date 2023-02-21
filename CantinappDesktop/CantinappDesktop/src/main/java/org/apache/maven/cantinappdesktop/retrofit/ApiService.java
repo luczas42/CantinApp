@@ -73,7 +73,7 @@ public interface ApiService {
     Call<Scale> addScale(@Field("day") String day,
                         @Field("period") int period,
                         @Field("class") String clasS,
-                        @Field("employee_array") int[] employees);
+                        @Field("employee_array[]") List<Integer> employees);
 
     @FormUrlEncoded
     @POST("employees/editEmployee.php")

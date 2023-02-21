@@ -164,13 +164,13 @@ public class ScaleDetailsScreen {
                         String day = dayTextField.getText();
                         int period = transformPeriod(selectPeriodComboBox.getSelectionModel().getSelectedItem());
                         String clasS = selectClassComboBox.getSelectionModel().getSelectedItem();
-                        int []employeeArray = arrayConverter(employeeTableViewList);
-                        apiCall(day, period, clasS, employeeArray);
-
+                        List<Integer> employeeArray = arrayConverter(employeeTableViewList);
+                        retrofitInit.addScale(scaleCallback, day, period, clasS, employeeArray);
                         Stage stage = (Stage) scaleRegisterButton.getScene().getWindow();
                         stage.close();
                     } else {
-                        System.out.println("erro");
+                        selectEmployeeComboBox.isFocused();
+//                        selectEmployeeComboBox.set
                     }
                 }
             }
@@ -179,11 +179,7 @@ public class ScaleDetailsScreen {
     }
 
     private void apiCall(String string_day, int int_period, String string_class, int[] int_employeeArray) {
-//        RequestBody day = RequestBody.create(MediaType.parse("text/plain"), string_day);
-//        RequestBody period = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(int_period));
-//        RequestBody clasS = RequestBody.create(MediaType.parse("text/plain"), string_class);
-//        retrofitInit.addScale(scaleCallback, day, period, clasS, int_employeeArray);
-        retrofitInit.addScale(scaleCallback, string_day, int_period, string_class, int_employeeArray);
+
     }
 
     Callback<Scale> scaleCallback = new Callback<Scale>() {
@@ -199,18 +195,15 @@ public class ScaleDetailsScreen {
         @Override
         public void onFailure(Call<Scale> call, Throwable throwable) {
             System.out.println(throwable.getMessage());
+            System.out.println("erroooo");
         }
     };
 
-    private int[] arrayConverter(List<Employee> oldList) {
-        int i = 0;
-        int[] intArray = new int[oldList.size()];
+    private List<Integer> arrayConverter(List<Employee> oldList) {
+        List<Integer> intArray = new ArrayList<>();
         for (Employee employee :
                 oldList) {
-            intArray[i] = employee.getEmployeeId();
-            System.out.println(intArray[i]);
-            i++;
-
+            intArray.add(employee.getEmployeeId());
         }
         return intArray;
     }
