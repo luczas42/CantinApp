@@ -134,22 +134,27 @@ public class LoginScreenController {
 
     @FXML
     void onLogin(ActionEvent event) {
-        String username = textFieldLoginUsername.getText();
-        String password = textFieldLoginPassword.getText();
-        retrofitInit.checkLogin(checkLoginCallback, username, password);
+        if (checkFieldsLogin(textFieldLoginUsername)) {
+            if (checkFieldsLogin(textFieldLoginPassword)) {
+                String username = textFieldLoginUsername.getText();
+                String password = textFieldLoginPassword.getText();
+                retrofitInit.checkLogin(checkLoginCallback, username, password);
 //        if (Objects.equals(username, connectedUser.getUsername())){
 //            this.loginPane.setVisible(false);
 //        }
+            }
+        }
+
     }
 
     @FXML
     void onSignup(ActionEvent event) {
 
-        if (checkFields(textFieldSignupUsername)) {
-            if (checkFields(textFieldSignupName)) {
-                if (checkFields(textFieldSignupEmail)) {
-                    if (checkFields(textFieldSignupPassword)) {
-                        if (checkFields(textFieldSignupPasswordConfirm)) {
+        if (checkFieldsRegister(textFieldSignupUsername)) {
+            if (checkFieldsRegister(textFieldSignupName)) {
+                if (checkFieldsRegister(textFieldSignupEmail)) {
+                    if (checkFieldsRegister(textFieldSignupPassword)) {
+                        if (checkFieldsRegister(textFieldSignupPasswordConfirm)) {
                             if (textFieldSignupPassword.getText().equals(textFieldSignupPasswordConfirm.getText())) {
                                 String username = textFieldSignupUsername.getText();
                                 String name = textFieldSignupName.getText();
@@ -162,7 +167,7 @@ public class LoginScreenController {
                                 alert.setTitle("Cadastro");
                                 alert.show();
                                 clearCamps();
-                            }else{
+                            } else {
                                 textFieldSignupPasswordConfirm.requestFocus();
                                 Alert alert = new Alert(Alert.AlertType.WARNING);
                                 alert.setContentText("Senhas não coincidem.");
@@ -176,10 +181,23 @@ public class LoginScreenController {
         }
     }
 
-    public  boolean checkFields(TextField textField){
-        if (!textField.getText().isEmpty()){
+    public boolean checkFieldsRegister(TextField textField) {
+        if (!textField.getText().isEmpty()) {
             return true;
-        }else{
+        } else {
+            textField.requestFocus();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Favor preencha todos os campos.");
+            alert.setTitle("Cadastro");
+            alert.show();
+            return false;
+        }
+    }
+
+    public boolean checkFieldsLogin(TextField textField) {
+        if (!textField.getText().isEmpty()) {
+            return true;
+        } else {
             textField.requestFocus();
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setContentText("Favor preencha todos os campos.");
