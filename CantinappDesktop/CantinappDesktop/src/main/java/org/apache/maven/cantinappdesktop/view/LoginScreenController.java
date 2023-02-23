@@ -1,6 +1,5 @@
 package org.apache.maven.cantinappdesktop.view;
 
-import com.sun.javafx.application.HostServicesDelegate;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,15 +7,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.apache.maven.cantinappdesktop.App;
-import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
 import org.apache.maven.cantinappdesktop.model.User;
+import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -111,16 +110,16 @@ public class LoginScreenController {
         @Override
         public void onResponse(Call<User> call, Response<User> response) {
 
-            if (response.isSuccessful()){
+            if (response.isSuccessful()) {
                 System.out.println("sucesso na resposta");
-            }else{
+            } else {
                 System.out.println("falha na resposta");
             }
         }
 
         @Override
         public void onFailure(Call<User> call, Throwable throwable) {
-            System.out.println("falha "+ throwable.getMessage());
+            System.out.println("falha " + throwable.getMessage());
         }
     };
 
@@ -145,37 +144,48 @@ public class LoginScreenController {
 
     @FXML
     void onSignup(ActionEvent event) {
-        if (!textFieldSignupUsername.getText().isEmpty()) {
-            if (!textFieldSignupName.getText().isEmpty()) {
-                if (!textFieldSignupEmail.getText().isEmpty()) {
-                    if (!textFieldSignupPassword.getText().isEmpty()) {
-                        if (!textFieldSignupPasswordConfirm.getText().isEmpty()) {
+
+        if (checkFields(textFieldSignupUsername)) {
+            if (checkFields(textFieldSignupName)) {
+                if (checkFields(textFieldSignupEmail)) {
+                    if (checkFields(textFieldSignupPassword)) {
+                        if (checkFields(textFieldSignupPasswordConfirm)) {
                             if (textFieldSignupPassword.getText().equals(textFieldSignupPasswordConfirm.getText())) {
                                 String username = textFieldSignupUsername.getText();
                                 String name = textFieldSignupName.getText();
                                 String email = textFieldSignupEmail.getText();
                                 User user = new User(username, name, email);
-
                                 String password = textFieldSignupPassword.getText();
                                 retrofitInit.addUser(addUserCallback, user, password);
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setContentText("Usuário cadastrado com sucesso.");
+                                alert.setTitle("Cadastro");
+                                alert.show();
                                 clearCamps();
-                            } else {
-
+                            }else{
+                                textFieldSignupPasswordConfirm.requestFocus();
+                                Alert alert = new Alert(Alert.AlertType.WARNING);
+                                alert.setContentText("Senhas não coincidem.");
+                                alert.setTitle("Cadastro");
+                                alert.show();
                             }
-                        } else {
-
                         }
-                    } else {
-
                     }
-                } else {
-
                 }
-            } else {
-
             }
-        } else {
+        }
+    }
 
+    public  boolean checkFields(TextField textField){
+        if (!textField.getText().isEmpty()){
+            return true;
+        }else{
+            textField.requestFocus();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Favor preencha todos os campos.");
+            alert.setTitle("Cadastro");
+            alert.show();
+            return false;
         }
     }
 
