@@ -15,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.apache.maven.cantinappdesktop.App;
 import org.apache.maven.cantinappdesktop.model.User;
+import org.apache.maven.cantinappdesktop.model.UserResponse;
 import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -106,19 +107,37 @@ public class LoginScreenController {
         stage.show();
     }
 
-    Callback<User> addUserCallback = new Callback<User>() {
+    Callback<UserResponse> addUserCallback = new Callback<UserResponse>() {
         @Override
-        public void onResponse(Call<User> call, Response<User> response) {
+        public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
 
             if (response.isSuccessful()) {
-                System.out.println("sucesso na resposta");
-            } else {
-                System.out.println("falha na resposta");
+
+                if  (response.body().isSuccess()){
+                    Platform.runLater(() -> {
+                        Alert alert;
+                        alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setContentText(response.body().getMessage());
+                        alert.setTitle("Cadastro");
+                        alert.show();
+                        clearCamps();
+                    });
+                }else{
+                    Platform.runLater(() -> {
+                        Alert alert;
+                        alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setContentText(response.body().getMessage());
+                        alert.setTitle("Cadastro");
+                        alert.show();
+                        clearCamps();
+                    });
+                }
+
             }
         }
 
         @Override
-        public void onFailure(Call<User> call, Throwable throwable) {
+        public void onFailure(Call<UserResponse> call, Throwable throwable) {
             System.out.println("falha " + throwable.getMessage());
         }
     };
@@ -162,11 +181,6 @@ public class LoginScreenController {
                                 User user = new User(username, name, email);
                                 String password = textFieldSignupPassword.getText();
                                 retrofitInit.addUser(addUserCallback, user, password);
-                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                                alert.setContentText("Usuário cadastrado com sucesso.");
-                                alert.setTitle("Cadastro");
-                                alert.show();
-                                clearCamps();
                             } else {
                                 textFieldSignupPasswordConfirm.requestFocus();
                                 Alert alert = new Alert(Alert.AlertType.WARNING);

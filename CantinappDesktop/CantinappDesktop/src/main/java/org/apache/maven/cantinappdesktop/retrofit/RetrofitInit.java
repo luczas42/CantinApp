@@ -62,7 +62,7 @@ public class RetrofitInit {
         this.apiService.addProduct(name, price).enqueue(call);
     }
 
-    public void addUser(Callback<User> call, User user, String password) {
+    public void addUser(Callback<UserResponse> call, User user, String password) {
         this.apiService.addUser(user.getUsername(),
                         user.getName(),
                         password,

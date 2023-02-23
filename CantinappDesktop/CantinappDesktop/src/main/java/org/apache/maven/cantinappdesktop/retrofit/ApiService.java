@@ -46,7 +46,7 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("users/addUser.php")
-    Call<User> addUser(@Field("username") String username,
+    Call<UserResponse> addUser(@Field("username") String username,
                        @Field("name") String name,
                        @Field("password") String password,
                        @Field("isUser") int isUser,
