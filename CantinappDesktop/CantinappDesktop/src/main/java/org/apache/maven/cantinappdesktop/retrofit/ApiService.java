@@ -2,6 +2,7 @@ package org.apache.maven.cantinappdesktop.retrofit;
 
 
 import okhttp3.MultipartBody;
+import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import org.apache.maven.cantinappdesktop.model.*;
@@ -33,6 +34,7 @@ public interface ApiService {
     @Multipart
     Call<Product> addProduct(@Part("pname") RequestBody name,
                              @Part("price") RequestBody price,
+                             @Part("productType")RequestBody productType,
                              @Part MultipartBody.Part image);
 
     @POST("products/addProduct.php")

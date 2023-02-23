@@ -156,7 +156,12 @@
 
 #comboBox{
     -fx-text-fill: #00A87D;
-    -fx-font-size:14px;
+
+    -fx-font-size:16px;
    -fx-background-color: white;
        -fx-background-radius:10;
+}
+
+.combo-box .cell {
+-fx-text-fill: #007557;
 }

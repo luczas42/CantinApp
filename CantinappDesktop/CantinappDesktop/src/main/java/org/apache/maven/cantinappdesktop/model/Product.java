@@ -9,14 +9,31 @@ public class Product {
 
     @SerializedName("id")
     private int id;
-    private File imageFile;
+    @SerializedName("name")
+    private String name;
 
     @SerializedName("image")
     private String imageName;
-    @SerializedName("name")
-    private String name;
     @SerializedName("price")
     private Float price;
+    @SerializedName("productType")
+    private String productType;
+    private File imageFile;
+
+    public String getProductType() {
+        return productType;
+    }
+
+    public void setProductType(String productType) {
+        this.productType = productType;
+    }
+
+    public Product(String name, Float price, String productType, File imageFile) {
+        this.name = name;
+        this.price = price;
+        this.productType = productType;
+        this.imageFile = imageFile;
+    }
 
     public Product(String name, Float price) {
         this.name = name;

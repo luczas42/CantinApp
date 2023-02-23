@@ -53,8 +53,8 @@ public class RetrofitInit {
 
     /// INSERTS
 
-    public void addProducts(Callback<Product> call, RequestBody name, RequestBody price, MultipartBody.Part file) {
-        this.apiService.addProduct(name, price, file).enqueue(call);
+    public void addProducts(Callback<Product> call, RequestBody name, RequestBody price, RequestBody productType, MultipartBody.Part file) {
+        this.apiService.addProduct(name, price,productType, file).enqueue(call);
 
     }
 

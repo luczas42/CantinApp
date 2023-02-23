@@ -1,9 +1,12 @@
 package org.apache.maven.cantinappdesktop.view;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -28,6 +31,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class ProductDetailsScreen {
 
+    private ObservableList<String> typeList = FXCollections.observableArrayList("Salgado", "Doce", "Caseiro");
     private Image productImage;
 
     private File selectedFile;
@@ -38,6 +42,9 @@ public class ProductDetailsScreen {
     private ImageView productImageView;
     @FXML
     private Button addProductImageButton;
+
+    @FXML
+    private ComboBox<String> selectProductTypeComboBox;
 
     @FXML
     private Button cancelProductEditButton;
@@ -114,7 +121,7 @@ public class ProductDetailsScreen {
         }
     };
 
-    public ProductDetailsScreen() throws NoSuchAlgorithmException, KeyManagementException {
+    public ProductDetailsScreen() {
     }
 
     ////
@@ -168,14 +175,16 @@ public class ProductDetailsScreen {
     void registerProduct() throws IOException {
         String productName = productNameField.getText();
         Float productPrice = Float.valueOf(productPriceField.getText());
+        String type = selectProductTypeComboBox.getSelectionModel().getSelectedItem();
         if (selectedFile != null) {
 
-            Product products = new Product(productName, productPrice, selectedFile);
+            Product products = new Product(productName, productPrice,type, selectedFile);
             RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), selectedFile);
             MultipartBody.Part file = MultipartBody.Part.createFormData("image", selectedFile.getName(), requestBody);
             RequestBody name = RequestBody.create(MediaType.parse("text/plain"), products.getName());
             RequestBody price = RequestBody.create(MediaType.parse("text/plain"), products.getPrice().toString());
-            retrofitInit.addProducts(addProductCallback, name, price, file);
+            RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), products.getProductType());
+            retrofitInit.addProducts(addProductCallback, name, price, productType, file);
         } else {
             Product products = new Product(productName, productPrice);
             RequestBody name = RequestBody.create(MediaType.parse("text/plain"), products.getName());
@@ -195,6 +204,7 @@ public class ProductDetailsScreen {
         productDeleteButton.setManaged(false);
         productEditButton.setVisible(false);
         productEditButton.setManaged(false);
+        selectProductTypeComboBox.setItems(FXCollections.observableArrayList(typeList));
     }
 
     public void switchToProductEditScreen(Product selectedProduct) {
