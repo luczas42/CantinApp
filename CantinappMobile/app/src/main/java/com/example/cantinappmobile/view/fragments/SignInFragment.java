@@ -60,7 +60,7 @@ public class SignInFragment extends Fragment {
                                     Button closeButton = myDialog.findViewById(R.id.bt_popup_dismiss);
                                     myDialog.show();
                                     closeButton.setOnClickListener(v1 -> {
-                                        Navigation.findNavController(v1).navigate(R.id.action_SignInFragment_to_LoginFragment);
+                                        Navigation.findNavController(view).navigate(R.id.action_SignInFragment_to_LoginFragment);
                                         myDialog.dismiss();
                                     });
 

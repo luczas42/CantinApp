@@ -1,6 +1,7 @@
 package com.example.cantinappmobile.view.fragments;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -45,24 +46,29 @@ public class LoginFragment extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
 
+        binding.resetPasswordButton.setOnClickListener(v -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://54.207.241.251/CantinappServer/users/passwordEmailReset.php"));
+            startActivity(browserIntent);
+        });
+
         binding.loginButton.setOnClickListener(v -> {
-//            if (viewModel.checkEmpty(binding.userLoginEditText)){
-//                if (viewModel.checkEmpty(binding.userPasswordEditText)){
-//                    String username = binding.userLoginEditText.getText().toString();
-//                    String password = binding.userPasswordEditText.getText().toString();
-//                    viewModel.userLogin(username, password);
-//                    viewModel.userResponseLiveData.observe(getViewLifecycleOwner(), user -> {
-//                        if (user!= null){
-//                            Log.i("login", "onViewCreated: "+ username);
-//                            Intent intent = new Intent(requireContext(), ListsActivity.class);
-//                            startActivity(intent);
-//                        }else{
-//                            Toast.makeText(requireContext(), "Credenciais erradas", Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-//
-//                }
-//            }
+            if (viewModel.checkEmpty(binding.userLoginEditText)){
+                if (viewModel.checkEmpty(binding.userPasswordEditText)){
+                    String username = binding.userLoginEditText.getText().toString();
+                    String password = binding.userPasswordEditText.getText().toString();
+                    viewModel.userLogin(username, password);
+                    viewModel.userResponseLiveData.observe(getViewLifecycleOwner(), user -> {
+                        if (user!= null){
+                            Log.i("login", "onViewCreated: "+ username);
+                            Intent intent = new Intent(requireContext(), ListsActivity.class);
+                            startActivity(intent);
+                        }else{
+                            Toast.makeText(requireContext(), "Credenciais erradas", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }
+            }
             Intent intent = new Intent(requireContext(), ListsActivity.class);
             startActivity(intent);
         });

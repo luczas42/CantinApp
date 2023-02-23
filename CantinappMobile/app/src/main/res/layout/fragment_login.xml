@@ -79,7 +79,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
                 android:text="Cadastrar"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/reset_password_button"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/user_password_edit_text" />
 
@@ -92,9 +92,21 @@
                 android:layout_marginEnd="36dp"
                 android:layout_marginBottom="8dp"
                 android:text="Entrar"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/reset_password_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/user_password_edit_text" />
+
+            <TextView
+                android:id="@+id/reset_password_button"
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/secondaryDarkColor"
+                android:text="Esqueceu sua senha?"
+                android:textSize="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
