@@ -3,7 +3,6 @@ package org.apache.maven.cantinappdesktop.retrofit;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import org.apache.maven.cantinappdesktop.model.*;
@@ -35,9 +34,6 @@ public class RetrofitInit {
         this.apiService.getProducts().enqueue(callback);
     }
 
-    public void getImage(Callback<ResponseBody> callback, RequestBody imageName) {
-        this.apiService.getImage(imageName).enqueue(callback);
-    }
 
     public void getEmployees(Callback<List<Employee>> callback) {
         this.apiService.getEmployees().enqueue(callback);
@@ -54,12 +50,12 @@ public class RetrofitInit {
     /// INSERTS
 
     public void addProducts(Callback<Product> call, RequestBody name, RequestBody price, RequestBody productType, MultipartBody.Part file) {
-        this.apiService.addProduct(name, price,productType, file).enqueue(call);
+        this.apiService.addProduct(name, price, productType, file).enqueue(call);
 
     }
 
-    public void addProducts(Callback<Product> call, RequestBody name, RequestBody price) {
-        this.apiService.addProduct(name, price).enqueue(call);
+    public void addProducts(Callback<Product> call, RequestBody name, RequestBody price, RequestBody productType) {
+        this.apiService.addProduct(name, price, productType).enqueue(call);
     }
 
     public void addUser(Callback<UserResponse> call, User user, String password) {
@@ -77,8 +73,12 @@ public class RetrofitInit {
 
     /// EDITS
 
-    public void editProducts(Callback<Product> call, Product product) {
-        this.apiService.editProduct(product.getName(), product.getPrice(), product.getId()).enqueue(call);
+    public void editProducts(Callback<Product> call, RequestBody name, RequestBody price, RequestBody productType, MultipartBody.Part file) {
+        this.apiService.editProduct(name, price, productType, file).enqueue(call);
+    }
+
+    public void editProducts(Callback<Product> call, RequestBody name, RequestBody price, RequestBody productType) {
+        this.apiService.editProduct(name, price, productType).enqueue(call);
     }
 
     /// DELETES
@@ -87,7 +87,7 @@ public class RetrofitInit {
         this.apiService.deleteProduct(id).enqueue(call);
     }
 
-    public void deleteEmployee(Callback<Void> call, int id){
+    public void deleteEmployee(Callback<Void> call, int id) {
         this.apiService.deleteEmployee(id).enqueue(call);
     }
     /// VERIFICATION

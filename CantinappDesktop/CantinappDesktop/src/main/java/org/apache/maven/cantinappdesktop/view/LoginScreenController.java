@@ -113,7 +113,7 @@ public class LoginScreenController {
 
             if (response.isSuccessful()) {
 
-                if  (response.body().isSuccess()){
+                if (response.body().isSuccess()) {
                     Platform.runLater(() -> {
                         Alert alert;
                         alert = new Alert(Alert.AlertType.INFORMATION);
@@ -122,7 +122,7 @@ public class LoginScreenController {
                         alert.show();
                         clearCamps();
                     });
-                }else{
+                } else {
                     Platform.runLater(() -> {
                         Alert alert;
                         alert = new Alert(Alert.AlertType.WARNING);
