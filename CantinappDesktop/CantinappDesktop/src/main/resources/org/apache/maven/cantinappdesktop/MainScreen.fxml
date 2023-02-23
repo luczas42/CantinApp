@@ -178,7 +178,7 @@
                               </Pane>
                               <Pane fx:id="workdaysPane" prefHeight="684.0" prefWidth="1030.0">
                                  <children>
-                                    <TableView fx:id="scaleTableView" layoutX="40.0" layoutY="48.0" prefHeight="550.0" prefWidth="930.0">
+                                    <TableView fx:id="scaleTableView" layoutX="40.0" layoutY="48.0" onMouseClicked="#scaleClick" prefHeight="550.0" prefWidth="930.0">
                                        <columns>
                                           <TableColumn fx:id="scaleDateTableColumn" editable="false" prefWidth="100.0" text="Data" />
                                           <TableColumn fx:id="scaleClassTableColumn" editable="false" minWidth="0.0" prefWidth="100.0" text="Turma" />

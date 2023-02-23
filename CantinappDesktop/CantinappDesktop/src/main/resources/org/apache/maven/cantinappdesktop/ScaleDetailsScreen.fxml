@@ -46,7 +46,8 @@
             </HBox>
             <TableView fx:id="employeeListTableView" layoutX="67.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="121.0" prefWidth="205.0">
               <columns>
-                <TableColumn fx:id="employeeListTableColumn" prefWidth="263.0" text="Alunos" />
+                <TableColumn fx:id="employeeListTableColumn" prefWidth="124.0" text="Alunos" />
+                  <TableColumn fx:id="employeeListRemoveTableColumn" />
               </columns>
             </TableView>
             <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="47.0" prefWidth="454.0">

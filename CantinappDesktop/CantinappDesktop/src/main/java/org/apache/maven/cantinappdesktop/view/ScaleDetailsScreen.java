@@ -52,6 +52,8 @@ public class ScaleDetailsScreen {
     @FXML
     private TableColumn<Employee, String> employeeListTableColumn;
     @FXML
+    private TableColumn<Button, Void> empployeeListRemoveTableColumn;
+    @FXML
     private Button btAddEmployeeToScale;
 
 
@@ -107,22 +109,23 @@ public class ScaleDetailsScreen {
     }
 
     public void switchToScaleEditScreen(Scale selectedScale) {
-        dayEditLabel.setText("Edição de Produto");
+        dayEditLabel.setText("Edição de Escala");
         scaleRegisterButton.setVisible(false);
         scaleRegisterButton.setManaged(false);
 
         myScale = selectedScale;
 
         /// ArrayList used to store the employee names for the comboBox
-        ArrayList<String> employeeNameList = new ArrayList<>();
 
-        for (Employee employee : myScale.getEmployeeList()) {
-            employeeNameList.add(employee.getName());
+        dayTextField.setText(myScale.getDay());
+        selectClassComboBox.setItems(FXCollections.observableArrayList(classList));
+        selectClassComboBox.getSelectionModel().select(transformClass(myScale.getClasS()));
+        selectPeriodComboBox.setItems(FXCollections.observableArrayList(periodList));
+        selectPeriodComboBox.getSelectionModel().select(myScale.getPeriod());
+        getEmployeesFromSelectedClass(selectClassComboBox.getSelectionModel().getSelectedItem());
+        if(myScale.getEmployeeList()!=null){
+            getEmployeeFromScale();
         }
-
-        dayTextField.setText(myScale.getDay().toString());
-        selectClassComboBox.setItems(FXCollections.observableArrayList(myScale.getClasS()));
-//        selectEmployeeComboBox.setItems(FXCollections.observableArrayList(employeeNameList));
 
     }
 
@@ -139,6 +142,15 @@ public class ScaleDetailsScreen {
                 employeeTableViewList.add(employee);
             }
         }
+
+        ObservableList<Employee> employeeObservableList = FXCollections.observableList(employeeTableViewList);
+        employeeListTableColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        employeeListTableView.setItems(employeeObservableList);
+    }
+
+    @FXML
+    void getEmployeeFromScale() {
+        employeeTableViewList.addAll(myScale.getEmployeeList());
 
         ObservableList<Employee> employeeObservableList = FXCollections.observableList(employeeTableViewList);
         employeeListTableColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
@@ -170,7 +182,9 @@ public class ScaleDetailsScreen {
                         stage.close();
                     } else {
                         selectEmployeeComboBox.isFocused();
-//                        selectEmployeeComboBox.set
+                        Alert a = new Alert(Alert.AlertType.ERROR);
+                        a.setContentText("Erro: Preencha o campo de empregados!");
+                        a.show();
                     }
                 }
             }
@@ -185,9 +199,9 @@ public class ScaleDetailsScreen {
     Callback<Scale> scaleCallback = new Callback<Scale>() {
         @Override
         public void onResponse(Call<Scale> call, Response<Scale> response) {
-            if (response.isSuccessful()){
+            if (response.isSuccessful()) {
                 System.out.println("sucesso na response");
-            }else{
+            } else {
                 System.out.println("falha na response");
             }
         }
@@ -215,6 +229,16 @@ public class ScaleDetailsScreen {
             return 2;
         } else {
             return 3;
+        }
+    }
+
+    private int transformClass(String selectedItem) {
+        if (selectedItem.equals("INF4AM")) {
+            return 0;
+        } else if (selectedItem.equals("INF4AT")) {
+            return 1;
+        } else {
+            return 2;
         }
     }
 
