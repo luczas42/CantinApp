@@ -3,12 +3,10 @@ package org.apache.maven.cantinappdesktop.retrofit;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import org.apache.maven.cantinappdesktop.model.Employee;
-import org.apache.maven.cantinappdesktop.model.Product;
-import org.apache.maven.cantinappdesktop.model.Scale;
-import org.apache.maven.cantinappdesktop.model.User;
+import org.apache.maven.cantinappdesktop.model.*;
 import org.apache.maven.cantinappdesktop.util.FileTypeAdapter;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -37,7 +35,7 @@ public class RetrofitInit {
         this.apiService.getProducts().enqueue(callback);
     }
 
-    public void getImage(Callback<ResponseBody> callback, RequestBody imageName){
+    public void getImage(Callback<ResponseBody> callback, RequestBody imageName) {
         this.apiService.getImage(imageName).enqueue(callback);
     }
 
@@ -45,8 +43,12 @@ public class RetrofitInit {
         this.apiService.getEmployees().enqueue(callback);
     }
 
-    public void getScales(Callback<Scale> callback, RequestBody turn_id){
-        this.apiService.getScales(turn_id).enqueue(callback);
+    public void getEmployeesWithClass(Callback<List<Employee>> callback, String clasS) {
+        this.apiService.getEmployeesWithClass(clasS).enqueue(callback);
+    }
+
+    public void getScales(Callback<List<Scale>> callback) {
+        this.apiService.getScales().enqueue(callback);
     }
 
     /// INSERTS
@@ -69,7 +71,7 @@ public class RetrofitInit {
                 .enqueue(call);
     }
 
-    public void addEmployee(Callback<Employee> call, RequestBody name, RequestBody clasS){
+    public void addEmployee(Callback<Employee> call, RequestBody name, RequestBody clasS) {
         this.apiService.addEmployee(name, clasS).enqueue(call);
     }
 
@@ -85,10 +87,20 @@ public class RetrofitInit {
         this.apiService.deleteProduct(id).enqueue(call);
     }
 
+    public void deleteEmployee(Callback<Void> call, int id){
+        this.apiService.deleteEmployee(id).enqueue(call);
+    }
     /// VERIFICATION
 
     public void checkLogin(Callback<User> call, String username, String password) {
         this.apiService.userLogin(username, password).enqueue(call);
     }
 
+    public void addScale(Callback<Scale> call, String day, int period, String clasS, List<Integer> employees) {
+        this.apiService.addScale(day, period, clasS, employees).enqueue(call);
+    }
+
+    public void editEmployee(Callback<Employee> call, Employee employee) {
+        this.apiService.editEmployee(employee.getEmployeeId(), employee.getName(), employee.getClasS()).enqueue(call);
+    }
 }

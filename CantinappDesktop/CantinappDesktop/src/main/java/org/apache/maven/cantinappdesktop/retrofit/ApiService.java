@@ -1,17 +1,14 @@
 package org.apache.maven.cantinappdesktop.retrofit;
 
 
-import javafx.fxml.FXML;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import org.apache.maven.cantinappdesktop.model.Employee;
-import org.apache.maven.cantinappdesktop.model.Product;
-import org.apache.maven.cantinappdesktop.model.Scale;
-import org.apache.maven.cantinappdesktop.model.User;
+import org.apache.maven.cantinappdesktop.model.*;
 import retrofit2.Call;
 import retrofit2.http.*;
 
+import java.text.Normalizer;
 import java.util.List;
 
 public interface ApiService {
@@ -62,9 +59,27 @@ public interface ApiService {
     @POST("employees/addEmployee.php")
     @Multipart
     Call<Employee> addEmployee(@Part("name") RequestBody name,
-                           @Part("class") RequestBody clasS);
+                               @Part("class") RequestBody clasS);
 
     @POST("scales/getScale.php")
-    @Multipart
-    Call<Scale> getScales(@Part("turn_id") RequestBody turn_id);
+    Call<List<Scale>> getScales();
+
+    @FormUrlEncoded
+    @POST("employees/getEmployeesWithClass.php")
+    Call<List<Employee>> getEmployeesWithClass(@Field("class") String clasS);
+
+    @FormUrlEncoded
+    @POST("scales/addScale.php")
+    Call<Scale> addScale(@Field("day") String day,
+                        @Field("period") int period,
+                        @Field("class") String clasS,
+                        @Field("employee_array[]") List<Integer> employees);
+
+    @FormUrlEncoded
+    @POST("employees/editEmployee.php")
+    Call<Employee> editEmployee(@Field("id") int employeeId, @Field("name") String employeeName, @Field("class") String employeeClass);
+
+    @FormUrlEncoded
+    @POST("employees/deleteEmployee.php")
+    Call<Void> deleteEmployee(@Field("id") int id);
 }

@@ -29,15 +29,15 @@
                   <Font size="16.0" />
                </font>
             </TextField>
-            <ComboBox id="comboBox" fx:id="selectClassComboBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="38.0" prefWidth="264.0" promptText="Selecionar Turma" stylesheets="@application.css">
+            <ComboBox id="comboBox" fx:id="selectClassComboBox" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#onSelectClass" prefHeight="38.0" prefWidth="264.0" promptText="Selecionar Turma" stylesheets="@application.css">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
             </ComboBox>
-            <ComboBox id="comboBox" fx:id="selectTurnComboBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="38.0" prefWidth="264.0" promptText="Selecionar Turno" />
+            <ComboBox id="comboBox" fx:id="selectPeriodComboBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="38.0" prefWidth="264.0" promptText="Selecionar Turno" />
             <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="464.0">
                <children>
-                  <ComboBox id="comboBox" fx:id="selectEmployeeComboBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="39.0" prefWidth="266.0" promptText="Selecionar Aluno">
+                  <ComboBox id="comboBox" fx:id="selectEmployeeComboBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onSelectEmployee" prefHeight="39.0" prefWidth="266.0" promptText="Selecionar Aluno">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin></ComboBox>
@@ -46,7 +46,8 @@
             </HBox>
             <TableView fx:id="employeeListTableView" layoutX="67.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="121.0" prefWidth="205.0">
               <columns>
-                <TableColumn fx:id="employeeListTableColumn" prefWidth="263.0" text="Alunos" />
+                <TableColumn fx:id="employeeListTableColumn" prefWidth="124.0" text="Alunos" />
+                  <TableColumn fx:id="employeeListRemoveTableColumn" />
               </columns>
             </TableView>
             <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="47.0" prefWidth="454.0">

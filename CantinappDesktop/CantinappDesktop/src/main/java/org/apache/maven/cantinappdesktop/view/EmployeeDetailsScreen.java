@@ -55,6 +55,17 @@ public class EmployeeDetailsScreen {
         myEmployee = selectedEmployee;
         employeeNameField.setText(selectedEmployee.getName());
         cbEmployeeClass.setItems(classList);
+        switch (selectedEmployee.getClasS()) {
+            case "INF4AM":
+                cbEmployeeClass.getSelectionModel().select(0);
+                break;
+            case "INF4AT":
+                cbEmployeeClass.getSelectionModel().select(1);
+                break;
+            case "REFRI4AM":
+                cbEmployeeClass.getSelectionModel().select(2);
+                break;
+        }
     }
 
     @FXML
@@ -62,22 +73,29 @@ public class EmployeeDetailsScreen {
         String employeeName = employeeNameField.getText();
         String employeeClass = cbEmployeeClass.getSelectionModel().getSelectedItem().toString();
 
-        Employee newEmployee = new Employee(employeeName, employeeClass);
         RequestBody name = RequestBody.create(MediaType.parse("text/plain"), employeeName);
         RequestBody clasS = RequestBody.create(MediaType.parse("text/plain"), employeeClass);
 
         retrofitInit.addEmployee(addEmployeeCallback, name, clasS);
-
+        Stage stage = (Stage) employeeRegisterButton.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
     void editEmployee() {
+        myEmployee.setName(employeeNameField.getText());
+        myEmployee.setClasS(cbEmployeeClass.getSelectionModel().getSelectedItem().toString());
 
+        retrofitInit.editEmployee(employeeEditCallback, myEmployee);
+        Stage stage = (Stage) employeeRegisterButton.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
     void deleteEmployee() {
-
+        retrofitInit.deleteEmployee(deleteEmployeeCallback, myEmployee.getEmployeeId());
+        Stage stage = (Stage) employeeRegisterButton.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
@@ -90,15 +108,49 @@ public class EmployeeDetailsScreen {
         @Override
         public void onResponse(Call<Employee> call, Response<Employee> response) {
 
-            if(!response.isSuccessful()){
+            if (!response.isSuccessful()) {
                 System.out.println("falhou a response");
-            }else{
+            } else {
                 System.out.println("sucesso");
             }
         }
+
         @Override
         public void onFailure(Call<Employee> call, Throwable t) {
             System.out.println(t.getMessage());
+        }
+    };
+
+    Callback<Employee> employeeEditCallback = new Callback<Employee>() {
+        @Override
+        public void onResponse(Call<Employee> call, Response<Employee> response) {
+            if(response.isSuccessful()){
+                System.out.println("sucesso na response");
+            }else{
+                System.out.println("falha na response");
+            }
+        }
+
+        @Override
+        public void onFailure(Call<Employee> call, Throwable throwable) {
+            System.out.println("falha");
+            System.out.println(throwable.getMessage());
+        }
+    };
+
+    Callback<Void> deleteEmployeeCallback = new Callback<Void>() {
+        @Override
+        public void onResponse(Call<Void> call, Response<Void> response) {
+            if(response.isSuccessful()){
+                System.out.println("sucesso na response");
+            }else{
+                System.out.println("falha na response " + response.code());
+            }
+        }
+
+        @Override
+        public void onFailure(Call<Void> call, Throwable throwable) {
+            System.out.println("falha "+throwable.getMessage());
         }
     };
 

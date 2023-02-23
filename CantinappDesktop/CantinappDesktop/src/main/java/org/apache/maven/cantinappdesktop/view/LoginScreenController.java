@@ -7,18 +7,22 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.apache.maven.cantinappdesktop.App;
-import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
 import org.apache.maven.cantinappdesktop.model.User;
+import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URI;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 
@@ -92,11 +96,11 @@ public class LoginScreenController {
         }
     };
 
-    public void openMainScene(ActionEvent event) throws IOException{
+    public void openMainScene(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("MainScreen.fxml"));
         root = loader.load();
 
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -105,50 +109,117 @@ public class LoginScreenController {
     Callback<User> addUserCallback = new Callback<User>() {
         @Override
         public void onResponse(Call<User> call, Response<User> response) {
-            System.out.println(response.code());
+
+            if (response.isSuccessful()) {
+                System.out.println("sucesso na resposta");
+            } else {
+                System.out.println("falha na resposta");
+            }
         }
 
         @Override
         public void onFailure(Call<User> call, Throwable throwable) {
-            System.out.println(throwable.getMessage());
+            System.out.println("falha " + throwable.getMessage());
         }
     };
-
 
 
     public LoginScreenController() throws NoSuchAlgorithmException, KeyManagementException {
     }
 
     @FXML
-    void onForgotPasswordClick(ActionEvent event) {
-
+    void onForgotPasswordClick(ActionEvent event) throws IOException {
+        Desktop.getDesktop().browse(URI.create("http://54.207.241.251/CantinappServer/users/passwordEmailReset.php"));
     }
 
     @FXML
     void onLogin(ActionEvent event) {
-        String username = textFieldLoginUsername.getText();
-        String password = textFieldLoginPassword.getText();
-        retrofitInit.checkLogin(checkLoginCallback,username,password);
+        if (checkFieldsLogin(textFieldLoginUsername)) {
+            if (checkFieldsLogin(textFieldLoginPassword)) {
+                String username = textFieldLoginUsername.getText();
+                String password = textFieldLoginPassword.getText();
+                retrofitInit.checkLogin(checkLoginCallback, username, password);
 //        if (Objects.equals(username, connectedUser.getUsername())){
 //            this.loginPane.setVisible(false);
 //        }
+            }
+        }
+
     }
 
     @FXML
     void onSignup(ActionEvent event) {
-        String username = textFieldSignupUsername.getText();
-        String name = textFieldSignupName.getText();
-        String email = textFieldSignupEmail.getText();
-        String password = textFieldSignupPassword.getText();
-        System.out.println(password);
-        User user = new User(username, name, email);
-        retrofitInit.addUser(addUserCallback, user, password);
 
+        if (checkFieldsRegister(textFieldSignupUsername)) {
+            if (checkFieldsRegister(textFieldSignupName)) {
+                if (checkFieldsRegister(textFieldSignupEmail)) {
+                    if (checkFieldsRegister(textFieldSignupPassword)) {
+                        if (checkFieldsRegister(textFieldSignupPasswordConfirm)) {
+                            if (textFieldSignupPassword.getText().equals(textFieldSignupPasswordConfirm.getText())) {
+                                String username = textFieldSignupUsername.getText();
+                                String name = textFieldSignupName.getText();
+                                String email = textFieldSignupEmail.getText();
+                                User user = new User(username, name, email);
+                                String password = textFieldSignupPassword.getText();
+                                retrofitInit.addUser(addUserCallback, user, password);
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setContentText("Usuário cadastrado com sucesso.");
+                                alert.setTitle("Cadastro");
+                                alert.show();
+                                clearCamps();
+                            } else {
+                                textFieldSignupPasswordConfirm.requestFocus();
+                                Alert alert = new Alert(Alert.AlertType.WARNING);
+                                alert.setContentText("Senhas não coincidem.");
+                                alert.setTitle("Cadastro");
+                                alert.show();
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
+
+    public boolean checkFieldsRegister(TextField textField) {
+        if (!textField.getText().isEmpty()) {
+            return true;
+        } else {
+            textField.requestFocus();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Favor preencha todos os campos.");
+            alert.setTitle("Cadastro");
+            alert.show();
+            return false;
+        }
+    }
+
+    public boolean checkFieldsLogin(TextField textField) {
+        if (!textField.getText().isEmpty()) {
+            return true;
+        } else {
+            textField.requestFocus();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Favor preencha todos os campos.");
+            alert.setTitle("Cadastro");
+            alert.show();
+            return false;
+        }
+    }
+
+    private void clearCamps() {
+        textFieldSignupName.clear();
+        textFieldSignupUsername.clear();
+        textFieldSignupEmail.clear();
+        textFieldSignupPassword.clear();
+        textFieldSignupPasswordConfirm.clear();
+    }
+
     @FXML
-    void closeApp (ActionEvent event) {
+    void closeApp(ActionEvent event) {
         Platform.exit();
     }
+
     @FXML
     void minimizeApp(ActionEvent event) {
         Stage stage = (Stage) minimizeAppButton.getScene().getWindow();
