@@ -54,9 +54,7 @@ public class MainScreenController {
     @FXML
     private Button minimizeAppButton;
     @FXML
-    private Button newEmployeeButton;
-    @FXML
-    private Button newScaleButton;
+    private Button newRegisterButton;
     @FXML
     private Pane workdaysPane;
     @FXML
@@ -71,8 +69,6 @@ public class MainScreenController {
     private Pane employeePane;
     @FXML
     private TableView<Product> productsTableView;
-    @FXML
-    private Button newProductButton;
     @FXML
     private TableColumn<Product, String> productNameTableColumn;
     @FXML
@@ -97,14 +93,15 @@ public class MainScreenController {
     private TableColumn<Employee, String> employeeNameTableColumn;
     @FXML
     private TableView<Employee> employeeTableView;
+    private String screenAtMoment;
 
 
     ////
     //// TABLE DISPLAYING FUNCTIONS: PRODUCTS, EMPLOYEES AND SCALES
     ////
     @FXML
-    void displayProducts(ActionEvent event) {
-        disablingOtherElements("products");
+    void displayProducts() {
+        arrangingScreenElements("products");
         try {
             refreshProductsTable();
         } catch (InterruptedException e) {
@@ -113,8 +110,8 @@ public class MainScreenController {
     }
 
     @FXML
-    void displayEmployees(ActionEvent event) {
-        disablingOtherElements("employees");
+    void displayEmployees() {
+        arrangingScreenElements("employees");
         try {
             refreshEmployeeTable();
         } catch (InterruptedException e) {
@@ -123,8 +120,8 @@ public class MainScreenController {
     }
 
     @FXML
-    void displayScales(ActionEvent event) {
-        disablingOtherElements("scales");
+    void displayScales() {
+        arrangingScreenElements("scales");
         try {
             refreshScalesTable();
         } catch (InterruptedException e) {
@@ -132,31 +129,55 @@ public class MainScreenController {
         }
     }
 
-    private void disablingOtherElements(String code) {
+    private void arrangingScreenElements(String code) {
         switch (code) {
             case "products" -> {
                 employeesButton.setSelected(false);
                 employeesButton.setDisable(false);
                 shiftsButton.setSelected(false);
                 shiftsButton.setDisable(false);
+                employeePane.setVisible(false);
+                workdaysPane.setVisible(false);
                 productsPane.setVisible(true);
                 productsButton.setDisable(true);
+                screenAtMoment = "products";
             }
             case "employees" -> {
                 productsButton.setSelected(false);
                 productsButton.setDisable(false);
                 shiftsButton.setSelected(false);
                 shiftsButton.setDisable(false);
+                workdaysPane.setVisible(false);
+                productsPane.setVisible(false);
                 employeePane.setVisible(true);
                 employeesButton.setDisable(true);
+                screenAtMoment = "employees";
             }
             case "scales" -> {
                 productsButton.setSelected(false);
                 productsButton.setDisable(false);
                 employeesButton.setSelected(false);
                 employeesButton.setDisable(false);
+                productsPane.setVisible(false);
+                employeePane.setVisible(false);
                 workdaysPane.setVisible(true);
                 shiftsButton.setDisable(true);
+                screenAtMoment = "scales";
+            }
+        }
+    }
+
+    @FXML
+    void openNewRegisterScreen() {
+        switch (screenAtMoment) {
+            case "products" -> {
+                openNewProductScreen();
+            }
+            case "employees" -> {
+                openNewEmployeeScreen();
+            }
+            case "scales" -> {
+                openNewScaleScreen();
             }
         }
     }
@@ -179,19 +200,15 @@ public class MainScreenController {
                 stage.initModality(Modality.APPLICATION_MODAL);
                 ProductDetailsScreen productDetailsScreenController = fxmlLoader.getController();
                 productDetailsScreenController.switchToProductEditScreen(selectedProduct);
-                Thread.sleep(100);
                 stage.showAndWait();
-                productsRefreshExecutor.notify();
             } catch (IOException e) {
                 e.printStackTrace();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
         }
     }
 
     @FXML
-    void openNewProductScreen(ActionEvent event) {
+    void openNewProductScreen() {
         try {
             Stage stage = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("ProductDetailsScreen.fxml"));
@@ -204,8 +221,7 @@ public class MainScreenController {
             ProductDetailsScreen productDetailsScreenController = fxmlLoader.getController();
             productDetailsScreenController.swichToProductAddScreen();
             stage.showAndWait();
-            refreshProductsTable();
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -224,19 +240,15 @@ public class MainScreenController {
                 stage.initModality(Modality.APPLICATION_MODAL);
                 EmployeeDetailsScreen employeeDetailsScreen = fxmlLoader.getController();
                 employeeDetailsScreen.switchToEmployeeEditScreen(selectedEmployee);
-                Thread.sleep(100);
                 stage.showAndWait();
-                employeeRefreshExecutor.notify();
             } catch (IOException e) {
                 e.printStackTrace();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
         }
     }
 
     @FXML
-    void openNewEmployeeScreen(ActionEvent event) {
+    void openNewEmployeeScreen() {
         try {
             Stage stage = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("EmployeeDetailsScreen.fxml"));
@@ -249,7 +261,6 @@ public class MainScreenController {
             EmployeeDetailsScreen employeeDetailsScreenController = fxmlLoader.getController();
             employeeDetailsScreenController.switchToEmployeeAddScreen();
             stage.showAndWait();
-//            refreshProductsTable();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -269,19 +280,15 @@ public class MainScreenController {
                 stage.initModality(Modality.APPLICATION_MODAL);
                 ScaleDetailsScreen scaleDetailsScreen = fxmlLoader.getController();
                 scaleDetailsScreen.switchToScaleEditScreen(selectedScale);
-                Thread.sleep(100);
                 stage.showAndWait();
-//                productsRefreshExecutor.notify();
             } catch (IOException e) {
                 e.printStackTrace();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
         }
     }
 
     @FXML
-    void openNewScaleScreen(ActionEvent event) {
+    void openNewScaleScreen() {
         try {
             Stage stage = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("ScaleDetailsScreen.fxml"));
@@ -294,7 +301,6 @@ public class MainScreenController {
             ScaleDetailsScreen scaleDetailsScreenController = fxmlLoader.getController();
             scaleDetailsScreenController.swichToScaleAddScreen();
             stage.showAndWait();
-//            refreshProductsTable();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -394,7 +400,7 @@ public class MainScreenController {
     ////
 
     @FXML
-    void closeApp(ActionEvent event) throws IOException {
+    void closeApp() {
         Platform.exit();
     }
 
@@ -410,7 +416,7 @@ public class MainScreenController {
     }
 
     @FXML
-    void minimizeApp(ActionEvent event) {
+    void minimizeApp() {
         Stage stage = (Stage) minimizeAppButton.getScene().getWindow();
         stage.setIconified(true);
     }
