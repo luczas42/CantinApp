@@ -187,7 +187,7 @@
                                     </TableView>
                                  </children>
                               </Pane>
-                              <Button id="table-aux-button" layoutX="740.0" layoutY="620.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="49.0">
+                              <Button id="table-aux-button" fx:id="tableRefreshButton" layoutX="700.0" layoutY="620.0" mnemonicParsing="false" onAction="#refreshTable" prefHeight="40.0" prefWidth="49.0">
                                  <graphic>
                                     <ImageView fitHeight="32.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -196,7 +196,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button id="table-aux-button" fx:id="newRegisterButton" layoutX="800.0" layoutY="620.0" mnemonicParsing="false" onAction="#openNewRegisterScreen" text="Cadastrar novo produto">
+                              <Button id="table-aux-button" fx:id="newRegisterButton" layoutX="760.0" layoutY="620.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openNewRegisterScreen" prefHeight="40.0" prefWidth="200.0" text="Cadastrar novo produto">
                                  <font>
                                     <Font size="14.0" />
                                  </font>

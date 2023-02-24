@@ -31,26 +31,16 @@ import retrofit2.Response;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 
 public class MainScreenController {
 
     RetrofitInit retrofitInit = new RetrofitInit();
-
-    /// depois de testar, ver se precisa dos três
-    ScheduledExecutorService productsRefreshExecutor = Executors.newSingleThreadScheduledExecutor();
-    ScheduledExecutorService scaleRefreshExecutor;
-    ScheduledExecutorService employeeRefreshExecutor = Executors.newSingleThreadScheduledExecutor();
-
-//    List<Scale> turnList = new ArrayList<>();
-//    List<Scale> auxScaleList = new ArrayList<>();
-
     List<Scale> scaleList = new ArrayList<>();
     private Stage stage;
     private Scene scene;
     private Parent root;
-
+    @FXML
+    private Button tableRefreshButton;
     @FXML
     private Button minimizeAppButton;
     @FXML
@@ -141,6 +131,7 @@ public class MainScreenController {
                 productsPane.setVisible(true);
                 productsButton.setDisable(true);
                 screenAtMoment = "products";
+                newRegisterButton.setText("Cadastrar novo produto");
             }
             case "employees" -> {
                 productsButton.setSelected(false);
@@ -152,6 +143,7 @@ public class MainScreenController {
                 employeePane.setVisible(true);
                 employeesButton.setDisable(true);
                 screenAtMoment = "employees";
+                newRegisterButton.setText("Cadastrar novo empregado");
             }
             case "scales" -> {
                 productsButton.setSelected(false);
@@ -163,6 +155,7 @@ public class MainScreenController {
                 workdaysPane.setVisible(true);
                 shiftsButton.setDisable(true);
                 screenAtMoment = "scales";
+                newRegisterButton.setText("Cadastrar nova escala");
             }
         }
     }
@@ -310,15 +303,30 @@ public class MainScreenController {
     //// REFRESHING THE PRODUCTS TABLE
     ////
 
-    public void refreshProductsTable() throws InterruptedException {
+    @FXML
+    void refreshTable() throws InterruptedException {
+        switch (screenAtMoment) {
+            case "products" -> {
+                refreshProductsTable();
+            }
+            case "employees" -> {
+                refreshEmployeeTable();
+            }
+            case "scales" -> {
+                refreshScalesTable();
+            }
+        }
+    }
+
+    void refreshProductsTable() throws InterruptedException {
         retrofitInit.getProducts(this.productCallback);
     }
 
-    public void refreshEmployeeTable() throws InterruptedException {
+    void refreshEmployeeTable() throws InterruptedException {
         retrofitInit.getEmployees(this.employeeCallback);
     }
 
-    public void refreshScalesTable() throws InterruptedException {
+    void refreshScalesTable() throws InterruptedException {
         retrofitInit.getScales(this.scalesCallback);
     }
 
