@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName;
 public class Employee {
 
     @SerializedName("id")
-    private int employeeId;
+    private int employee_Id;
     @SerializedName("id_scale")
-    private int scaleId;
+    private int scale_id;
     @SerializedName("name")
     private String name;
     @SerializedName("class")
@@ -18,10 +18,11 @@ public class Employee {
         this.clasS = clasS;
     }
 
-    public Employee(int employeeId, int scaleId, String name) {
-        this.employeeId = employeeId;
-        this.scaleId = scaleId;
+    public Employee(int employee_Id, int scale_id, String name, String clasS) {
+        this.employee_Id = employee_Id;
+        this.scale_id = scale_id;
         this.name = name;
+        this.clasS = clasS;
     }
 
     public String getName() {
@@ -40,19 +41,19 @@ public class Employee {
         this.clasS = clasS;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
+    public int getEmployee_Id() {
+        return employee_Id;
     }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    public void setEmployee_Id(int employee_Id) {
+        this.employee_Id = employee_Id;
     }
 
-    public int getScaleId() {
-        return scaleId;
+    public int getScale_id() {
+        return scale_id;
     }
 
-    public void setScaleId(int scaleId) {
-        this.scaleId = scaleId;
+    public void setScale_id(int scale_id) {
+        this.scale_id = scale_id;
     }
 }

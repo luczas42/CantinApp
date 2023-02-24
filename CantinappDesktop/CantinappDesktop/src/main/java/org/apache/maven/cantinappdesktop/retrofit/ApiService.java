@@ -1,6 +1,7 @@
 package org.apache.maven.cantinappdesktop.retrofit;
 
 
+import javafx.fxml.FXML;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -71,9 +72,9 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("scales/addScale.php")
     Call<Scale> addScale(@Field("day") String day,
-                        @Field("period") int period,
-                        @Field("class") String clasS,
-                        @Field("employee_array[]") List<Integer> employees);
+                         @Field("period") int period,
+                         @Field("class") String clasS,
+                         @Field("employee_array[]") List<Integer> employees);
 
     @FormUrlEncoded
     @POST("employees/editEmployee.php")
@@ -82,4 +83,17 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("employees/deleteEmployee.php")
     Call<Void> deleteEmployee(@Field("id") int id);
+
+    @FormUrlEncoded
+    @POST("turns/deleteTurn.php")
+    Call<Void> deleteScale(@Field("id") int turnId);
+
+    @FormUrlEncoded
+    @POST("scales/editScale.php")
+    Call<Scale> editScale(@Field("turn_id") int turnId,
+                          @Field("day") String day,
+                          @Field("period") int period,
+                          @Field("class") String clasS,
+                          @Field("scale_id[]") List<Integer> scale_id_list,
+                          @Field("employee_id[]") List<Integer> employee_id_list);
 }

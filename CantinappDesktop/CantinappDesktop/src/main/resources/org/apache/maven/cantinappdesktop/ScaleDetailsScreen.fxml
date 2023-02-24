@@ -29,6 +29,16 @@
                   <Font size="16.0" />
                </font>
             </TextField>
+            <TextField id="aux-fields" fx:id="classTextField" layoutX="103.0" layoutY="98.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="37.0" prefWidth="265.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <TextField id="aux-fields" fx:id="periodTextField" layoutX="103.0" layoutY="126.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="37.0" prefWidth="265.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
             <ComboBox id="comboBox" fx:id="selectClassComboBox" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#onSelectClass" prefHeight="38.0" prefWidth="264.0" promptText="Selecionar Turma" stylesheets="@application.css">
                <VBox.margin>
                   <Insets bottom="10.0" />
@@ -46,17 +56,11 @@
             </HBox>
             <TableView fx:id="employeeListTableView" layoutX="67.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="121.0" prefWidth="205.0">
               <columns>
-                <TableColumn fx:id="employeeListTableColumn" prefWidth="124.0" text="Alunos" />
-                  <TableColumn fx:id="employeeListRemoveTableColumn" />
+                <TableColumn fx:id="employeeListTableColumn" prefWidth="204.0" text="Alunos" />
               </columns>
             </TableView>
             <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="47.0" prefWidth="454.0">
                <children>
-                  <Button id="general-button-style" fx:id="scaleEditButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#editScale" prefHeight="26.0" prefWidth="68.0" text="Alterar">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
                   <Button id="general-button-style" fx:id="scaleDeleteButton" mnemonicParsing="false" onAction="#deleteScale" prefHeight="30.0" prefWidth="68.0" text="Excluir">
                      <font>
                         <Font size="14.0" />

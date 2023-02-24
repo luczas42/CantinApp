@@ -7,8 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import org.apache.maven.cantinappdesktop.model.Employee;
 import org.apache.maven.cantinappdesktop.model.Scale;
 import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
@@ -17,7 +15,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ScaleDetailsScreen {
@@ -49,10 +46,13 @@ public class ScaleDetailsScreen {
     private ComboBox<String> selectEmployeeComboBox;
     @FXML
     private TableView<Employee> employeeListTableView;
+
+    @FXML
+    private TextField classTextField;
+    @FXML
+    private TextField periodTextField;
     @FXML
     private TableColumn<Employee, String> employeeListTableColumn;
-    @FXML
-    private TableColumn<Button, Void> empployeeListRemoveTableColumn;
     @FXML
     private Button btAddEmployeeToScale;
 
@@ -62,6 +62,10 @@ public class ScaleDetailsScreen {
         scaleDeleteButton.setManaged(false);
         scaleEditButton.setVisible(false);
         scaleEditButton.setManaged(false);
+        periodTextField.setVisible(false);
+        periodTextField.setDisable(true);
+        classTextField.setDisable(true);
+        classTextField.setVisible(false);
 
         selectClassComboBox.setItems(FXCollections.observableArrayList(classList));
         selectPeriodComboBox.setItems(FXCollections.observableArrayList(periodList));
@@ -112,21 +116,23 @@ public class ScaleDetailsScreen {
         dayEditLabel.setText("Edição de Escala");
         scaleRegisterButton.setVisible(false);
         scaleRegisterButton.setManaged(false);
+        selectClassComboBox.setDisable(true);
+        selectClassComboBox.setVisible(false);
+        selectPeriodComboBox.setDisable(true);
+        selectPeriodComboBox.setVisible(false);
+        selectEmployeeComboBox.setDisable(true);
+        selectEmployeeComboBox.setVisible(false);
+        btAddEmployeeToScale.setDisable(true);
+        btAddEmployeeToScale.setVisible(false);
 
         myScale = selectedScale;
 
-        /// ArrayList used to store the employee names for the comboBox
-
         dayTextField.setText(myScale.getDay());
-        selectClassComboBox.setItems(FXCollections.observableArrayList(classList));
-        selectClassComboBox.getSelectionModel().select(transformClass(myScale.getClasS()));
-        selectPeriodComboBox.setItems(FXCollections.observableArrayList(periodList));
-        selectPeriodComboBox.getSelectionModel().select(myScale.getPeriod());
-        getEmployeesFromSelectedClass(selectClassComboBox.getSelectionModel().getSelectedItem());
-        if(myScale.getEmployeeList()!=null){
+        classTextField.setText(myScale.getClasS());
+        periodTextField.setText(transformPeriodToString(myScale.getPeriod()));
+        if (myScale.getEmployeeList() != null) {
             getEmployeeFromScale();
         }
-
     }
 
     @FXML
@@ -158,13 +164,10 @@ public class ScaleDetailsScreen {
     }
 
     @FXML
-    void editScale() {
-
-    }
-
-    @FXML
     void deleteScale() {
-
+        retrofitInit.deleteScale(deleteScaleCallback, myScale.getTurn_id());
+        Stage stage = (Stage) closeScaleDetailsScreenButton.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
@@ -174,10 +177,10 @@ public class ScaleDetailsScreen {
                 if (!selectPeriodComboBox.getSelectionModel().isEmpty()) {
                     if (!employeeTableViewList.isEmpty()) {
                         String day = dayTextField.getText();
-                        int period = transformPeriod(selectPeriodComboBox.getSelectionModel().getSelectedItem());
+                        int period = transformPeriodToInt(selectPeriodComboBox.getSelectionModel().getSelectedItem());
                         String clasS = selectClassComboBox.getSelectionModel().getSelectedItem();
-                        List<Integer> employeeArray = arrayConverter(employeeTableViewList);
-                        retrofitInit.addScale(scaleCallback, day, period, clasS, employeeArray);
+                        List<Integer> idList = getEmployeeIdList(employeeTableViewList);
+                        retrofitInit.addScale(scaleCallback, day, period, clasS, idList);
                         Stage stage = (Stage) scaleRegisterButton.getScene().getWindow();
                         stage.close();
                     } else {
@@ -192,37 +195,52 @@ public class ScaleDetailsScreen {
 
     }
 
-    private void apiCall(String string_day, int int_period, String string_class, int[] int_employeeArray) {
-
-    }
-
     Callback<Scale> scaleCallback = new Callback<Scale>() {
         @Override
         public void onResponse(Call<Scale> call, Response<Scale> response) {
             if (response.isSuccessful()) {
-                System.out.println("sucesso na response");
+                System.out.println("sucesso na response inserir");
             } else {
-                System.out.println("falha na response");
+                System.out.println("falha na response inserir");
             }
         }
 
         @Override
         public void onFailure(Call<Scale> call, Throwable throwable) {
             System.out.println(throwable.getMessage());
-            System.out.println("erroooo");
+            System.out.println("erroooo inserir");
         }
     };
 
-    private List<Integer> arrayConverter(List<Employee> oldList) {
-        List<Integer> intArray = new ArrayList<>();
-        for (Employee employee :
-                oldList) {
-            intArray.add(employee.getEmployeeId());
+    Callback<Void> deleteScaleCallback = new Callback<Void>() {
+        @Override
+        public void onResponse(Call<Void> call, Response<Void> response) {
+            if (response.isSuccessful()) {
+                System.out.println("sucesso na response deletar");
+            } else {
+                System.out.println("falha na response deletar");
+            }
         }
-        return intArray;
+
+        @Override
+        public void onFailure(Call<Void> call, Throwable throwable) {
+            System.out.println(throwable.getMessage());
+            System.out.println("erorooooo deletar");
+        }
+    };
+
+    private List<Integer> getEmployeeIdList(List<Employee> oldList) {
+        List<Integer> employeeIdList = new ArrayList<>();
+
+        for (Employee employee : oldList) {
+
+            employeeIdList.add(employee.getEmployee_Id());
+
+        }
+        return employeeIdList;
     }
 
-    private int transformPeriod(String selectedItem) {
+    private int transformPeriodToInt(String selectedItem) {
         if (selectedItem.equals("Manhã")) {
             return 1;
         } else if (selectedItem.equals("Tarde")) {
@@ -232,13 +250,13 @@ public class ScaleDetailsScreen {
         }
     }
 
-    private int transformClass(String selectedItem) {
-        if (selectedItem.equals("INF4AM")) {
-            return 0;
-        } else if (selectedItem.equals("INF4AT")) {
-            return 1;
+    private String transformPeriodToString(int period){
+        if (period==1) {
+            return "Manhã";
+        } else if (period==2) {
+            return "Tarde";
         } else {
-            return 2;
+            return "Noite";
         }
     }
 

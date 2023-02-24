@@ -93,7 +93,7 @@ public class EmployeeDetailsScreen {
 
     @FXML
     void deleteEmployee() {
-        retrofitInit.deleteEmployee(deleteEmployeeCallback, myEmployee.getEmployeeId());
+        retrofitInit.deleteEmployee(deleteEmployeeCallback, myEmployee.getEmployee_Id());
         Stage stage = (Stage) employeeRegisterButton.getScene().getWindow();
         stage.close();
     }
