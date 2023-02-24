@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/filters_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/filters_layout"
-    android:visibility="gone"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginHorizontal="20dp">
+   >
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_inf4am"
         style="@style/defaultCard"
+        app:cardUseCompatPadding="true"
+        android:layout_height="wrap_content"
+        app:cardPreventCornerOverlap="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -28,28 +30,30 @@
             <TextView
                 android:id="@+id/recycler_filters_class_name_inf4am"
                 style="@style/classFilterText"
+                android:text="@string/inf4am"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/recycler_filters_class_color_inf4am"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/inf4am" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/filter_switch_inf4am"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
                 android:layout_marginEnd="8dp"
-                app:track="@drawable/switch_track"
+                android:checked="true"
                 android:thumb="@drawable/switch_thumb"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:track="@drawable/switch_track" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_inf4at"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true"
         style="@style/defaultCard"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cv_inf4am">
@@ -57,6 +61,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <View
                 android:id="@+id/recycler_filters_class_color_inf4at"
                 style="@style/classBalls"
@@ -68,35 +73,39 @@
             <TextView
                 android:id="@+id/recycler_filters_class_name_inf4at"
                 style="@style/classFilterText"
+                android:text="@string/inf4at"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/recycler_filters_class_color_inf4at"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/inf4at" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/filter_switch_inf4at"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
                 android:layout_marginEnd="8dp"
-                app:track="@drawable/switch_track"
+                android:checked="true"
                 android:thumb="@drawable/switch_thumb"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:track="@drawable/switch_track" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_refri4am"
+        app:cardPreventCornerOverlap="false"
         style="@style/defaultCard"
+        app:cardUseCompatPadding="true"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cv_inf4at">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <View
                 android:id="@+id/recycler_filters_class_color_refri4am"
                 style="@style/classBalls"
@@ -108,22 +117,22 @@
             <TextView
                 android:id="@+id/recycler_filters_class_name_refri4am"
                 style="@style/classFilterText"
+                android:text="@string/refri4am"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/recycler_filters_class_color_refri4am"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/refri4am" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/filter_switch_refri4am"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
                 android:layout_marginEnd="8dp"
-                app:track="@drawable/switch_track"
+                android:checked="true"
                 android:thumb="@drawable/switch_thumb"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:track="@drawable/switch_track" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

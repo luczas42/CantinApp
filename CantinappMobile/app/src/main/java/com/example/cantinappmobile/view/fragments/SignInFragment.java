@@ -1,4 +1,4 @@
-package com.example.cantinappmobile.ui.fragments;
+package com.example.cantinappmobile.view.fragments;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -13,10 +13,9 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.cantinappmobile.R;
-import com.example.cantinappmobile.databinding.ConfirmAccountCreatedPopupBinding;
 import com.example.cantinappmobile.databinding.FragmentSignInBinding;
 import com.example.cantinappmobile.repository.RepositoryImpl;
-import com.example.cantinappmobile.ui.viewmodel.LoginScreenViewModel;
+import com.example.cantinappmobile.view.viewmodel.LoginScreenViewModel;
 
 public class SignInFragment extends Fragment {
     private FragmentSignInBinding binding;
@@ -61,7 +60,7 @@ public class SignInFragment extends Fragment {
                                     Button closeButton = myDialog.findViewById(R.id.bt_popup_dismiss);
                                     myDialog.show();
                                     closeButton.setOnClickListener(v1 -> {
-                                        Navigation.findNavController(v1).navigate(R.id.action_SignInFragment_to_LoginFragment);
+                                        Navigation.findNavController(view).navigate(R.id.action_SignInFragment_to_LoginFragment);
                                         myDialog.dismiss();
                                     });
 

@@ -1,12 +1,12 @@
-package com.example.cantinappmobile.ui.fragments;
+package com.example.cantinappmobile.view.fragments;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.ActivityNavigator;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -14,16 +14,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cantinappmobile.R;
 import com.example.cantinappmobile.databinding.FragmentLoginBinding;
 import com.example.cantinappmobile.repository.RepositoryImpl;
-import com.example.cantinappmobile.ui.activities.ListsActivity;
-import com.example.cantinappmobile.ui.viewmodel.LoginScreenViewModel;
+import com.example.cantinappmobile.view.activities.ListsActivity;
+import com.example.cantinappmobile.view.viewmodel.LoginScreenViewModel;
 
 public class LoginFragment extends Fragment {
 
@@ -49,6 +46,11 @@ public class LoginFragment extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
 
+        binding.resetPasswordButton.setOnClickListener(v -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://54.207.241.251/CantinappServer/users/passwordEmailReset.php"));
+            startActivity(browserIntent);
+        });
+
         binding.loginButton.setOnClickListener(v -> {
             if (viewModel.checkEmpty(binding.userLoginEditText)){
                 if (viewModel.checkEmpty(binding.userPasswordEditText)){
@@ -67,6 +69,8 @@ public class LoginFragment extends Fragment {
 
                 }
             }
+            Intent intent = new Intent(requireContext(), ListsActivity.class);
+            startActivity(intent);
         });
 
         binding.registerButton.setOnClickListener(new View.OnClickListener() {

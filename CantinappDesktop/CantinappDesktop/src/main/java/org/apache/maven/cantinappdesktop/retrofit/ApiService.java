@@ -9,16 +9,11 @@ import org.apache.maven.cantinappdesktop.model.*;
 import retrofit2.Call;
 import retrofit2.http.*;
 
-import java.text.Normalizer;
 import java.util.List;
 
 public interface ApiService {
     @POST("products/getProducts.php")
     Call<List<Product>> getProducts();
-
-    @Multipart
-    @POST("products/getProductImage.php")
-    Call<ResponseBody> getImage(@Part("image_name") RequestBody imageName);
 
     @POST("employees/getEmployees.php")
     Call<List<Employee>> getEmployees();
@@ -26,20 +21,29 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("products/editProduct.php")
-    Call<Product> editProduct(@Field("name") String name,
-                              @Field("price") Float price,
-                              @Field("id") int id);
+    Call<Product> editProduct(@Part("pname") RequestBody name,
+                              @Part("price") RequestBody price,
+                              @Part("productType") RequestBody productType,
+                              @Part MultipartBody.Part image);
+
+    @FormUrlEncoded
+    @POST("products/editProduct.php")
+    Call<Product> editProduct(@Part("pname") RequestBody name,
+                              @Part("price") RequestBody price,
+                              @Part("productType") RequestBody productType);
 
     @POST("products/addProduct.php")
     @Multipart
     Call<Product> addProduct(@Part("pname") RequestBody name,
                              @Part("price") RequestBody price,
+                             @Part("productType") RequestBody productType,
                              @Part MultipartBody.Part image);
 
     @POST("products/addProduct.php")
     @Multipart
     Call<Product> addProduct(@Part("pname") RequestBody name,
-                             @Part("price") RequestBody price);
+                             @Part("price") RequestBody price,
+                             @Part("productType") RequestBody productType);
 
     @FormUrlEncoded
     @POST("products/deleteProduct.php")
@@ -47,11 +51,11 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("users/addUser.php")
-    Call<User> addUser(@Field("username") String username,
-                       @Field("name") String name,
-                       @Field("password") String password,
-                       @Field("isUser") int isUser,
-                       @Field("email") String email);
+    Call<UserResponse> addUser(@Field("username") String username,
+                               @Field("name") String name,
+                               @Field("password") String password,
+                               @Field("isUser") int isUser,
+                               @Field("email") String email);
 
     @FormUrlEncoded
     @POST("users/login.php")

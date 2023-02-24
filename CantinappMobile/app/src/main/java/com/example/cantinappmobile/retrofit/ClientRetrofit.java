@@ -17,18 +17,14 @@ public class ClientRetrofit {
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
-        if (retrofit == null) {
-            final String urlWebService = "https://cantinapp.000webhostapp.com/cantinapp/";
+        final String urlWebService = "http://54.207.241.251/CantinappServer/";
 
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(urlWebService)
-                    .client(client)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-            return retrofit;
-        } else {
-            return null;
-        }
+        retrofit = new Retrofit.Builder()
+                .baseUrl(urlWebService)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        return retrofit;
     }
 
 }

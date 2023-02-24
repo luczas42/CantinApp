@@ -12,11 +12,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:name=".di.Application"
         android:theme="@style/Theme.CantinappMobile"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activities.LoginActivity"
+            android:name=".view.activities.LoginActivity"
             android:exported="true"
             android:label="Cantinapp">
             <intent-filter>
@@ -30,7 +31,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.activities.ListsActivity"
+            android:name=".view.activities.ListsActivity"
             android:exported="true"
             android:label="@string/title_activity_lists"
             android:theme="@style/Theme.CantinappMobile.NoActionBar">

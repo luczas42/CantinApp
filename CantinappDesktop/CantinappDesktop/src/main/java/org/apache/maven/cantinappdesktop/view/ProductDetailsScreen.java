@@ -1,9 +1,12 @@
 package org.apache.maven.cantinappdesktop.view;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -13,21 +16,17 @@ import javafx.stage.Stage;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import org.apache.maven.cantinappdesktop.model.Product;
 import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.IOException;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
 
 public class ProductDetailsScreen {
 
+    private ObservableList<String> typeList = FXCollections.observableArrayList("Salgado", "Doce", "Caseiro");
     private Image productImage;
 
     private File selectedFile;
@@ -38,6 +37,9 @@ public class ProductDetailsScreen {
     private ImageView productImageView;
     @FXML
     private Button addProductImageButton;
+
+    @FXML
+    private ComboBox<String> selectProductTypeComboBox;
 
     @FXML
     private Button cancelProductEditButton;
@@ -114,7 +116,7 @@ public class ProductDetailsScreen {
         }
     };
 
-    public ProductDetailsScreen() throws NoSuchAlgorithmException, KeyManagementException {
+    public ProductDetailsScreen() {
     }
 
     ////
@@ -155,32 +157,46 @@ public class ProductDetailsScreen {
     @FXML
     void editProduct(ActionEvent event) {
         String productName = productNameField.getText();
-        System.out.println(productName);
-        float productPrice = Float.parseFloat(productPriceField.getText());
-        myProduct.setName(productName);
-        myProduct.setPrice(productPrice);
-        retrofitInit.editProducts(editProductCallback, myProduct);
+        Float productPrice = Float.valueOf(productPriceField.getText());
+        String type = selectProductTypeComboBox.getSelectionModel().getSelectedItem();
+        if (selectedFile != null) {
+            Product products = new Product(productName, productPrice, type, selectedFile);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), selectedFile);
+            MultipartBody.Part file = MultipartBody.Part.createFormData("image", selectedFile.getName(), requestBody);
+            RequestBody name = RequestBody.create(MediaType.parse("text/plain"), products.getName());
+            RequestBody price = RequestBody.create(MediaType.parse("text/plain"), products.getPrice().toString());
+            RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), products.getProductType());
+            retrofitInit.editProducts(editProductCallback, name, price, productType, file);
+        } else {
+            Product products = new Product(productName, productPrice);
+            RequestBody name = RequestBody.create(MediaType.parse("text/plain"), products.getName());
+            RequestBody price = RequestBody.create(MediaType.parse("text/plain"), products.getPrice().toString());
+            RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), products.getProductType());
+            retrofitInit.editProducts(editProductCallback, name, price, productType);
+        }
         Stage stage = (Stage) productRegisterButton.getScene().getWindow();
         stage.close();
     }
 
     @FXML
-    void registerProduct() throws IOException {
+    void registerProduct() {
         String productName = productNameField.getText();
         Float productPrice = Float.valueOf(productPriceField.getText());
+        String type = selectProductTypeComboBox.getSelectionModel().getSelectedItem();
         if (selectedFile != null) {
-
-            Product products = new Product(productName, productPrice, selectedFile);
+            Product products = new Product(productName, productPrice, type, selectedFile);
             RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), selectedFile);
             MultipartBody.Part file = MultipartBody.Part.createFormData("image", selectedFile.getName(), requestBody);
             RequestBody name = RequestBody.create(MediaType.parse("text/plain"), products.getName());
             RequestBody price = RequestBody.create(MediaType.parse("text/plain"), products.getPrice().toString());
-            retrofitInit.addProducts(addProductCallback, name, price, file);
+            RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), products.getProductType());
+            retrofitInit.addProducts(addProductCallback, name, price, productType, file);
         } else {
             Product products = new Product(productName, productPrice);
             RequestBody name = RequestBody.create(MediaType.parse("text/plain"), products.getName());
             RequestBody price = RequestBody.create(MediaType.parse("text/plain"), products.getPrice().toString());
-            retrofitInit.addProducts(addProductCallback, name, price);
+            RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), products.getProductType());
+            retrofitInit.addProducts(addProductCallback, name, price, productType);
         }
 
         Stage stage = (Stage) productRegisterButton.getScene().getWindow();
@@ -195,6 +211,7 @@ public class ProductDetailsScreen {
         productDeleteButton.setManaged(false);
         productEditButton.setVisible(false);
         productEditButton.setManaged(false);
+        selectProductTypeComboBox.setItems(FXCollections.observableArrayList(typeList));
     }
 
     public void switchToProductEditScreen(Product selectedProduct) {
@@ -202,38 +219,20 @@ public class ProductDetailsScreen {
         productRegisterButton.setVisible(false);
         productRegisterButton.setManaged(false);
 
-        myProduct = selectedProduct;
-        if (myProduct.getImageFromServer() != null) {
-            System.out.println("teste");
-            RequestBody imageName = RequestBody.create(MediaType.parse("text/plain"), myProduct.getImageFromServer());
-            retrofitInit.getImage(productImageCallback, imageName);
+        System.out.println(selectedProduct.getImageFile().length());
+        if (selectedProduct.getImageFile() != null) {
+            productImage = new Image(selectedProduct.getImageFile().getPath());
+            productImageView.setImage(productImage);
         }
 
         productNameField.setText(selectedProduct.getName());
         productPriceField.setText(selectedProduct.getPrice().toString());
+        if (selectedProduct.getProductType().equalsIgnoreCase("Salgado")) {
+            selectProductTypeComboBox.getSelectionModel().select(0);
+        } else if (selectedProduct.getProductType().equalsIgnoreCase("Doce")) {
+            selectProductTypeComboBox.getSelectionModel().select(1);
+        } else if (selectedProduct.getProductType().equalsIgnoreCase("Caseiro")) {
+            selectProductTypeComboBox.getSelectionModel().select(2);
+        }
     }
-
-    Callback<ResponseBody> productImageCallback = new Callback<ResponseBody>() {
-        @Override
-        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-            if (response.isSuccessful()) {
-                try {
-                    assert response.body() != null;
-                    byte[] data = response.body().bytes();
-                    Image img = new Image(new ByteArrayInputStream(data));
-                    System.out.println("image");
-                    productImageView.setImage(img);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        @Override
-        public void onFailure(Call<ResponseBody> call, Throwable t) {
-            t.printStackTrace();
-            System.out.println(t.getMessage());
-        }
-    };
-
 }

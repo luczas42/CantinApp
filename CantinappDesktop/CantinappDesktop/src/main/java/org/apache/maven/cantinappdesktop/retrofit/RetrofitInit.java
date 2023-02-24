@@ -34,9 +34,6 @@ public class RetrofitInit {
         this.apiService.getProducts().enqueue(callback);
     }
 
-    public void getImage(Callback<ResponseBody> callback, RequestBody imageName) {
-        this.apiService.getImage(imageName).enqueue(callback);
-    }
 
     public void getEmployees(Callback<List<Employee>> callback) {
         this.apiService.getEmployees().enqueue(callback);
@@ -52,16 +49,16 @@ public class RetrofitInit {
 
     /// INSERTS
 
-    public void addProducts(Callback<Product> call, RequestBody name, RequestBody price, MultipartBody.Part file) {
-        this.apiService.addProduct(name, price, file).enqueue(call);
+    public void addProducts(Callback<Product> call, RequestBody name, RequestBody price, RequestBody productType, MultipartBody.Part file) {
+        this.apiService.addProduct(name, price, productType, file).enqueue(call);
 
     }
 
-    public void addProducts(Callback<Product> call, RequestBody name, RequestBody price) {
-        this.apiService.addProduct(name, price).enqueue(call);
+    public void addProducts(Callback<Product> call, RequestBody name, RequestBody price, RequestBody productType) {
+        this.apiService.addProduct(name, price, productType).enqueue(call);
     }
 
-    public void addUser(Callback<User> call, User user, String password) {
+    public void addUser(Callback<UserResponse> call, User user, String password) {
         this.apiService.addUser(user.getUsername(),
                         user.getName(),
                         password,
@@ -76,8 +73,12 @@ public class RetrofitInit {
 
     /// EDITS
 
-    public void editProducts(Callback<Product> call, Product product) {
-        this.apiService.editProduct(product.getName(), product.getPrice(), product.getId()).enqueue(call);
+    public void editProducts(Callback<Product> call, RequestBody name, RequestBody price, RequestBody productType, MultipartBody.Part file) {
+        this.apiService.editProduct(name, price, productType, file).enqueue(call);
+    }
+
+    public void editProducts(Callback<Product> call, RequestBody name, RequestBody price, RequestBody productType) {
+        this.apiService.editProduct(name, price, productType).enqueue(call);
     }
 
     /// DELETES

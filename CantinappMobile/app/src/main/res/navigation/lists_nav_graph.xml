@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/ProductsFragment"
-        android:name="com.example.cantinappmobile.ui.fragments.ProductsFragment"
+        android:name="com.example.cantinappmobile.view.fragments.ProductsFragment"
         android:label="ProductsFragment"
         tools:layout="@layout/fragment_products">
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/ScalesFragment"
-        android:name="com.example.cantinappmobile.ui.fragments.ScalesFragment"
+        android:name="com.example.cantinappmobile.view.fragments.ScalesFragment"
         android:label="ScalesFragment"
         tools:layout="@layout/fragment_scales">
 
