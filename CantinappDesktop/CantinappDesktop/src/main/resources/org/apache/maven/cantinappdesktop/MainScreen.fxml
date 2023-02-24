@@ -155,39 +155,27 @@
                         </VBox>
                         <Pane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Pane fx:id="employeePane" pickOnBounds="false" prefHeight="684.0" prefWidth="1030.0" visible="false">
-                                 <children>
-                                    <TableView fx:id="employeeTableView" layoutX="40.0" layoutY="48.0" onMouseClicked="#employeeClick" prefHeight="550.0" prefWidth="930.0">
-                                       <columns>
-                                          <TableColumn fx:id="employeeClassTableColumn" editable="false" prefWidth="249.0" text="Turma" />
-                                          <TableColumn fx:id="employeeNameTableColumn" editable="false" minWidth="0.0" prefWidth="680.0" text="Nome" />
-                                       </columns>
-                                    </TableView>
-                                 </children>
-                              </Pane>
-                              <Pane fx:id="workdaysPane" prefHeight="684.0" prefWidth="1030.0" visible="false">
-                                 <children>
-                                    <TableView fx:id="scaleTableView" layoutX="40.0" layoutY="48.0" onMouseClicked="#scaleClick" prefHeight="550.0" prefWidth="930.0">
-                                       <columns>
-                                          <TableColumn fx:id="scaleDateTableColumn" editable="false" prefWidth="100.0" text="Data" />
-                                          <TableColumn fx:id="scaleClassTableColumn" editable="false" minWidth="0.0" prefWidth="100.0" text="Turma" />
-                                          <TableColumn fx:id="scalePeriodTableColumn" editable="false" minWidth="0.0" prefWidth="100.0" text="Turno" />
-                                          <TableColumn fx:id="scaleEmployeeTableColumn" editable="false" minWidth="0.0" prefWidth="630.0" text="Alunos" />
-                                       </columns>
-                                    </TableView>
-                                 </children>
-                              </Pane>
-                              <Pane fx:id="productsPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="684.0" prefWidth="1030.0" visible="false">
-                                 <children>
-                                    <TableView fx:id="productsTableView" layoutX="40.0" layoutY="48.0" onMouseClicked="#productClick" prefHeight="550.0" prefWidth="930.0">
-                                       <columns>
-                                          <TableColumn fx:id="productPriceTableColumn" editable="false" prefWidth="249.0" text="Preço - R$" />
-                                          <TableColumn fx:id="productNameTableColumn" editable="false" minWidth="0.0" prefWidth="680.0" text="Nome" />
-                                       </columns>
-                                    </TableView>
-                                 </children>
-                              </Pane>
-                              <Button id="table-aux-button" fx:id="tableRefreshButton" layoutX="700.0" layoutY="620.0" mnemonicParsing="false" onAction="#refreshTable" prefHeight="40.0" prefWidth="49.0">
+                              <TableView fx:id="scaleTableView" layoutX="40.0" layoutY="48.0" onMouseClicked="#scaleClick" prefHeight="550.0" prefWidth="930.0" visible="false">
+                                 <columns>
+                                    <TableColumn fx:id="scaleDateTableColumn" editable="false" prefWidth="100.0" text="Data" />
+                                    <TableColumn fx:id="scaleClassTableColumn" editable="false" minWidth="0.0" prefWidth="100.0" text="Turma" />
+                                    <TableColumn fx:id="scalePeriodTableColumn" editable="false" minWidth="0.0" prefWidth="100.0" text="Turno" />
+                                    <TableColumn fx:id="scaleEmployeeTableColumn" editable="false" minWidth="0.0" prefWidth="630.0" text="Alunos" />
+                                 </columns>
+                              </TableView>
+                              <TableView fx:id="employeeTableView" layoutX="40.0" layoutY="48.0" onMouseClicked="#employeeClick" prefHeight="550.0" prefWidth="930.0" visible="false">
+                                 <columns>
+                                    <TableColumn fx:id="employeeClassTableColumn" editable="false" prefWidth="249.0" text="Turma" />
+                                    <TableColumn fx:id="employeeNameTableColumn" editable="false" minWidth="0.0" prefWidth="680.0" text="Nome" />
+                                 </columns>
+                              </TableView>
+                              <TableView fx:id="productsTableView" layoutX="40.0" layoutY="48.0" onMouseClicked="#productClick" prefHeight="550.0" prefWidth="930.0" visible="false">
+                                 <columns>
+                                    <TableColumn fx:id="productPriceTableColumn" editable="false" prefWidth="249.0" text="Preço - R$" />
+                                    <TableColumn fx:id="productNameTableColumn" editable="false" minWidth="0.0" prefWidth="680.0" text="Nome" />
+                                 </columns>
+                              </TableView>
+                              <Button id="table-aux-button" fx:id="tableRefreshButton" layoutX="700.0" layoutY="620.0" mnemonicParsing="false" onAction="#refreshTable" prefHeight="40.0" prefWidth="49.0" visible="false">
                                  <graphic>
                                     <ImageView fitHeight="32.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -196,7 +184,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button id="table-aux-button" fx:id="newRegisterButton" layoutX="760.0" layoutY="620.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openNewRegisterScreen" prefHeight="40.0" prefWidth="200.0" text="Cadastrar novo produto">
+                              <Button id="table-aux-button" fx:id="newRegisterButton" layoutX="760.0" layoutY="620.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openNewRegisterScreen" prefHeight="40.0" prefWidth="200.0" text="Cadastrar novo produto" visible="false">
                                  <font>
                                     <Font size="14.0" />
                                  </font>

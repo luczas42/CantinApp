@@ -15,7 +15,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -40,23 +39,17 @@ public class MainScreenController {
     private Scene scene;
     private Parent root;
     @FXML
-    private Button tableRefreshButton;
-    @FXML
     private Button minimizeAppButton;
     @FXML
     private Button newRegisterButton;
     @FXML
-    private Pane workdaysPane;
+    private Button tableRefreshButton;
     @FXML
     private ToggleButton employeesButton;
     @FXML
     private ToggleButton shiftsButton;
     @FXML
-    private Pane productsPane;
-    @FXML
     private ToggleButton productsButton;
-    @FXML
-    private Pane employeePane;
     @FXML
     private TableView<Product> productsTableView;
     @FXML
@@ -126,36 +119,42 @@ public class MainScreenController {
                 employeesButton.setDisable(false);
                 shiftsButton.setSelected(false);
                 shiftsButton.setDisable(false);
-                employeePane.setVisible(false);
-                workdaysPane.setVisible(false);
-                productsPane.setVisible(true);
+                employeeTableView.setVisible(false);
+                scaleTableView.setVisible(false);
+                productsTableView.setVisible(true);
                 productsButton.setDisable(true);
                 screenAtMoment = "products";
+                newRegisterButton.setVisible(true);
                 newRegisterButton.setText("Cadastrar novo produto");
+                tableRefreshButton.setVisible(true);
             }
             case "employees" -> {
                 productsButton.setSelected(false);
                 productsButton.setDisable(false);
                 shiftsButton.setSelected(false);
                 shiftsButton.setDisable(false);
-                workdaysPane.setVisible(false);
-                productsPane.setVisible(false);
-                employeePane.setVisible(true);
+                scaleTableView.setVisible(false);
+                productsTableView.setVisible(false);
+                employeeTableView.setVisible(true);
                 employeesButton.setDisable(true);
                 screenAtMoment = "employees";
+                newRegisterButton.setVisible(true);
                 newRegisterButton.setText("Cadastrar novo empregado");
+                tableRefreshButton.setVisible(true);
             }
             case "scales" -> {
                 productsButton.setSelected(false);
                 productsButton.setDisable(false);
                 employeesButton.setSelected(false);
                 employeesButton.setDisable(false);
-                productsPane.setVisible(false);
-                employeePane.setVisible(false);
-                workdaysPane.setVisible(true);
+                productsTableView.setVisible(false);
+                employeeTableView.setVisible(false);
+                scaleTableView.setVisible(true);
                 shiftsButton.setDisable(true);
                 screenAtMoment = "scales";
+                newRegisterButton.setVisible(true);
                 newRegisterButton.setText("Cadastrar nova escala");
+                tableRefreshButton.setVisible(true);
             }
         }
     }
@@ -329,12 +328,6 @@ public class MainScreenController {
     void refreshScalesTable() throws InterruptedException {
         retrofitInit.getScales(this.scalesCallback);
     }
-
-
-    ////
-    //// RETURNING PRODUCTS FROM API
-    ////
-
 
     Callback<List<Product>> productCallback = new Callback<>() {
         public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
