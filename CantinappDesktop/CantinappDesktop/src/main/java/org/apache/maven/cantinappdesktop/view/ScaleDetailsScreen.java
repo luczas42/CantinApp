@@ -60,8 +60,6 @@ public class ScaleDetailsScreen {
     public void swichToScaleAddScreen() {
         scaleDeleteButton.setVisible(false);
         scaleDeleteButton.setManaged(false);
-        scaleEditButton.setVisible(false);
-        scaleEditButton.setManaged(false);
         periodTextField.setVisible(false);
         periodTextField.setDisable(true);
         classTextField.setDisable(true);
@@ -113,7 +111,7 @@ public class ScaleDetailsScreen {
     }
 
     public void switchToScaleEditScreen(Scale selectedScale) {
-        dayEditLabel.setText("Edição de Escala");
+        dayEditLabel.setText("Detalhes de Escala");
         scaleRegisterButton.setVisible(false);
         scaleRegisterButton.setManaged(false);
         selectClassComboBox.setDisable(true);

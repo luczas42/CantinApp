@@ -104,22 +104,7 @@ public class MainScreenController {
     ////
     @FXML
     void displayProducts(ActionEvent event) {
-        this.employeesButton.setSelected(false);
-        employeesButton.setDisable(false);
-        this.shiftsButton.setSelected(false);
-        shiftsButton.setDisable(false);
-        this.productsPane.toFront();
-        productsButton.setDisable(true);
-        System.out.println("entrou");
-//        productsRefreshExecutor.scheduleAtFixedRate(() -> {
-//            try {
-//                refreshProductsTable();
-//                System.out.println("entrou");
-//
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }, 0, 4, TimeUnit.SECONDS);
+        disablingOtherElements("products");
         try {
             refreshProductsTable();
         } catch (InterruptedException e) {
@@ -129,46 +114,51 @@ public class MainScreenController {
 
     @FXML
     void displayEmployees(ActionEvent event) {
-        this.productsButton.setSelected(false);
-        productsButton.setDisable(false);
-        this.shiftsButton.setSelected(false);
-        shiftsButton.setDisable(false);
-        this.employeePane.toFront();
-        employeesButton.setDisable(true);
+        disablingOtherElements("employees");
         try {
             refreshEmployeeTable();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-//        productsRefreshExecutor.scheduleAtFixedRate(() -> {
-//            try {
-//                refreshProductsTable();
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }, 0, 2, TimeUnit.SECONDS);
     }
 
     @FXML
     void displayScales(ActionEvent event) {
-        this.productsButton.setSelected(false);
-        productsButton.setDisable(false);
-        this.employeesButton.setSelected(false);
-        employeesButton.setDisable(false);
-        shiftsButton.setDisable(true);
-        this.workdaysPane.toFront();
+        disablingOtherElements("scales");
         try {
             refreshScalesTable();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-//        productsRefreshExecutor.scheduleAtFixedRate(() -> {
-//            try {
-//                refreshProductsTable();
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }, 0, 2, TimeUnit.SECONDS);
+    }
+
+    private void disablingOtherElements(String code) {
+        switch (code) {
+            case "products" -> {
+                employeesButton.setSelected(false);
+                employeesButton.setDisable(false);
+                shiftsButton.setSelected(false);
+                shiftsButton.setDisable(false);
+                productsPane.setVisible(true);
+                productsButton.setDisable(true);
+            }
+            case "employees" -> {
+                productsButton.setSelected(false);
+                productsButton.setDisable(false);
+                shiftsButton.setSelected(false);
+                shiftsButton.setDisable(false);
+                employeePane.setVisible(true);
+                employeesButton.setDisable(true);
+            }
+            case "scales" -> {
+                productsButton.setSelected(false);
+                productsButton.setDisable(false);
+                employeesButton.setSelected(false);
+                employeesButton.setDisable(false);
+                workdaysPane.setVisible(true);
+                shiftsButton.setDisable(true);
+            }
+        }
     }
 
     ////
@@ -382,7 +372,7 @@ public class MainScreenController {
             MainScreenController.this.scalePeriodTableColumn.setCellValueFactory(new PropertyValueFactory<>("Period"));
             for (Scale scale :
                     scaleObservableList) {
-                if (scale.getEmployeeList() !=null){
+                if (scale.getEmployeeList() != null) {
                     scale.createNameString();
                     MainScreenController.this.scaleEmployeeTableColumn.setCellValueFactory(new PropertyValueFactory<>("EmployeeNamesString"));
                 }

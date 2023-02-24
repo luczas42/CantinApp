@@ -155,7 +155,7 @@
                         </VBox>
                         <Pane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Pane fx:id="employeePane" pickOnBounds="false" prefHeight="684.0" prefWidth="1030.0">
+                              <Pane fx:id="employeePane" pickOnBounds="false" prefHeight="684.0" prefWidth="1030.0" visible="false">
                                  <children>
                                     <TableView fx:id="employeeTableView" layoutX="40.0" layoutY="48.0" onMouseClicked="#employeeClick" prefHeight="550.0" prefWidth="930.0">
                                        <columns>
@@ -176,7 +176,7 @@
                                     </Button>
                                  </children>
                               </Pane>
-                              <Pane fx:id="workdaysPane" prefHeight="684.0" prefWidth="1030.0">
+                              <Pane fx:id="workdaysPane" prefHeight="684.0" prefWidth="1030.0" visible="false">
                                  <children>
                                     <TableView fx:id="scaleTableView" layoutX="40.0" layoutY="48.0" onMouseClicked="#scaleClick" prefHeight="550.0" prefWidth="930.0">
                                        <columns>
@@ -199,7 +199,7 @@
                                     </Button>
                                  </children>
                               </Pane>
-                              <Pane fx:id="productsPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="684.0" prefWidth="1030.0">
+                              <Pane fx:id="productsPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="684.0" prefWidth="1030.0" visible="false">
                                  <children>
                                     <TableView fx:id="productsTableView" layoutX="40.0" layoutY="48.0" onMouseClicked="#productClick" prefHeight="550.0" prefWidth="930.0">
                                        <columns>
@@ -220,6 +220,15 @@
                                     </Button>
                                  </children>
                               </Pane>
+                              <Button id="table-aux-button" layoutX="740.0" layoutY="620.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="49.0">
+                                 <graphic>
+                                    <ImageView fitHeight="32.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@img/refresh-circle-svgrepo-com.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
                            </children>
                         </Pane>
                      </children>

@@ -9,42 +9,40 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="488.0" prefWidth="450.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.apache.maven.cantinappdesktop.view.ScaleDetailsScreen">
+<AnchorPane prefHeight="405.0" prefWidth="450.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.apache.maven.cantinappdesktop.view.ScaleDetailsScreen">
    <children>
       <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="450.0">
          <children>
-            <Label fx:id="dayEditLabel" style="-fx-text-fill: #00A87D;" text="Adicionar Data">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <TextField id="aux-fields" fx:id="dayTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="37.0" prefWidth="265.0" promptText="Dia">
-               <VBox.margin>
-                  <Insets bottom="10.0" top="20.0" />
-               </VBox.margin>
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </TextField>
-            <TextField id="aux-fields" fx:id="classTextField" layoutX="103.0" layoutY="98.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="37.0" prefWidth="265.0">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </TextField>
-            <TextField id="aux-fields" fx:id="periodTextField" layoutX="103.0" layoutY="126.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="37.0" prefWidth="265.0">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </TextField>
-            <ComboBox id="comboBox" fx:id="selectClassComboBox" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#onSelectClass" prefHeight="38.0" prefWidth="264.0" promptText="Selecionar Turma" stylesheets="@application.css">
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </ComboBox>
-            <ComboBox id="comboBox" fx:id="selectPeriodComboBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="38.0" prefWidth="264.0" promptText="Selecionar Turno" />
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="dayEditLabel" layoutX="167.0" layoutY="14.0" style="-fx-text-fill: #00A87D;" text="Adicionar Data">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField id="aux-fields" fx:id="classTextField" layoutX="93.0" layoutY="163.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="37.0" prefWidth="265.0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextField>
+                  <TextField id="aux-fields" fx:id="periodTextField" layoutX="93.0" layoutY="109.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="37.0" prefWidth="265.0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextField>
+                  <ComboBox id="comboBox" fx:id="selectClassComboBox" layoutX="93.0" layoutY="162.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#onSelectClass" prefHeight="38.0" prefWidth="264.0" promptText="Selecionar Turma" stylesheets="@application.css" />
+                  <ComboBox id="comboBox" fx:id="selectPeriodComboBox" layoutX="93.0" layoutY="108.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="38.0" prefWidth="264.0" promptText="Selecionar Turno" />
+                  <TextField id="aux-fields" fx:id="dayTextField" layoutX="93.0" layoutY="54.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="37.0" prefWidth="265.0" promptText="Dia">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </Pane>
             <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="464.0">
                <children>
                   <ComboBox id="comboBox" fx:id="selectEmployeeComboBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onSelectEmployee" prefHeight="39.0" prefWidth="266.0" promptText="Selecionar Aluno">
