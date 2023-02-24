@@ -12,23 +12,55 @@ public class Product {
     @SerializedName("name")
     private String name;
 
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
     @SerializedName("image")
     private String imageName;
     @SerializedName("price")
     private Float price;
     @SerializedName("productType")
-    private String productType;
+    private int productType;
+
+    private byte[] imageFromServer;
+
+    public void setImageFromServer(byte[] imageFromServer) {
+        this.imageFromServer = imageFromServer;
+    }
+
+    public Product(int id, String name, Float price, int productType, byte[] imageFromServer) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.productType = productType;
+        this.imageFromServer = imageFromServer;
+    }
+
     private File imageFile;
 
-    public String getProductType() {
+    public int getProductType() {
         return productType;
     }
 
-    public void setProductType(String productType) {
+    public String getLiteralProductType(){
+        return switch (getProductType()) {
+            case 1 -> "Salgado";
+            case 2 -> "Doce";
+            case 3 -> "Caseiro";
+            default -> "Vazio";
+        };
+    }
+
+    public void setProductType(int productType) {
         this.productType = productType;
     }
 
-    public Product(String name, Float price, String productType, File imageFile) {
+    public Product(String name, Float price, int productType, File imageFile) {
         this.name = name;
         this.price = price;
         this.productType = productType;

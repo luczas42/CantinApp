@@ -22,11 +22,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.util.Base64;
 
 public class ProductDetailsScreen {
 
-    private ObservableList<String> typeList = FXCollections.observableArrayList("Salgado", "Doce", "Caseiro");
+    private final ObservableList<String> typeList = FXCollections.observableArrayList("Salgado", "Doce", "Caseiro");
     private Image productImage;
 
     private File selectedFile;
@@ -158,20 +160,20 @@ public class ProductDetailsScreen {
     void editProduct(ActionEvent event) {
         String productName = productNameField.getText();
         Float productPrice = Float.valueOf(productPriceField.getText());
-        String type = selectProductTypeComboBox.getSelectionModel().getSelectedItem();
+        int type = selectProductTypeComboBox.getSelectionModel().getSelectedIndex()+1;
         if (selectedFile != null) {
             Product products = new Product(productName, productPrice, type, selectedFile);
             RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), selectedFile);
             MultipartBody.Part file = MultipartBody.Part.createFormData("image", selectedFile.getName(), requestBody);
             RequestBody name = RequestBody.create(MediaType.parse("text/plain"), products.getName());
             RequestBody price = RequestBody.create(MediaType.parse("text/plain"), products.getPrice().toString());
-            RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), products.getProductType());
+            RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(products.getProductType()));
             retrofitInit.editProducts(editProductCallback, name, price, productType, file);
         } else {
             Product products = new Product(productName, productPrice);
             RequestBody name = RequestBody.create(MediaType.parse("text/plain"), products.getName());
             RequestBody price = RequestBody.create(MediaType.parse("text/plain"), products.getPrice().toString());
-            RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), products.getProductType());
+            RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(products.getProductType()));
             retrofitInit.editProducts(editProductCallback, name, price, productType);
         }
         Stage stage = (Stage) productRegisterButton.getScene().getWindow();
@@ -182,20 +184,20 @@ public class ProductDetailsScreen {
     void registerProduct() {
         String productName = productNameField.getText();
         Float productPrice = Float.valueOf(productPriceField.getText());
-        String type = selectProductTypeComboBox.getSelectionModel().getSelectedItem();
+        int type = selectProductTypeComboBox.getSelectionModel().getSelectedIndex()+1;
         if (selectedFile != null) {
             Product products = new Product(productName, productPrice, type, selectedFile);
             RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), selectedFile);
             MultipartBody.Part file = MultipartBody.Part.createFormData("image", selectedFile.getName(), requestBody);
             RequestBody name = RequestBody.create(MediaType.parse("text/plain"), products.getName());
             RequestBody price = RequestBody.create(MediaType.parse("text/plain"), products.getPrice().toString());
-            RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), products.getProductType());
+            RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(products.getProductType()));
             retrofitInit.addProducts(addProductCallback, name, price, productType, file);
         } else {
             Product products = new Product(productName, productPrice);
             RequestBody name = RequestBody.create(MediaType.parse("text/plain"), products.getName());
             RequestBody price = RequestBody.create(MediaType.parse("text/plain"), products.getPrice().toString());
-            RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), products.getProductType());
+            RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(products.getProductType()));
             retrofitInit.addProducts(addProductCallback, name, price, productType);
         }
 
@@ -218,20 +220,21 @@ public class ProductDetailsScreen {
         productEditLabel.setText("Edição de Produto");
         productRegisterButton.setVisible(false);
         productRegisterButton.setManaged(false);
+        selectProductTypeComboBox.setItems(FXCollections.observableArrayList(typeList));
 
-        System.out.println(selectedProduct.getImageFile().length());
-        if (selectedProduct.getImageFile() != null) {
-            productImage = new Image(selectedProduct.getImageFile().getPath());
+        if (selectedProduct.getImageName() != null) {
+            byte[] imageData = Base64.getDecoder().decode(selectedProduct.getImageName());
+            productImage = new Image(new ByteArrayInputStream(imageData));
             productImageView.setImage(productImage);
         }
 
         productNameField.setText(selectedProduct.getName());
         productPriceField.setText(selectedProduct.getPrice().toString());
-        if (selectedProduct.getProductType().equalsIgnoreCase("Salgado")) {
+        if (selectedProduct.getLiteralProductType().equalsIgnoreCase("Salgado")) {
             selectProductTypeComboBox.getSelectionModel().select(0);
-        } else if (selectedProduct.getProductType().equalsIgnoreCase("Doce")) {
+        } else if (selectedProduct.getLiteralProductType().equalsIgnoreCase("Doce")) {
             selectProductTypeComboBox.getSelectionModel().select(1);
-        } else if (selectedProduct.getProductType().equalsIgnoreCase("Caseiro")) {
+        } else if (selectedProduct.getLiteralProductType().equalsIgnoreCase("Caseiro")) {
             selectProductTypeComboBox.getSelectionModel().select(2);
         }
     }
