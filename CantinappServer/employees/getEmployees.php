@@ -11,7 +11,21 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
     if($result->num_rows>0){
         while($row = $result->fetch_object()){
-            $employeeList[] = new Employee($row->id, $row->name, $row->class);
+            $formattedClass;
+            $class = $row->class;
+
+            switch ($class) {
+                case 0:
+                    $formattedClass = "INF4AM";
+                    break;
+                case 1:
+                    $formattedClass = "INF4AT";
+                    break;
+                case  2:
+                    $formattedClass = "REFRI4AM";
+                    break;
+            }
+            $employeeList[] = new Employee($row->id, $row->name, $formattedClass);
         }
     }
     echo json_encode($employeeList);

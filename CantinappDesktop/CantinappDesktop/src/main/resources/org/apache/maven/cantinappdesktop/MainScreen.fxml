@@ -184,7 +184,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button id="table-aux-button" fx:id="newRegisterButton" layoutX="760.0" layoutY="620.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openNewRegisterScreen" prefHeight="40.0" prefWidth="200.0" text="Cadastrar novo produto" visible="false">
+                              <Button id="table-aux-button" fx:id="newRegisterButton" layoutX="760.0" layoutY="620.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openNewRegisterScreen" prefHeight="40.0" prefWidth="200.0" visible="false">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
