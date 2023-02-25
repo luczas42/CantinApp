@@ -5,10 +5,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
     include '../setupConnection.php';
 
-    if(!empty($_POST['id_array'])){
-        $id_array = $_POST['id_array'];
+    if(!empty($_POST['idArray'])){
+        $idArray = $_POST['idArray'];
 
-        foreach($id_array as $id){
+        foreach($idArray as $id){
             $sql = "DELETE FROM scale WHERE id = ?;";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param('i', $id);

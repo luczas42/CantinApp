@@ -11,7 +11,36 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
     if($result->num_rows>0){
         while($row = $result->fetch_object()){
-           $turnList[] = new Turn($row->id, $row->day, $row->period, $row->class);
+            $formattedClass;
+            $class = $row->class;
+
+            switch ($class) {
+                case 0:
+                    $formattedClass = "INF4AM";
+                    break;
+                case 1:
+                    $formattedClass = "INF4AT";
+                    break;
+                case  2:
+                    $formattedClass = "REFRI4AM";
+                    break;
+            }
+
+            $formattedPeriod;
+            $period = $row->period;
+
+            switch ($period) {
+                case 0:
+                    $formattedPeriod = "Manhã";
+                    break;
+                case 1:
+                    $formattedPeriod = "Tarde";
+                    break;
+                case  2:
+                    $formattedPeriod = "Noite";
+                    break;
+            }
+           $turnList[] = new Turn($row->id, $row->day, $formattedPeriod, $formattedClass);
         }
     }
 
