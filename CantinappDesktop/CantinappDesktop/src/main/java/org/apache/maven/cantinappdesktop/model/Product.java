@@ -4,6 +4,7 @@ package org.apache.maven.cantinappdesktop.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.File;
+import java.text.DecimalFormat;
 
 public class Product {
 
@@ -11,15 +12,6 @@ public class Product {
     private int id;
     @SerializedName("name")
     private String name;
-
-    public String getImageName() {
-        return imageName;
-    }
-
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
-    }
-
     @SerializedName("image")
     private String imageName;
     @SerializedName("price")
@@ -47,7 +39,7 @@ public class Product {
         return productType;
     }
 
-    public String getLiteralProductType(){
+    public String getLiteralProductType() {
         return switch (getProductType()) {
             case 1 -> "Salgado";
             case 2 -> "Doce";
@@ -76,6 +68,12 @@ public class Product {
         this.name = name;
         this.price = price;
         this.imageFile = imageFile;
+    }
+
+    public String formatPriceToString(){
+        final DecimalFormat df = new DecimalFormat("R$ 0,00");
+        String priceString = df.format(this.price);
+        return priceString;
     }
 
     public File getImageFile() {
@@ -116,6 +114,14 @@ public class Product {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
 

@@ -64,6 +64,7 @@ public class ScaleDetailsScreen {
         periodTextField.setDisable(true);
         classTextField.setDisable(true);
         classTextField.setVisible(false);
+        dayTextField.setEditable(true);
 
         selectClassComboBox.setItems(FXCollections.observableArrayList(classList));
         selectPeriodComboBox.setItems(FXCollections.observableArrayList(periodList));
@@ -76,7 +77,6 @@ public class ScaleDetailsScreen {
 
     @FXML
     private void onSelectClass() {
-        System.out.println("a");
         selectEmployeeComboBox.getItems().clear();
         employeeComboBoxList.clear();
         employeeTableViewList.clear();
@@ -86,7 +86,7 @@ public class ScaleDetailsScreen {
 
     }
 
-    private void getEmployeesFromSelectedClass(String clasS) {
+    private void getEmployeesFromSelectedClass(String _class) {
 
         Callback<List<Employee>> employeesCallBack = new Callback<List<Employee>>() {
             @Override
@@ -107,11 +107,12 @@ public class ScaleDetailsScreen {
             }
         };
 
-        retrofitInit.getEmployeesWithClass(employeesCallBack, clasS);
+        retrofitInit.getEmployeesWithClass(employeesCallBack, _class);
     }
 
     public void switchToScaleEditScreen(Scale selectedScale) {
         dayEditLabel.setText("Detalhes de Escala");
+        dayTextField.setEditable(false);
         scaleRegisterButton.setVisible(false);
         scaleRegisterButton.setManaged(false);
         selectClassComboBox.setDisable(true);
@@ -126,8 +127,8 @@ public class ScaleDetailsScreen {
         myScale = selectedScale;
 
         dayTextField.setText(myScale.getDay());
-        classTextField.setText(myScale.getClasS());
-        periodTextField.setText(transformPeriodToString(myScale.getPeriod()));
+        classTextField.setText(myScale.get_class());
+        periodTextField.setText(myScale.getPeriod());
         if (myScale.getEmployeeList() != null) {
             getEmployeeFromScale();
         }
@@ -163,7 +164,7 @@ public class ScaleDetailsScreen {
 
     @FXML
     void deleteScale() {
-        retrofitInit.deleteScale(deleteScaleCallback, myScale.getTurn_id());
+        retrofitInit.deleteScale(deleteScaleCallback, myScale.getTurnId());
         Stage stage = (Stage) closeScaleDetailsScreenButton.getScene().getWindow();
         stage.close();
     }
@@ -171,26 +172,44 @@ public class ScaleDetailsScreen {
     @FXML
     void registerScale() {
         if (!dayTextField.getCharacters().isEmpty()) {
-            if (!selectClassComboBox.getSelectionModel().isEmpty()) {
-                if (!selectPeriodComboBox.getSelectionModel().isEmpty()) {
+            if (!selectPeriodComboBox.getSelectionModel().isEmpty()) {
+                if (!selectClassComboBox.getSelectionModel().isEmpty()) {
                     if (!employeeTableViewList.isEmpty()) {
                         String day = dayTextField.getText();
-                        int period = transformPeriodToInt(selectPeriodComboBox.getSelectionModel().getSelectedItem());
-                        String clasS = selectClassComboBox.getSelectionModel().getSelectedItem();
+                        String period = selectPeriodComboBox.getSelectionModel().getSelectedItem();
+                        String _class = selectClassComboBox.getSelectionModel().getSelectedItem();
                         List<Integer> idList = getEmployeeIdList(employeeTableViewList);
-                        retrofitInit.addScale(scaleCallback, day, period, clasS, idList);
+                        retrofitInit.addScale(scaleCallback, day, period, _class, idList);
                         Stage stage = (Stage) scaleRegisterButton.getScene().getWindow();
                         stage.close();
                     } else {
-                        selectEmployeeComboBox.isFocused();
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setContentText("Erro: Preencha o campo de empregados!");
-                        a.show();
+                        selectEmployeeComboBox.requestFocus();
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setContentText("Adicione ao menos um aluno!");
+                        alert.setTitle("Registro de escala");
+                        alert.show();
                     }
+                } else {
+                    selectClassComboBox.requestFocus();
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setContentText("Selecione uma turma!");
+                    alert.setTitle("Registro de escala");
+                    alert.show();
                 }
+            } else {
+                selectPeriodComboBox.requestFocus();
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setContentText("Selecione um turno!");
+                alert.setTitle("Registro de escala");
+                alert.show();
             }
+        } else {
+            dayTextField.requestFocus();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Informe um dia válido!");
+            alert.setTitle("Registro de escala");
+            alert.show();
         }
-
     }
 
     Callback<Scale> scaleCallback = new Callback<Scale>() {
@@ -232,7 +251,7 @@ public class ScaleDetailsScreen {
 
         for (Employee employee : oldList) {
 
-            employeeIdList.add(employee.getEmployee_Id());
+            employeeIdList.add(employee.getId());
 
         }
         return employeeIdList;
@@ -245,16 +264,6 @@ public class ScaleDetailsScreen {
             return 2;
         } else {
             return 3;
-        }
-    }
-
-    private String transformPeriodToString(int period){
-        if (period==1) {
-            return "Manhã";
-        } else if (period==2) {
-            return "Tarde";
-        } else {
-            return "Noite";
         }
     }
 

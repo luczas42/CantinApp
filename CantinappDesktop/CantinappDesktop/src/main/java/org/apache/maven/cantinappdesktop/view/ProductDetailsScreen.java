@@ -5,10 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -182,27 +179,47 @@ public class ProductDetailsScreen {
 
     @FXML
     void registerProduct() {
-        String productName = productNameField.getText();
-        Float productPrice = Float.valueOf(productPriceField.getText());
-        int type = selectProductTypeComboBox.getSelectionModel().getSelectedIndex()+1;
-        if (selectedFile != null) {
-            Product products = new Product(productName, productPrice, type, selectedFile);
-            RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), selectedFile);
-            MultipartBody.Part file = MultipartBody.Part.createFormData("image", selectedFile.getName(), requestBody);
-            RequestBody name = RequestBody.create(MediaType.parse("text/plain"), products.getName());
-            RequestBody price = RequestBody.create(MediaType.parse("text/plain"), products.getPrice().toString());
-            RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(products.getProductType()));
-            retrofitInit.addProducts(addProductCallback, name, price, productType, file);
-        } else {
-            Product products = new Product(productName, productPrice);
-            RequestBody name = RequestBody.create(MediaType.parse("text/plain"), products.getName());
-            RequestBody price = RequestBody.create(MediaType.parse("text/plain"), products.getPrice().toString());
-            RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(products.getProductType()));
-            retrofitInit.addProducts(addProductCallback, name, price, productType);
-        }
+        if(!productNameField.getText().isEmpty()){
+            if(!productPriceField.getText().isEmpty()){
+                if(!selectProductTypeComboBox.getSelectionModel().isEmpty()){
+                    String productName = productNameField.getText();
+                    Float productPrice = Float.valueOf(productPriceField.getText());
+                    int type = selectProductTypeComboBox.getSelectionModel().getSelectedIndex()+1;
+                    if (selectedFile != null) {
+                        Product products = new Product(productName, productPrice, type, selectedFile);
+                        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), selectedFile);
+                        MultipartBody.Part file = MultipartBody.Part.createFormData("image", selectedFile.getName(), requestBody);
+                        RequestBody name = RequestBody.create(MediaType.parse("text/plain"), products.getName());
+                        RequestBody price = RequestBody.create(MediaType.parse("text/plain"), products.getPrice().toString());
+                        RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(products.getProductType()));
+                        retrofitInit.addProducts(addProductCallback, name, price, productType, file);
+                        Stage stage = (Stage) productRegisterButton.getScene().getWindow();
+                        stage.close();
+                    } else {
+                        Product products = new Product(productName, productPrice);
+                        RequestBody name = RequestBody.create(MediaType.parse("text/plain"), products.getName());
+                        RequestBody price = RequestBody.create(MediaType.parse("text/plain"), products.getPrice().toString());
+                        RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(products.getProductType()));
+                        retrofitInit.addProducts(addProductCallback, name, price, productType);
+                        Stage stage = (Stage) productRegisterButton.getScene().getWindow();
+                        stage.close();
+                    }
 
-        Stage stage = (Stage) productRegisterButton.getScene().getWindow();
-        stage.close();
+                }
+            }else{
+                productPriceField.requestFocus();
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setContentText("Digite um preço!");
+                alert.setTitle("Registro de produto");
+                alert.show();
+            }
+        }else{
+            productNameField.requestFocus();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Digite um nome!");
+            alert.setTitle("Registro de produto");
+            alert.show();
+        }
     }
 
     ////

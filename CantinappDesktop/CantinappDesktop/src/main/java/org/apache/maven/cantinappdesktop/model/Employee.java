@@ -3,26 +3,26 @@ package org.apache.maven.cantinappdesktop.model;
 import com.google.gson.annotations.SerializedName;
 
 public class Employee {
-
     @SerializedName("id")
-    private int employee_Id;
-    @SerializedName("id_scale")
-    private int scale_id;
+    private int id;
+    @SerializedName("scale_id")
+    private int scaleId;
     @SerializedName("name")
     private String name;
     @SerializedName("class")
-    private String clasS;
+    private String _class;
 
-    public Employee(String name, String clasS) {
+    public Employee(int id, int scaleId, String name, String _class) {
+        this.id = id;
+        this.scaleId = scaleId;
         this.name = name;
-        this.clasS = clasS;
+        this._class = _class;
     }
 
-    public Employee(int employee_Id, int scale_id, String name, String clasS) {
-        this.employee_Id = employee_Id;
-        this.scale_id = scale_id;
+    public Employee(int id, String name, String _class) {
+        this.id = id;
         this.name = name;
-        this.clasS = clasS;
+        this._class = _class;
     }
 
     public String getName() {
@@ -34,26 +34,26 @@ public class Employee {
     }
 
     public String getClasS() {
-        return clasS;
+        return _class;
     }
 
-    public void setClasS(String clasS) {
-        this.clasS = clasS;
+    public void set_class(String _class) {
+        this._class = _class;
     }
 
-    public int getEmployee_Id() {
-        return employee_Id;
+    public int getId() {
+        return id;
     }
 
-    public void setEmployee_Id(int employee_Id) {
-        this.employee_Id = employee_Id;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getScale_id() {
-        return scale_id;
+    public int getScaleId() {
+        return scaleId;
     }
 
-    public void setScale_id(int scale_id) {
-        this.scale_id = scale_id;
+    public void setScaleId(int scaleId) {
+        this.scaleId = scaleId;
     }
 }

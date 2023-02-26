@@ -167,7 +167,6 @@ public class LoginScreenController {
 
     @FXML
     void onSignup(ActionEvent event) {
-
         if (checkFieldsRegister(textFieldSignupUsername)) {
             if (checkFieldsRegister(textFieldSignupName)) {
                 if (checkFieldsRegister(textFieldSignupEmail)) {

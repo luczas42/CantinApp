@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import org.apache.maven.cantinappdesktop.model.*;
 import org.apache.maven.cantinappdesktop.util.FileTypeAdapter;
 import retrofit2.Callback;
@@ -95,20 +94,14 @@ public class RetrofitInit {
     public void checkLogin(Callback<User> call, String username, String password) {
         this.apiService.userLogin(username, password).enqueue(call);
     }
-
-    public void addScale(Callback<Scale> call, String day, int period, String clasS, List<Integer> employees) {
-        this.apiService.addScale(day, period, clasS, employees).enqueue(call);
+    public void addScale(Callback<Scale> call, String day, String period, String _class, List<Integer> employees) {
+        this.apiService.addScale(day, period, _class, employees).enqueue(call);
     }
-
     public void editEmployee(Callback<Employee> call, Employee employee) {
-        this.apiService.editEmployee(employee.getEmployee_Id(), employee.getName(), employee.getClasS()).enqueue(call);
+        this.apiService.editEmployee(employee.getId(), employee.getName(), employee.getClasS()).enqueue(call);
     }
 
     public void deleteScale(Callback<Void> callback, int turnId) {
         this.apiService.deleteScale(turnId).enqueue(callback);
-    }
-
-    public void editScales(Callback<Scale> callback, int turnId, String day, int period, String clasS, List<Integer> scale_id_list, List<Integer> employee_id_list) {
-        this.apiService.editScale(turnId, day, period, clasS, scale_id_list, employee_id_list).enqueue(callback);
     }
 }

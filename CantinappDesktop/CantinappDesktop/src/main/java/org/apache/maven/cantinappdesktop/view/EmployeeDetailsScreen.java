@@ -3,6 +3,8 @@ package org.apache.maven.cantinappdesktop.view;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -18,9 +20,8 @@ import retrofit2.Response;
 public class EmployeeDetailsScreen {
 
     private Employee myEmployee = null;
-    private ObservableList<String> classList = FXCollections.observableArrayList("INF4AM",
-            "INF4AT",
-            "REFRI4AM");
+    private ObservableList<String> classList = FXCollections.observableArrayList("INF4AM", "INF4AT", "REFRI4AM");
+    private Parent parent;
     private RetrofitInit retrofitInit = new RetrofitInit();
     @FXML
     private ComboBox cbEmployeeClass;
@@ -70,30 +71,49 @@ public class EmployeeDetailsScreen {
 
     @FXML
     void registerEmployee() {
-        String employeeName = employeeNameField.getText();
-        String employeeClass = cbEmployeeClass.getSelectionModel().getSelectedItem().toString();
+        if (!employeeNameField.getText().isEmpty()) {
+            if (!cbEmployeeClass.getSelectionModel().isEmpty()) {
+                String employeeName = employeeNameField.getText();
+                String employeeClass = cbEmployeeClass.getSelectionModel().getSelectedItem().toString();
 
-        RequestBody name = RequestBody.create(MediaType.parse("text/plain"), employeeName);
-        RequestBody clasS = RequestBody.create(MediaType.parse("text/plain"), employeeClass);
+                RequestBody name = RequestBody.create(MediaType.parse("text/plain"), employeeName);
+                RequestBody clasS = RequestBody.create(MediaType.parse("text/plain"), employeeClass);
 
-        retrofitInit.addEmployee(addEmployeeCallback, name, clasS);
-        Stage stage = (Stage) employeeRegisterButton.getScene().getWindow();
-        stage.close();
+                retrofitInit.addEmployee(addEmployeeCallback, name, clasS);
+                Stage stage = (Stage) employeeRegisterButton.getScene().getWindow();
+                stage.close();
+
+            } else {
+                cbEmployeeClass.requestFocus();
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setContentText("Selecione uma turma!");
+                alert.setTitle("Registro de aluno");
+                alert.show();
+            }
+        } else {
+            employeeNameField.requestFocus();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Digite um nome!");
+            alert.setTitle("Registro de aluno");
+            alert.show();
+        }
     }
 
     @FXML
     void editEmployee() {
-        myEmployee.setName(employeeNameField.getText());
-        myEmployee.setClasS(cbEmployeeClass.getSelectionModel().getSelectedItem().toString());
-
-        retrofitInit.editEmployee(employeeEditCallback, myEmployee);
+        if (!employeeNameField.getText().equals(myEmployee.getName()) ||
+                !cbEmployeeClass.getSelectionModel().getSelectedItem().equals(myEmployee.getClasS())) {
+            myEmployee.setName(employeeNameField.getText());
+            myEmployee.set_class(cbEmployeeClass.getSelectionModel().getSelectedItem().toString());
+            retrofitInit.editEmployee(employeeEditCallback, myEmployee);
+        }
         Stage stage = (Stage) employeeRegisterButton.getScene().getWindow();
         stage.close();
     }
 
     @FXML
     void deleteEmployee() {
-        retrofitInit.deleteEmployee(deleteEmployeeCallback, myEmployee.getEmployee_Id());
+        retrofitInit.deleteEmployee(deleteEmployeeCallback, myEmployee.getId());
         Stage stage = (Stage) employeeRegisterButton.getScene().getWindow();
         stage.close();
     }
@@ -124,9 +144,9 @@ public class EmployeeDetailsScreen {
     Callback<Employee> employeeEditCallback = new Callback<Employee>() {
         @Override
         public void onResponse(Call<Employee> call, Response<Employee> response) {
-            if(response.isSuccessful()){
+            if (response.isSuccessful()) {
                 System.out.println("sucesso na response");
-            }else{
+            } else {
                 System.out.println("falha na response");
             }
         }
@@ -141,16 +161,16 @@ public class EmployeeDetailsScreen {
     Callback<Void> deleteEmployeeCallback = new Callback<Void>() {
         @Override
         public void onResponse(Call<Void> call, Response<Void> response) {
-            if(response.isSuccessful()){
+            if (response.isSuccessful()) {
                 System.out.println("sucesso na response");
-            }else{
+            } else {
                 System.out.println("falha na response " + response.code());
             }
         }
 
         @Override
         public void onFailure(Call<Void> call, Throwable throwable) {
-            System.out.println("falha "+throwable.getMessage());
+            System.out.println("falha " + throwable.getMessage());
         }
     };
 

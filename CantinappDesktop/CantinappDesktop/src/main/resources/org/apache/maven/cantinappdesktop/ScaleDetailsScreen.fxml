@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="405.0" prefWidth="450.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.apache.maven.cantinappdesktop.view.ScaleDetailsScreen">
+<AnchorPane prefHeight="583.0" prefWidth="450.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.apache.maven.cantinappdesktop.view.ScaleDetailsScreen">
    <children>
       <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="450.0">
          <children>
@@ -24,12 +24,12 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField id="aux-fields" fx:id="classTextField" layoutX="93.0" layoutY="163.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="37.0" prefWidth="265.0">
+                  <TextField id="aux-fields" fx:id="classTextField" editable="false" layoutX="93.0" layoutY="163.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="37.0" prefWidth="265.0">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </TextField>
-                  <TextField id="aux-fields" fx:id="periodTextField" layoutX="93.0" layoutY="109.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="37.0" prefWidth="265.0">
+                  <TextField id="aux-fields" fx:id="periodTextField" editable="false" layoutX="93.0" layoutY="109.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="37.0" prefWidth="265.0">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -43,40 +43,49 @@
                   </TextField>
                </children>
             </Pane>
-            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="464.0">
+            <Pane prefHeight="168.0" prefWidth="450.0">
                <children>
-                  <ComboBox id="comboBox" fx:id="selectEmployeeComboBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onSelectEmployee" prefHeight="39.0" prefWidth="266.0" promptText="Selecionar Aluno">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin></ComboBox>
-                  <Button id="table-aux-button" fx:id="btAddEmployeeToScale" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addEmployeeToScale" prefHeight="39.0" prefWidth="74.0" text="Adicionar" />
+                  <TableView fx:id="employeeListTableView" layoutX="123.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="190.0" prefWidth="205.0">
+                    <columns>
+                      <TableColumn fx:id="employeeListTableColumn" prefWidth="204.0" text="Alunos" />
+                    </columns>
+                  </TableView>
                </children>
-            </HBox>
-            <TableView fx:id="employeeListTableView" layoutX="67.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="121.0" prefWidth="205.0">
-              <columns>
-                <TableColumn fx:id="employeeListTableColumn" prefWidth="204.0" text="Alunos" />
-              </columns>
-            </TableView>
-            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="47.0" prefWidth="454.0">
-               <children>
-                  <Button id="general-button-style" fx:id="scaleDeleteButton" mnemonicParsing="false" onAction="#deleteScale" prefHeight="30.0" prefWidth="68.0" text="Excluir">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-                  <Button id="general-button-style" fx:id="scaleRegisterButton" mnemonicParsing="false" onAction="#registerScale" prefHeight="30.0" prefWidth="89.0" text="Cadastrar">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-                  <Button id="general-button-style" fx:id="closeScaleDetailsScreenButton" mnemonicParsing="false" onAction="#closeDetailsScreen" prefHeight="30.0" prefWidth="84.0" text="Cancelar">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-               </children>
-            </HBox>
+            </Pane>
          </children>
       </VBox>
+      <HBox alignment="CENTER" layoutX="-1.0" layoutY="522.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="47.0" prefWidth="454.0">
+         <children>
+            <Pane prefHeight="47.0" prefWidth="491.0">
+               <children>
+                  <Button id="general-button-style" fx:id="scaleDeleteButton" layoutX="141.0" layoutY="4.0" mnemonicParsing="false" onAction="#deleteScale" prefHeight="40.0" prefWidth="68.0" text="Excluir">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button id="general-button-style" fx:id="scaleRegisterButton" layoutX="118.0" layoutY="4.0" mnemonicParsing="false" onAction="#registerScale" prefHeight="40.0" prefWidth="89.0" text="Cadastrar">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button id="general-button-style" fx:id="closeScaleDetailsScreenButton" layoutX="247.0" layoutY="4.0" mnemonicParsing="false" onAction="#closeDetailsScreen" prefHeight="40.0" prefWidth="84.0" text="Cancelar">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="-14.0" layoutY="459.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="464.0">
+         <children>
+            <ComboBox id="comboBox" fx:id="selectEmployeeComboBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onSelectEmployee" prefHeight="39.0" prefWidth="266.0" promptText="Selecionar Aluno">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </ComboBox>
+            <Button id="table-aux-button" fx:id="btAddEmployeeToScale" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addEmployeeToScale" prefHeight="39.0" prefWidth="74.0" text="Adicionar" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

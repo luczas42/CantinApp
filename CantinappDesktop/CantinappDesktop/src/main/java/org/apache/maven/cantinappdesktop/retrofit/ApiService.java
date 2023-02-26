@@ -1,10 +1,8 @@
 package org.apache.maven.cantinappdesktop.retrofit;
 
 
-import javafx.fxml.FXML;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import org.apache.maven.cantinappdesktop.model.*;
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -76,13 +74,15 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("scales/addScale.php")
     Call<Scale> addScale(@Field("day") String day,
-                         @Field("period") int period,
-                         @Field("class") String clasS,
-                         @Field("employee_array[]") List<Integer> employees);
+                         @Field("period") String period,
+                         @Field("class") String _class,
+                         @Field("employeeArray[]") List<Integer> employees);
 
     @FormUrlEncoded
     @POST("employees/editEmployee.php")
-    Call<Employee> editEmployee(@Field("id") int employeeId, @Field("name") String employeeName, @Field("class") String employeeClass);
+    Call<Employee> editEmployee(@Field("id") int employeeId,
+                                @Field("name") String employeeName,
+                                @Field("class") String employeeClass);
 
     @FormUrlEncoded
     @POST("employees/deleteEmployee.php")
@@ -91,13 +91,4 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("turns/deleteTurn.php")
     Call<Void> deleteScale(@Field("id") int turnId);
-
-    @FormUrlEncoded
-    @POST("scales/editScale.php")
-    Call<Scale> editScale(@Field("turn_id") int turnId,
-                          @Field("day") String day,
-                          @Field("period") int period,
-                          @Field("class") String clasS,
-                          @Field("scale_id[]") List<Integer> scale_id_list,
-                          @Field("employee_id[]") List<Integer> employee_id_list);
 }

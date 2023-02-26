@@ -63,7 +63,7 @@ public class MainScreenController {
     private TableColumn<Scale, String> scaleDateTableColumn;
 
     @FXML
-    private TableColumn<Employee, String> scaleEmployeeTableColumn;
+    private TableColumn<Scale, String> scaleEmployeeTableColumn;
 
     @FXML
     private TableColumn<Scale, String> scalePeriodTableColumn;
@@ -82,6 +82,7 @@ public class MainScreenController {
     ////
     //// TABLE DISPLAYING FUNCTIONS: PRODUCTS, EMPLOYEES AND SCALES
     ////
+
     @FXML
     void displayProducts() {
         arrangingScreenElements("products");
@@ -317,84 +318,85 @@ public class MainScreenController {
         }
     }
 
-    void refreshProductsTable() throws InterruptedException {
+    public void refreshProductsTable() throws InterruptedException {
         retrofitInit.getProducts(this.productCallback);
     }
 
-    void refreshEmployeeTable() throws InterruptedException {
+    public void refreshEmployeeTable() throws InterruptedException {
         retrofitInit.getEmployees(this.employeeCallback);
     }
 
-    void refreshScalesTable() throws InterruptedException {
+    public void refreshScalesTable() throws InterruptedException {
         retrofitInit.getScales(this.scalesCallback);
     }
 
     Callback<List<Product>> productCallback = new Callback<>() {
         public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-            List<Product> productList = response.body();
-            assert productList != null;
-
-            ObservableList<Product> productObservableList = FXCollections.observableList(productList);
-
-            MainScreenController.this.productNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
-            MainScreenController.this.productPriceTableColumn.setCellValueFactory(new PropertyValueFactory<>("Price"));
-            MainScreenController.this.productsTableView.setItems(productObservableList);
-            productsTableView.refresh();
+            if(response.isSuccessful() && response.body()!=null){
+                ObservableList<Product> productObservableList = FXCollections.observableList(response.body());
+                setProductTableAttributes(productObservableList);
+            }
         }
-
         public void onFailure(Call<List<Product>> call, Throwable t) {
             System.out.println(t.getMessage());
         }
     };
 
+    private void setProductTableAttributes(ObservableList<Product> productObservableList) {
+        MainScreenController.this.productNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        MainScreenController.this.productPriceTableColumn.setCellValueFactory(new PropertyValueFactory<>("Price"));
+        MainScreenController.this.productsTableView.setItems(productObservableList);
+        productsTableView.refresh();
+    }
+
     Callback<List<Employee>> employeeCallback = new Callback<>() {
         public void onResponse(Call<List<Employee>> call, Response<List<Employee>> response) {
-            List<Employee> employeeList = response.body();
-
-            assert employeeList != null;
-
-            ObservableList<Employee> employeeObservableList = FXCollections.observableList(employeeList);
-
-            MainScreenController.this.employeeNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
-            MainScreenController.this.employeeClassTableColumn.setCellValueFactory(new PropertyValueFactory<>("ClasS"));
-            MainScreenController.this.employeeTableView.setItems(employeeObservableList);
-            productsTableView.refresh();
+            if(response.isSuccessful() && response.body()!=null){
+                ObservableList<Employee> employeeObservableList = FXCollections.observableList(response.body());
+                setEmployeeTableAttributes(employeeObservableList);
+            }
         }
-
         public void onFailure(Call<List<Employee>> call, Throwable t) {
             System.out.println(t.getMessage());
         }
     };
 
+    private void setEmployeeTableAttributes(ObservableList<Employee> employeeObservableList) {
+        MainScreenController.this.employeeNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        MainScreenController.this.employeeClassTableColumn.setCellValueFactory(new PropertyValueFactory<>("ClasS"));
+        MainScreenController.this.employeeTableView.setItems(employeeObservableList);
+        productsTableView.refresh();
+    }
+
     Callback<List<Scale>> scalesCallback = new Callback<List<Scale>>() {
         @Override
         public void onResponse(Call<List<Scale>> call, Response<List<Scale>> response) {
-
-            scaleList = response.body();
-            assert scaleList != null;
-
-            ObservableList<Scale> scaleObservableList = FXCollections.observableList(scaleList);
-            MainScreenController.this.scaleClassTableColumn.setCellValueFactory(new PropertyValueFactory<>("ClasS"));
-            MainScreenController.this.scaleDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("Day"));
-            MainScreenController.this.scalePeriodTableColumn.setCellValueFactory(new PropertyValueFactory<>("Period"));
-            for (Scale scale :
-                    scaleObservableList) {
-                if (scale.getEmployeeList() != null) {
-                    scale.createNameString();
-                    MainScreenController.this.scaleEmployeeTableColumn.setCellValueFactory(new PropertyValueFactory<>("EmployeeNamesString"));
-                }
-
+            if(response.isSuccessful() && response.body()!=null){
+                ObservableList<Scale> scaleObservableList = FXCollections.observableList(response.body());
+                setScalesTableAttributes(scaleObservableList);
             }
-            MainScreenController.this.scaleTableView.setItems(scaleObservableList);
-            scaleTableView.refresh();
-
         }
 
         @Override
         public void onFailure(Call<List<Scale>> call, Throwable throwable) {
-            System.out.println(throwable.getMessage());
+            System.out.println("aaa" + throwable.getMessage());
         }
     };
+
+    private void setScalesTableAttributes(ObservableList<Scale> scaleObservableList) {
+        MainScreenController.this.scaleClassTableColumn.setCellValueFactory(new PropertyValueFactory<>("_class"));
+        MainScreenController.this.scaleDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("day"));
+        MainScreenController.this.scalePeriodTableColumn.setCellValueFactory(new PropertyValueFactory<>("period"));
+
+        for (Scale scale : scaleObservableList) {
+            if (scale.getEmployeeList() != null) {
+                scale.createNameString();
+                MainScreenController.this.scaleEmployeeTableColumn.setCellValueFactory(new PropertyValueFactory<>("EmployeeNamesString"));
+            }
+        }
+        MainScreenController.this.scaleTableView.setItems(scaleObservableList);
+        scaleTableView.refresh();
+    }
 
     ////
     //// ADDITIONAL BUTTON ACTIONS (LOGOUT, CLOSE AND MINIMIZE)

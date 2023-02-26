@@ -2,26 +2,31 @@ package org.apache.maven.cantinappdesktop.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Scale {
-
-    private List<String> employeeNamesString;
     @SerializedName("id")
-    private int turn_id;
+    private int turnId;
     @SerializedName("class")
-    private String clasS;
-    /// clasS is used as a substitute for the word 'class', which is marked as a key word
+    private String _class;
     @SerializedName("day")
     private String day;
     @SerializedName("period")
-    private int period;
+    private String period;
     /// period = 0 means morning
     /// period = 1 means afternoon
     /// period = 2 means night
     @SerializedName("employee_array")
     private List<Employee> employeeList;
+    private String employeeNamesString = "";
+
+    public String getEmployeeNamesString() {
+        return employeeNamesString;
+    }
+
+    public void setEmployeeNamesString(String employeeNamesString) {
+        this.employeeNamesString = employeeNamesString;
+    }
 
     public List<Employee> getEmployeeList() {
         return employeeList;
@@ -31,50 +36,39 @@ public class Scale {
         this.employeeList = employeeList;
     }
 
-    public Scale(int turn_id, String clasS, String day, int period, List<Employee> employeeList) {
-        this.turn_id = turn_id;
-        this.clasS = clasS;
+    public Scale(int turnId, String _class, String day, String period, List<Employee> employeeList) {
+        this.turnId = turnId;
+        this._class = _class;
         this.day = day;
         this.period = period;
         this.employeeList = employeeList;
-    }
-
-    @Override
-    public String toString() {
-        return "Scale{" +
-                "turn_id=" + turn_id +
-                ", clasS='" + clasS + '\'' +
-                ", date='" + day + '\'' +
-                ", period=" + period +
-                ", employeeList=" + employeeList +
-                '}';
     }
 
     public Scale(List<Employee> employeeList) {
         this.employeeList = employeeList;
     }
 
-    public int getTurn_id() {
-        return turn_id;
+    public int getTurnId() {
+        return turnId;
     }
 
-    public void setTurn_id(int turn_id) {
-        this.turn_id = turn_id;
+    public void setTurnId(int turnId) {
+        this.turnId = turnId;
     }
 
-    public String getClasS() {
-        return clasS;
+    public String get_class() {
+        return _class;
     }
 
-    public void setClasS(String clasS) {
-        this.clasS = clasS;
+    public void set_class(String _class) {
+        this._class = _class;
     }
 
-    public int getPeriod() {
+    public String getPeriod() {
         return period;
     }
 
-    public void setPeriod(int period) {
+    public void setPeriod(String period) {
         this.period = period;
     }
 
@@ -86,23 +80,20 @@ public class Scale {
         this.day = day;
     }
 
-    public void createNameString(){
-        List<String> auxList = new ArrayList<>();
+    public void createNameString() {
+        String allEmployeeNames = "";
         for (Employee employee :
                 employeeList) {
-            auxList.add(employee.getName());
+            if(allEmployeeNames.equals("")){
+                allEmployeeNames = employee.getName();
+            }else{
+                allEmployeeNames = allEmployeeNames + ", " + employee.getName();
+            }
         }
-        setEmployeeNamesString(auxList);
+        this.employeeNamesString = allEmployeeNames;
     }
 
-    public List<String> getEmployeeNamesString() {
-        return employeeNamesString;
-    }
-
-    public void setEmployeeNamesString(List<String> employeeNamesString) {
-        this.employeeNamesString = employeeNamesString;
-    }
-    public void formatDay(){
+    public void formatDay() {
 
     }
 }
