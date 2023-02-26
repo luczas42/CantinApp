@@ -73,7 +73,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </TextField>
-                              <Button id="login-screen-buttons" fx:id="loginButton" alignment="CENTER" layoutX="174.0" layoutY="209.0" mnemonicParsing="false" onAction="#openMainScene" text="Entrar" textAlignment="CENTER" textFill="WHITE">
+                              <Button id="login-screen-buttons" fx:id="loginButton" alignment="CENTER" layoutX="174.0" layoutY="209.0" mnemonicParsing="false" onAction="#onLogin" text="Entrar" textAlignment="CENTER" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -105,22 +105,22 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextField id="login-fields" fx:id="textFieldSignupName" layoutX="114.0" layoutY="427.0" promptText="Usuário">
+                              <TextField id="login-fields" fx:id="textFieldSignupName" layoutX="115.0" layoutY="439.0" promptText="Nome de Usuário">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </TextField>
-                              <PasswordField id="login-fields" fx:id="textFieldSignupPassword" layoutX="114.0" layoutY="534.0" promptText="Senha">
+                              <PasswordField id="login-fields" fx:id="textFieldSignupPassword" layoutX="115.0" layoutY="521.0" promptText="Senha">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </PasswordField>
-                              <PasswordField id="login-fields" fx:id="textFieldSignupPasswordConfirm" layoutX="114.0" layoutY="569.0" promptText="Confirmar Senha">
+                              <PasswordField id="login-fields" fx:id="textFieldSignupPasswordConfirm" layoutX="115.0" layoutY="562.0" promptText="Confirmar Senha">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </PasswordField>
-                              <TextField id="login-fields" fx:id="textFieldSignupEmail" layoutX="114.0" layoutY="484.0" promptText="E-mail">
+                              <TextField id="login-fields" fx:id="textFieldSignupEmail" layoutX="115.0" layoutY="480.0" promptText="E-mail">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -138,7 +138,7 @@
                                     <Image url="@img/user-icon.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="80.0" layoutY="430.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="80.0" layoutY="442.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@img/user-icon.png" />
                                  </image>
@@ -148,27 +148,27 @@
                                     <Image url="@img/password-icon.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="80.0" layoutY="537.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="80.0" layoutY="524.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@img/password-icon.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="80.0" layoutY="572.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="80.0" layoutY="565.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@img/password-icon.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="80.0" layoutY="487.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="80.0" layoutY="483.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@img/email-icon.png" />
                                  </image>
                               </ImageView>
-                              <TextField id="login-fields" fx:id="textFieldSignupUsername" layoutX="115.0" layoutY="386.0" promptText="Nome de Usuário">
+                              <TextField id="login-fields" fx:id="textFieldSignupUsername" layoutX="115.0" layoutY="398.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="173.0" promptText="Nome Completo">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </TextField>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="81.0" layoutY="389.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="81.0" layoutY="401.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@img/user-icon.png" />
                                  </image>
