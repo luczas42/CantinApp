@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.converter.DateTimeStringConverter;
 import org.apache.maven.cantinappdesktop.model.Employee;
 import org.apache.maven.cantinappdesktop.model.Scale;
 import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
@@ -14,6 +15,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -170,7 +173,7 @@ public class ScaleDetailsScreen {
     }
 
     @FXML
-    void registerScale() {
+    void registerScale(){
         if (!dayTextField.getCharacters().isEmpty()) {
             if (!selectPeriodComboBox.getSelectionModel().isEmpty()) {
                 if (!selectClassComboBox.getSelectionModel().isEmpty()) {

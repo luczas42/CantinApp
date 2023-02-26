@@ -13,11 +13,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="583.0" prefWidth="450.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.apache.maven.cantinappdesktop.view.ScaleDetailsScreen">
+<AnchorPane prefHeight="583.0" prefWidth="453.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.apache.maven.cantinappdesktop.view.ScaleDetailsScreen">
    <children>
       <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="450.0">
          <children>
-            <Pane prefHeight="200.0" prefWidth="200.0">
+            <Pane prefHeight="200.0" prefWidth="450.0">
                <children>
                   <Label fx:id="dayEditLabel" layoutX="167.0" layoutY="14.0" style="-fx-text-fill: #00A87D;" text="Adicionar Data">
                      <font>
@@ -45,7 +45,7 @@
             </Pane>
             <Pane prefHeight="168.0" prefWidth="450.0">
                <children>
-                  <TableView fx:id="employeeListTableView" layoutX="123.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="190.0" prefWidth="205.0">
+                  <TableView fx:id="employeeListTableView" layoutX="123.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="190.0" prefWidth="205.0">
                     <columns>
                       <TableColumn fx:id="employeeListTableColumn" prefWidth="204.0" text="Alunos" />
                     </columns>
@@ -54,6 +54,16 @@
             </Pane>
          </children>
       </VBox>
+      <HBox alignment="CENTER" layoutX="-14.0" layoutY="459.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="464.0">
+         <children>
+            <ComboBox id="comboBox" fx:id="selectEmployeeComboBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onSelectEmployee" prefHeight="39.0" prefWidth="266.0" promptText="Selecionar Aluno">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </ComboBox>
+            <Button id="table-aux-button" fx:id="btAddEmployeeToScale" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addEmployeeToScale" prefHeight="39.0" prefWidth="74.0" text="Adicionar" />
+         </children>
+      </HBox>
       <HBox alignment="CENTER" layoutX="-1.0" layoutY="522.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="47.0" prefWidth="454.0">
          <children>
             <Pane prefHeight="47.0" prefWidth="491.0">
@@ -75,16 +85,6 @@
                   </Button>
                </children>
             </Pane>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" layoutX="-14.0" layoutY="459.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="464.0">
-         <children>
-            <ComboBox id="comboBox" fx:id="selectEmployeeComboBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onSelectEmployee" prefHeight="39.0" prefWidth="266.0" promptText="Selecionar Aluno">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </ComboBox>
-            <Button id="table-aux-button" fx:id="btAddEmployeeToScale" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addEmployeeToScale" prefHeight="39.0" prefWidth="74.0" text="Adicionar" />
          </children>
       </HBox>
    </children>

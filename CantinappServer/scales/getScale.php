@@ -1,9 +1,9 @@
 <?php
 header('Content-Type: application/json charset=utf-8');
 
-$employeeArray = array();
-$turnArray = array();
-$turnIdArray = array();
+$scaleList = array();
+$turnList = array();
+$finalList = array();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -42,7 +42,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $formattedPeriod = "Noite";
                     break;
             }
-            $turnArray[] = new Turn($row->id, $row->day, $formattedPeriod, $formattedClass);
+
+            $day = new DateTime($row->day);
+            $timestamp = $day->getTimestamp(); // Unix timestamp
+            $formattedDate = $day->format('d/m/y'); 
+
+            $turnList[] = new Turn($row->id, $dmy, $formattedPeriod, $formattedClass);
         }
     }
 
@@ -62,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_object()) {
-            $formattedClass;
+	    $formattedClass;
             $class = $row->class;
 
             switch ($class) {
@@ -76,20 +81,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $formattedClass = "REFRI4AM";
                     break;
             }
-
-            $employeeArray[] = new Employee($row->id_emp, $row->name, $formattedClass, $row->id_scale);
-            $turnIdArray[] = $row->id_turn;
+            $scaleList[] = new Employee($row->id_emp, $row->name, $formattedClass, $row->id_turn, $row->id_scale);
         }
     }
 
-    foreach ($turnArray as $turn) {
-        foreach ($turnIdArray as $turnId) {
-            if ($turnId == $turn->id) {
-                $turn->employeeArray[] = $employeeArray;
+    foreach ($turnList as $keyTurn => $turn) {
+        foreach ($scaleList as $keyScale => $scale) {
+            if ($scale->turn_id == $turn->id) {
+                $turn->employee_array[] = $scale;
             }
         }
     }
-    echo json_encode($turnArray);
+    echo json_encode($turnList);
     $conn->close();
 }
 
@@ -103,14 +106,17 @@ class Employee
 
     public $class;
 
-    public $scaleId;
+    public $turn_id;
 
-    public function __construct($id, $name, $class, $scaleId)
+    public $scale_id;
+
+    public function __construct($id, $name, $class, $turn_id, $scale_id)
     {
         $this->id = $id;
         $this->name = $name;
         $this->class = $class;
-        $this->scaleId = $scaleId;
+        $this->turn_id = $turn_id;
+        $this->scale_id = $scale_id;
     }
 
     
@@ -120,13 +126,14 @@ class Turn
 {
 
     public $id;
+
     public $day;
 
     public $period;
 
     public $class;
 
-    public $employeeArray;
+    public $employee_array;
 
     public function __construct($id, $day, $period, $class)
     {
@@ -136,9 +143,9 @@ class Turn
         $this->class = $class;
     }
  
-    public function setEmployee_array($employeeArray)
+    public function setEmployee_array($employee_array)
     {
-        $this->employeeArray = $employeeArray;
+        $this->employee_array = $employee_array;
         return $this;
     }
 }
