@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json charset=utf-8');
 
-
+$error = array();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     include '../setupConnection.php';
@@ -17,37 +17,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $formattedClass;
         switch ($class) {
-            case strcasecmp($class, "inf4am")==0:
+            case strcasecmp($class, "inf4am") == 0:
                 $formattedClass = 0;
                 break;
-            case strcasecmp($class, "inf4at")==0:
+            case strcasecmp($class, "inf4at") == 0:
                 $formattedClass = 1;
                 break;
-            case strcasecmp($class, "refri4am")==0:
+            case strcasecmp($class, "refri4am") == 0:
                 $formattedClass = 2;
                 break;
         }
 
         $formattedPeriod;
         switch ($period) {
-            case strcasecmp($period, "manhã")==0:
+            case strcasecmp($period, "manhã") == 0:
                 $formattedPeriod = 0;
                 break;
-            case strcasecmp($period, "tarde")==0:
+            case strcasecmp($period, "tarde") == 0:
                 $formattedPeriod = 1;
                 break;
-            case strcasecmp($period, "noite")==0:
+            case strcasecmp($period, "noite") == 0:
                 $formattedPeriod = 2;
                 break;
         }
 
-	$day = new DateTime($row->day);
-        $timestamp = $day->getTimestamp(); // Unix timestamp
-        $formattedDate = $day->format('Y-m-d'); 
-
         $sql = 'INSERT INTO turn (day, period, class) VALUES (?, ?, ?);';
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('sii', $formattedDate, $formattedPeriod, $formattedClass);
+        $stmt->bind_param('sii', $day, $formattedPeriod, $formattedClass);
         $stmt->execute();
 
         $sql = 'SELECT * FROM turn WHERE day = ? AND period = ? AND class = ?;';

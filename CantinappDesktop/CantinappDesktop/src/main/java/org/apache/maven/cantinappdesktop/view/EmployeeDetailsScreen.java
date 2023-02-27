@@ -87,14 +87,14 @@ public class EmployeeDetailsScreen {
                 cbEmployeeClass.requestFocus();
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setContentText("Selecione uma turma!");
-                alert.setTitle("Registro de aluno");
+                alert.setTitle("Registro de empregado");
                 alert.show();
             }
         } else {
             employeeNameField.requestFocus();
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setContentText("Digite um nome!");
-            alert.setTitle("Registro de aluno");
+            alert.setTitle("Registro de empregado");
             alert.show();
         }
     }

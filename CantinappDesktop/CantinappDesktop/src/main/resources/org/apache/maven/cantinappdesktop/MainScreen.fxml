@@ -121,21 +121,6 @@
                                     <Insets bottom="8.0" top="135.0" />
                                  </VBox.margin>
                               </Line>
-                              <Button id="button-test" fx:id="configButton" alignment="TOP_LEFT" mnemonicParsing="false" prefWidth="230.0" style="-fx-background-radius: 10;" stylesheets="@application.css" text="Configurações">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets bottom="4.0" />
-                                 </VBox.margin>
-                                 <graphic>
-                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@img/configurations-icon.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
                               <Button id="button-test" fx:id="exitButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#logOut" prefWidth="230.0" style="-fx-background-radius: 10;" stylesheets="@application.css" text="Desconectar">
                                  <font>
                                     <Font name="System Bold" size="14.0" />

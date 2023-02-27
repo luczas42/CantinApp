@@ -34,7 +34,6 @@ import java.util.List;
 public class MainScreenController {
 
     RetrofitInit retrofitInit = new RetrofitInit();
-    List<Scale> scaleList = new ArrayList<>();
     private Stage stage;
     private Scene scene;
     private Parent root;
