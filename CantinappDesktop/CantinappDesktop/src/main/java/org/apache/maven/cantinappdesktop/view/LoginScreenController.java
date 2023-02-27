@@ -14,8 +14,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.apache.maven.cantinappdesktop.App;
+import org.apache.maven.cantinappdesktop.model.ApiResponse;
 import org.apache.maven.cantinappdesktop.model.User;
-import org.apache.maven.cantinappdesktop.model.UserResponse;
+
 import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -107,9 +108,9 @@ public class LoginScreenController {
         stage.show();
     }
 
-    Callback<UserResponse> addUserCallback = new Callback<UserResponse>() {
+    Callback<ApiResponse> addUserCallback = new Callback<ApiResponse>() {
         @Override
-        public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+        public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
 
             if (response.isSuccessful()) {
 
@@ -136,7 +137,7 @@ public class LoginScreenController {
         }
 
         @Override
-        public void onFailure(Call<UserResponse> call, Throwable throwable) {
+        public void onFailure(Call<ApiResponse> call, Throwable throwable) {
             System.out.println("falha " + throwable.getMessage());
         }
     };
