@@ -41,9 +41,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 break;
         }
 
+	$day = new DateTime($row->day);
+        $timestamp = $day->getTimestamp(); // Unix timestamp
+        $formattedDate = $day->format('Y-m-d'); 
+
         $sql = 'INSERT INTO turn (day, period, class) VALUES (?, ?, ?);';
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('sii', $day, $formattedPeriod, $formattedClass);
+        $stmt->bind_param('sii', $formattedDate, $formattedPeriod, $formattedClass);
         $stmt->execute();
 
         $sql = 'SELECT * FROM turn WHERE day = ? AND period = ? AND class = ?;';
@@ -57,6 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $turnId = $row->id;
             }
         }
+
+
 
         $employeeArray = $_POST['employeeArray'];
 

@@ -15,13 +15,25 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $isUser = $_POST['isUser'];
         $email = $_POST['email'];
 
-        $sql = "INSERT INTO user (username, name, password, isUser, email) VALUES (?, ?, ?, ?, ?);";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('sssss', $username, $name, $password, $isUser, $email);
-        $stmt->execute();
+        $checkSql = "SELECT * FROM user WHERE username = ? OR email = ?";
+        $checkStmt = $conn->prepare($checkSql);
+        $checkStmt->bind_param('ss', $username, $email);
+        $checkStmt->execute();
+        $result = $checkStmt->get_result();
+        if ($result->num_rows > 0) {
+            $response = array("success" => false, "message" => "Email ou nome de usuário já existe");
+            echo json_encode($response);
+        } else {
+            $sql = "INSERT INTO user (username, name, password, isUser, email) VALUES (?, ?, ?, ?, ?);";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('sssis', $username, $name, $password, $isUser, $email);
+            $stmt->execute();
+
+            // Return a success message
+            $response = array("success" => true, "message" => "Usuário criado com sucesso");
+            echo json_encode($response);
+        }
     }
     $conn->close();
 }
-
-
 ?>

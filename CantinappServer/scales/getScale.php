@@ -45,9 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $day = new DateTime($row->day);
             $timestamp = $day->getTimestamp(); // Unix timestamp
-            $formattedDate = $day->format('d/m/y'); 
+            $formattedDate = $day->format('d/m/Y'); 
 
-            $turnList[] = new Turn($row->id, $dmy, $formattedPeriod, $formattedClass);
+            $turnList[] = new Turn($row->id, $formattedDate, $formattedPeriod, $formattedClass);
         }
     }
 

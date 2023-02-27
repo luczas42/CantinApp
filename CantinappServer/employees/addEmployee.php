@@ -12,14 +12,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $formattedClass;
 
         switch ($class) {
-            case strcasecmp($class, "inf4am")==0:
+            case strcasecmp($class, "INF4AM")==0:
                 $formattedClass = 0;
                 break;
-            case strcasecmp($class, "inf4at")==0:
+            case strcasecmp($class, "INF4AT")==0:
                 $formattedClass = 1;
                 break;
-            case strcasecmp($class, "refri4am")==0:
+            case strcasecmp($class, "REFRI4AM")==0:
                 $formattedClass = 2;
+                break;
+            default:
                 break;
         }
         $sql = "INSERT INTO employee (name, class)

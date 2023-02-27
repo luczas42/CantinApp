@@ -18,6 +18,7 @@ import retrofit2.Response;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ScaleDetailsScreen {
@@ -173,12 +174,12 @@ public class ScaleDetailsScreen {
     }
 
     @FXML
-    void registerScale(){
-        if (!dayTextField.getCharacters().isEmpty()) {
+    void registerScale() throws ParseException {
+        if (checkDayFormat()!=null) {
             if (!selectPeriodComboBox.getSelectionModel().isEmpty()) {
                 if (!selectClassComboBox.getSelectionModel().isEmpty()) {
                     if (!employeeTableViewList.isEmpty()) {
-                        String day = dayTextField.getText();
+                        String day = checkDayFormat();
                         String period = selectPeriodComboBox.getSelectionModel().getSelectedItem();
                         String _class = selectClassComboBox.getSelectionModel().getSelectedItem();
                         List<Integer> idList = getEmployeeIdList(employeeTableViewList);
@@ -213,6 +214,13 @@ public class ScaleDetailsScreen {
             alert.setTitle("Registro de escala");
             alert.show();
         }
+    }
+
+    String checkDayFormat() throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = simpleDateFormat.parse(dayTextField.getText());
+        String formattedDate = simpleDateFormat.format(date);
+        return formattedDate;
     }
 
     Callback<Scale> scaleCallback = new Callback<Scale>() {

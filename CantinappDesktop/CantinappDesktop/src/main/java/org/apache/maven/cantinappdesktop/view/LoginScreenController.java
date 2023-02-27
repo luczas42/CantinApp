@@ -151,18 +151,24 @@ public class LoginScreenController {
     }
 
     @FXML
-    void onLogin(ActionEvent event) {
-        if (checkFieldsLogin(textFieldLoginUsername)) {
-            if (checkFieldsLogin(textFieldLoginPassword)) {
-                String username = textFieldLoginUsername.getText();
-                String password = textFieldLoginPassword.getText();
-                retrofitInit.checkLogin(checkLoginCallback, username, password);
+    void onLogin(ActionEvent event) throws IOException {
+//        if (checkFieldsLogin(textFieldLoginUsername)) {
+//            if (checkFieldsLogin(textFieldLoginPassword)) {
+//                String username = textFieldLoginUsername.getText();
+//                String password = textFieldLoginPassword.getText();
+//                retrofitInit.checkLogin(checkLoginCallback, username, password);
 //        if (Objects.equals(username, connectedUser.getUsername())){
 //            this.loginPane.setVisible(false);
 //        }
-            }
-        }
+//            }
+//        }
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("MainScreen.fxml"));
+        root = loader.load();
 
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML

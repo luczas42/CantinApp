@@ -201,7 +201,7 @@
                   </HBox>
                </children>
                <cursor>
-                  <Cursor fx:constant="OPEN_HAND" />
+                  <Cursor fx:constant="DEFAULT" />
                </cursor>
                <effect>
                   <Blend />

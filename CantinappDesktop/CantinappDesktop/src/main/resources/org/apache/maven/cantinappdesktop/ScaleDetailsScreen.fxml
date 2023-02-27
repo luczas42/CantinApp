@@ -36,7 +36,7 @@
                   </TextField>
                   <ComboBox id="comboBox" fx:id="selectClassComboBox" layoutX="93.0" layoutY="162.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#onSelectClass" prefHeight="38.0" prefWidth="264.0" promptText="Selecionar Turma" stylesheets="@application.css" />
                   <ComboBox id="comboBox" fx:id="selectPeriodComboBox" layoutX="93.0" layoutY="108.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="38.0" prefWidth="264.0" promptText="Selecionar Turno" />
-                  <TextField id="aux-fields" fx:id="dayTextField" layoutX="93.0" layoutY="54.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="37.0" prefWidth="265.0" promptText="Dia">
+                  <TextField id="aux-fields" fx:id="dayTextField" layoutX="93.0" layoutY="54.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="37.0" prefWidth="265.0" promptText="Dia (ex. 10/07/2022)">
                      <font>
                         <Font size="16.0" />
                      </font>
