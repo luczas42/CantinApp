@@ -157,7 +157,7 @@
                               <TableView fx:id="productsTableView" layoutX="40.0" layoutY="48.0" onMouseClicked="#productClick" prefHeight="550.0" prefWidth="930.0" visible="false">
                                  <columns>
                                     <TableColumn fx:id="productPriceTableColumn" editable="false" prefWidth="118.0" text="Preço - R$" />
-                                    <TableColumn fx:id="productNameTableColumn" editable="false" minWidth="0.0" prefWidth="811.0" text="Nome" />
+                                    <TableColumn fx:id="productNameTableColumn" editable="false" minWidth="0.0" prefWidth="809.0" text="Nome" />
                                  </columns>
                               </TableView>
                               <Button id="table-aux-button" fx:id="tableRefreshButton" layoutX="700.0" layoutY="620.0" mnemonicParsing="false" onAction="#refreshTable" prefHeight="40.0" prefWidth="49.0" visible="false">

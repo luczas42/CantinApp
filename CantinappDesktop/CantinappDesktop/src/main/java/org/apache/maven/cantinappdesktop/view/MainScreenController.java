@@ -354,6 +354,8 @@ public class MainScreenController {
             MainScreenController.this.productPriceTableColumn.setCellValueFactory(new PropertyValueFactory<>("FormattedPrice"));
         }
         MainScreenController.this.productsTableView.setItems(productObservableList);
+        productNameTableColumn.setResizable(false);
+        productPriceTableColumn.setResizable(false);
         productsTableView.refresh();
     }
 
@@ -374,6 +376,8 @@ public class MainScreenController {
         MainScreenController.this.employeeNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
         MainScreenController.this.employeeClassTableColumn.setCellValueFactory(new PropertyValueFactory<>("ClasS"));
         MainScreenController.this.employeeTableView.setItems(employeeObservableList);
+        employeeNameTableColumn.setResizable(false);
+        employeeClassTableColumn.setResizable(false);
         productsTableView.refresh();
     }
 
@@ -404,6 +408,10 @@ public class MainScreenController {
             }
         }
         MainScreenController.this.scaleTableView.setItems(scaleObservableList);
+        scaleClassTableColumn.setResizable(false);
+        scaleDateTableColumn.setResizable(false);
+        scalePeriodTableColumn.setResizable(false);
+        scaleEmployeeTableColumn.setResizable(false);
         scaleTableView.refresh();
     }
 
