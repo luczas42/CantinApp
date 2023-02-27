@@ -5,15 +5,16 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Turn {
+public class Scale {
     @SerializedName("id")
     int id;
     @SerializedName("day")
     String day;
     @SerializedName("period")
-    int period;
+    String period;
     @SerializedName("class")
-    String employeeClass;
+    String _class;
+    @SerializedName("employee_array")
     List<Employee> employeeList;
 
     public int getId() {
@@ -28,7 +29,7 @@ public class Turn {
         return day;
     }
 
-    public String getFormatedDate(){
+    public String getFormatedDate() {
         return DateFormatter.dateFormat(day);
     }
 
@@ -36,20 +37,20 @@ public class Turn {
         this.day = day;
     }
 
-    public int getPeriod() {
+    public String getPeriod() {
         return period;
     }
 
-    public void setPeriod(int period) {
+    public void setPeriod(String period) {
         this.period = period;
     }
 
-    public String getEmployeeClass() {
-        return employeeClass;
+    public String get_class() {
+        return _class;
     }
 
-    public void setEmployeeClass(String employeeClass) {
-        this.employeeClass = employeeClass;
+    public void set_class(String _class) {
+        this._class = _class;
     }
 
     public List<Employee> getEmployeeList() {
@@ -58,14 +59,5 @@ public class Turn {
 
     public void setEmployeeList(List<Employee> employeeList) {
         this.employeeList = employeeList;
-    }
-
-    public String getLiteralPeriod() {
-        if (period ==1){
-            return "Manhã";
-        }else if (period == 2){
-            return "Tarde";
-        }
-        return "";
     }
 }

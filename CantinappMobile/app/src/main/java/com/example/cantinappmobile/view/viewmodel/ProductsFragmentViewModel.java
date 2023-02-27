@@ -40,10 +40,10 @@ public class ProductsFragmentViewModel extends ViewModel {
 
     public void retrieveProductsFromRepository() {
 
-        Call<List<Product>> productCall = repository.retrieveProductsFromWebService();
+        Call<List<Product>> productCallBack = repository.retrieveProductsFromWebService();
 
 
-        productCall.enqueue(new Callback<List<Product>>() {
+        productCallBack.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
 

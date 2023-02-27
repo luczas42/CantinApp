@@ -66,18 +66,14 @@ public class LoginFragment extends Fragment {
                             Toast.makeText(requireContext(), "Credenciais erradas", Toast.LENGTH_SHORT).show();
                         }
                     });
-
                 }
             }
-            Intent intent = new Intent(requireContext(), ListsActivity.class);
-            startActivity(intent);
         });
 
         binding.registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 navController.navigate(R.id.action_LoginFragment_to_SignInFragment);
-                Toast.makeText(requireActivity(), "bdbdbdbdbdbd", Toast.LENGTH_SHORT).show();
             }
         });
     }

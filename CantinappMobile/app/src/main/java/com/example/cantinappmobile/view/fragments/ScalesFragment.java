@@ -17,7 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cantinappmobile.R;
 import com.example.cantinappmobile.databinding.FragmentScalesBinding;
-import com.example.cantinappmobile.model.Turn;
+import com.example.cantinappmobile.model.Employee;
+import com.example.cantinappmobile.model.Scale;
 import com.example.cantinappmobile.view.adapter.EmployeeAdapter;
 import com.example.cantinappmobile.view.adapter.ScaleListAdapter;
 import com.example.cantinappmobile.view.viewmodel.Connection;
@@ -54,7 +55,7 @@ public class ScalesFragment extends Fragment {
          refriFilter = binding.classFilter.filterSwitchRefri4am;
 
         viewModel = new ViewModelProvider(requireActivity()).get(ScalesViewModel.class);
-        viewModel.getTurns();
+        viewModel.getScales();
         observeConnection();
 
         viewModel.getDisplayValue().observe(getViewLifecycleOwner(), display -> {
@@ -67,13 +68,13 @@ public class ScalesFragment extends Fragment {
     }
 
     private void observeScale() {
-        viewModel.turnLiveData.observe(getViewLifecycleOwner(), this::createAdapter);
+        viewModel.scaleLiveData.observe(getViewLifecycleOwner(), this::createAdapter);
     }
 
-    private void observeEmployees(List<Turn> turns) {
+    private void observeEmployees(List<Scale> scales) {
         viewModel.employeeConnectionLiveData.observe(getViewLifecycleOwner(), connection -> {
             if (connection == Connection.Successfull) {
-                observeSearch(turns);
+                observeSearch(scales);
             }
         });
     }
@@ -87,25 +88,25 @@ public class ScalesFragment extends Fragment {
         );
     }
 
-    private void createAdapter(List<Turn> turns) {
+    private void createAdapter(List<Scale> scales) {
         binding.recyclerDays.setAdapter(scaleAdapter);
         binding.recyclerDays.setLayoutManager(new LinearLayoutManager(requireContext()));
-        scaleAdapter.append(turns);
-        setupFilters(turns);
-        scaleAdapter.setOnClickListener((position, turn) -> {
-            setupPopup(turn);
+        scaleAdapter.append(scales);
+        setupFilters(scales);
+        scaleAdapter.setOnClickListener((position, scale) -> {
+            setupPopup(scale);
         });
 
-        observeEmployees(turns);
+        observeEmployees(scales);
     }
 
-    private void observeSearch(List<Turn> turns) {
+    private void observeSearch(List<Scale> scales) {
         viewModel.employeeSearchQuery.observe(getViewLifecycleOwner(), query -> {
             if (!query.equalsIgnoreCase("")) {
                 resetFilters();
-                scaleAdapter.search(query, turns);
+                scaleAdapter.search(query, scales);
             }else{
-                scaleAdapter.append(turns);
+                scaleAdapter.append(scales);
             }
         });
     }
@@ -116,22 +117,22 @@ public class ScalesFragment extends Fragment {
         refriFilter.setChecked(true);
     }
 
-    private void setupFilters(List<Turn> turns) {
+    private void setupFilters(List<Scale> scales) {
 
         binding.classFilter.filterSwitchInf4am.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            scaleAdapter.updateItems(turns, inf4amFilter.isChecked(), inf4atFilter.isChecked(), refriFilter.isChecked());
+            scaleAdapter.updateItems(scales, inf4amFilter.isChecked(), inf4atFilter.isChecked(), refriFilter.isChecked());
         });
 
         binding.classFilter.filterSwitchInf4at.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            scaleAdapter.updateItems(turns, inf4amFilter.isChecked(), inf4atFilter.isChecked(), refriFilter.isChecked());
+            scaleAdapter.updateItems(scales, inf4amFilter.isChecked(), inf4atFilter.isChecked(), refriFilter.isChecked());
         });
 
         binding.classFilter.filterSwitchRefri4am.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            scaleAdapter.updateItems(turns, inf4amFilter.isChecked(), inf4atFilter.isChecked(), refriFilter.isChecked());
+            scaleAdapter.updateItems(scales, inf4amFilter.isChecked(), inf4atFilter.isChecked(), refriFilter.isChecked());
         });
     }
 
-    private void setupPopup(Turn turn) {
+    private void setupPopup(Scale scale) {
         Dialog myDialog = new Dialog(requireActivity());
         myDialog.setContentView(R.layout.scale_detail_popup);
 
@@ -140,14 +141,14 @@ public class ScalesFragment extends Fragment {
         TextView scaleDate = myDialog.findViewById(R.id.tv_day_info);
         TextView employeeClass = myDialog.findViewById(R.id.tv_employee_class_info);
         EmployeeAdapter employeeAdapter = new EmployeeAdapter();
-        employeeAdapter.append(turn.getEmployeeList());
+        employeeAdapter.append(scale.getEmployeeList());
         RecyclerView employeeRecycler = myDialog.findViewById(R.id.recycler_day_employees);
         employeeRecycler.setLayoutManager(new LinearLayoutManager(requireContext()));
         employeeRecycler.setAdapter(employeeAdapter);
 
         popupName.setText("Responsáveis");
-        scaleDate.setText(turn.getFormatedDate().concat(" - ").concat(turn.getLiteralPeriod()));
-        employeeClass.setText(turn.getEmployeeClass());
+        scaleDate.setText(scale.getDay().concat(" - ").concat(scale.getPeriod()));
+        employeeClass.setText(scale.get_class());
 
         setPopupClick(myDialog, closeButton);
         myDialog.show();

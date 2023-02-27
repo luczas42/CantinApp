@@ -5,11 +5,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
-import com.example.cantinappmobile.model.Employee;
-import com.example.cantinappmobile.model.Turn;
+import com.example.cantinappmobile.model.Scale;
 import com.example.cantinappmobile.repository.RepositoryImpl;
 
-import java.net.HttpCookie;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -25,8 +23,8 @@ public class ScalesViewModel extends ViewModel {
     public MutableLiveData<String> employeeSearchQuery = new MutableLiveData<>();
     private RepositoryImpl repository = new RepositoryImpl();
 
-    private MutableLiveData<List<Turn>> _turnLiveData = new MutableLiveData<>();
-    public LiveData<List<Turn>> turnLiveData = _turnLiveData;
+    private MutableLiveData<List<Scale>> _scaleLiveData = new MutableLiveData<>();
+    public LiveData<List<Scale>> scaleLiveData = _scaleLiveData;
 
     public MutableLiveData<Connection> connectionLiveData = new MutableLiveData<>();
 
@@ -47,49 +45,22 @@ public class ScalesViewModel extends ViewModel {
         return  displayFilters;
     }
 
-    public void getTurns(){
-        Call<List<Turn>> turnCall = repository.getTurn();
-        turnCall.enqueue(new Callback<List<Turn>>() {
+    public void getScales(){
+        Call<List<Scale>> scaleCallback = repository.getScales();
+        scaleCallback.enqueue(new Callback<List<Scale>>() {
             @Override
-            public void onResponse(Call<List<Turn>> call, Response<List<Turn>> response) {
-                if (response.body()!=null){
+            public void onResponse(Call<List<Scale>> call, Response<List<Scale>> response) {
+                if (response.isSuccessful() && response.body()!=null){
                     connectionLiveData.setValue(Connection.Successfull);
-                    _turnLiveData.setValue(response.body());
-                    int position = 0;
-                    for (Turn turns :
-                            turnLiveData.getValue()) {
-                        getTurnEmployees(turns.getId(), position);
-                        position++;
-                    }
+                    _scaleLiveData.setValue(response.body());
                 }else{
                     connectionLiveData.setValue(Connection.Failed);
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Turn>> call, Throwable t) {
+            public void onFailure(Call<List<Scale>> call, Throwable t) {
 
-            }
-        });
-    }
-
-    private void getTurnEmployees(int turnId, int position) {
-        Call<List<Employee>> employeeCall = repository.getTurnEmployees(turnId);
-
-        employeeCall.enqueue(new Callback<List<Employee>>() {
-            @Override
-            public void onResponse(Call<List<Employee>> call, Response<List<Employee>> response) {
-                if (!(response.body() ==null)){
-                    employeeConnectionLiveData.setValue(Connection.Successfull);
-                    _turnLiveData.getValue().get(position).setEmployeeList(response.body());
-                }else{
-                    employeeConnectionLiveData.setValue(Connection.Failed);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Employee>> call, Throwable t) {
-                t.getMessage();
             }
         });
     }

@@ -180,6 +180,7 @@ public class ScaleDetailsScreen {
                 if (!selectClassComboBox.getSelectionModel().isEmpty()) {
                     if (!employeeTableViewList.isEmpty()) {
                         String day = checkDayFormat();
+                        System.out.println(day);
                         String period = selectPeriodComboBox.getSelectionModel().getSelectedItem();
                         String _class = selectClassComboBox.getSelectionModel().getSelectedItem();
                         List<Integer> idList = getEmployeeIdList(employeeTableViewList);
@@ -217,9 +218,10 @@ public class ScaleDetailsScreen {
     }
 
     String checkDayFormat() throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = simpleDateFormat.parse(dayTextField.getText());
-        String formattedDate = simpleDateFormat.format(date);
+        SimpleDateFormat firstFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat secondFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = secondFormat.parse(dayTextField.getText());
+        String formattedDate = firstFormat.format(date);
         return formattedDate;
     }
 
