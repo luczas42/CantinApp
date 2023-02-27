@@ -76,7 +76,7 @@ public class RetrofitInit {
         this.apiService.editProduct(name, price, productType, productId, file).enqueue(call);
     }
 
-    public void editProducts(Callback<ApiResponse> call, String name, Float price, int productId, int productType) {
+    public void editProducts(Callback<ApiResponse> call, RequestBody name, RequestBody price,RequestBody productType, RequestBody productId) {
         this.apiService.editProduct(name, price, productType, productId).enqueue(call);
     }
 

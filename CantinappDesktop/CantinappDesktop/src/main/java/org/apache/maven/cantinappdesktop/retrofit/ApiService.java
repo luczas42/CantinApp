@@ -17,12 +17,12 @@ public interface ApiService {
     Call<List<Employee>> getEmployees();
 
 
-    @FormUrlEncoded
+    @Multipart
     @POST("products/editProduct.php")
-    Call<ApiResponse> editProduct(@Field("pname") String name,
-                                  @Field("price") Float price,
-                                  @Field("productType") int productType,
-                                  @Field("pid") int productId
+    Call<ApiResponse> editProduct(@Part("pname") RequestBody name,
+                                  @Part("price") RequestBody price,
+                                  @Part("productType") RequestBody productType,
+                                  @Part("pid") RequestBody pid
     );
 
     @Multipart

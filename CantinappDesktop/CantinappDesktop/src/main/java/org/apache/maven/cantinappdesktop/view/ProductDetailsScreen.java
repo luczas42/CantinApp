@@ -172,14 +172,15 @@ public class ProductDetailsScreen {
             retrofitInit.editProducts(editProductCallback, name, price, productType, productId, file);
         } else {
             Product products = new Product(productName, productPrice, type);
-            RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), productImage);
-            MultipartBody.Part file = MultipartBody.Part.createFormData("image", selectedFile.getName(), requestBody);
+            // lucas voce sabe oq ta fazendo, converte pra file esse byte[]
+//            RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), productImage);
+//            MultipartBody.Part file = MultipartBody.Part.createFormData("image", selectedFile.getName(), requestBody);
             RequestBody name = RequestBody.create(MediaType.parse("text/plain"), products.getName());
             RequestBody price = RequestBody.create(MediaType.parse("text/plain"), products.getPrice().toString());
-            RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(products.getProductType()));
-            RequestBody productId = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(selectedProductId));
+            RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), Integer.toString(products.getProductType()));
+            RequestBody productId = RequestBody.create(MediaType.parse("text/plain"), Integer.toString(selectedProductId));
             System.out.println(products.getName()+" - "+products.getPrice().toString()+" - "+String.valueOf(products.getProductType())+" - "+String.valueOf(selectedProductId));
-            retrofitInit.editProducts(editProductCallback, products.getName(), products.getPrice(), products.getProductType(), selectedProductId);
+            retrofitInit.editProducts(editProductCallback, name, price, productType, productId);
         }
         Stage stage = (Stage) productRegisterButton.getScene().getWindow();
         stage.close();
@@ -249,6 +250,7 @@ public class ProductDetailsScreen {
         selectedProductId = selectedProduct.getId();
         if (selectedProduct.getImageName() != null) {
             byte[] imageData = Base64.getDecoder().decode(selectedProduct.getImageName());
+
             productImage = new Image(new ByteArrayInputStream(imageData));
             productImageView.setImage(productImage);
         }
