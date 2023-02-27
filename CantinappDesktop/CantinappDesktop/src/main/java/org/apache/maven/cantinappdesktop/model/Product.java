@@ -16,6 +16,17 @@ public class Product {
     private String imageName;
     @SerializedName("price")
     private Float price;
+
+    private String formattedPrice;
+
+    public void setFormattedPrice(String formattedPrice) {
+        this.formattedPrice = formattedPrice;
+    }
+
+    public String getFormattedPrice() {
+        return formattedPrice;
+    }
+
     @SerializedName("productType")
     private int productType;
 
