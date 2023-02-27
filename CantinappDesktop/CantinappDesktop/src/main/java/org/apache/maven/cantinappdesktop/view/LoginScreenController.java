@@ -14,10 +14,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.apache.maven.cantinappdesktop.App;
+import org.apache.maven.cantinappdesktop.controller.Controller;
 import org.apache.maven.cantinappdesktop.model.ApiResponse;
 import org.apache.maven.cantinappdesktop.model.User;
-
-import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,12 +24,9 @@ import retrofit2.Response;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
 
 public class LoginScreenController {
-    RetrofitInit retrofitInit = new RetrofitInit();
-    User connectedUser;
+    Controller controller = new Controller();
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -81,70 +77,7 @@ public class LoginScreenController {
 
     @FXML
     private Pane startPane;
-
-    Callback<User> checkLoginCallback = new Callback<User>() {
-        @Override
-        public void onResponse(Call<User> call, Response<User> response) {
-//            connectedUser = response.body();
-//            System.out.println(connectedUser.getName());
-
-
-        }
-
-        @Override
-        public void onFailure(Call<User> call, Throwable throwable) {
-            System.out.println("teste");
-            throwable.printStackTrace();
-        }
-    };
-
-    public void openMainScene(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(App.class.getResource("MainScreen.fxml"));
-        root = loader.load();
-
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    Callback<ApiResponse> addUserCallback = new Callback<ApiResponse>() {
-        @Override
-        public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
-
-            if (response.isSuccessful()) {
-
-                if (response.body().isSuccess()) {
-                    Platform.runLater(() -> {
-                        Alert alert;
-                        alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setContentText(response.body().getMessage());
-                        alert.setTitle("Cadastro");
-                        alert.show();
-                        clearCamps();
-                    });
-                } else {
-                    Platform.runLater(() -> {
-                        Alert alert;
-                        alert = new Alert(Alert.AlertType.WARNING);
-                        alert.setContentText(response.body().getMessage());
-                        alert.setTitle("Cadastro");
-                        alert.show();
-                        clearCamps();
-                    });
-                }
-            }
-        }
-
-        @Override
-        public void onFailure(Call<ApiResponse> call, Throwable throwable) {
-            System.out.println("falha " + throwable.getMessage());
-        }
-    };
-
-
-    public LoginScreenController() throws NoSuchAlgorithmException, KeyManagementException {
-    }
+    boolean loginSuccessful;
 
     @FXML
     void onForgotPasswordClick(ActionEvent event) throws IOException {
@@ -157,15 +90,24 @@ public class LoginScreenController {
 //            if (checkFieldsLogin(textFieldLoginPassword)) {
 //                String username = textFieldLoginUsername.getText();
 //                String password = textFieldLoginPassword.getText();
-//                retrofitInit.checkLogin(checkLoginCallback, username, password);
-//        if (Objects.equals(username, connectedUser.getUsername())){
-//            this.loginPane.setVisible(false);
-//        }
+//                controller.checkLogin(username, password, checkLoginCallback);
+////                if (loginSuccessful) {
+////                    FXMLLoader loader = new FXMLLoader(App.class.getResource("MainScreen.fxml"));
+////                    root = loader.load();
+////                    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+////                    scene = new Scene(root);
+////                    stage.setScene(scene);
+////                    stage.show();
+////                } else {
+////                    Alert alert = new Alert(Alert.AlertType.WARNING);
+////                    alert.setContentText("Usuário não encontrado!");
+////                    alert.setTitle("Login");
+////                    alert.show();
+////                }
 //            }
 //        }
         FXMLLoader loader = new FXMLLoader(App.class.getResource("MainScreen.fxml"));
         root = loader.load();
-
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -185,7 +127,7 @@ public class LoginScreenController {
                                 String email = textFieldSignupEmail.getText();
                                 User user = new User(username, name, email);
                                 String password = textFieldSignupPassword.getText();
-                                retrofitInit.addUser(addUserCallback, user, password);
+                                controller.addUser(user, password, addUserCallback);
                             } else {
                                 textFieldSignupPasswordConfirm.requestFocus();
                                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -220,7 +162,7 @@ public class LoginScreenController {
             textField.requestFocus();
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setContentText("Favor preencha todos os campos.");
-            alert.setTitle("Cadastro");
+            alert.setTitle("Login");
             alert.show();
             return false;
         }
@@ -244,6 +186,58 @@ public class LoginScreenController {
         Stage stage = (Stage) minimizeAppButton.getScene().getWindow();
         stage.setIconified(true);
     }
+
+    Callback<User> checkLoginCallback = new Callback<User>() {
+        @Override
+        public void onResponse(Call<User> call, Response<User> response) {
+            if (response.isSuccessful()) {
+                loginSuccessful = true;
+            } else {
+                loginSuccessful = false;
+            }
+        }
+
+        @Override
+        public void onFailure(Call<User> call, Throwable throwable) {
+            System.out.println("teste");
+            throwable.printStackTrace();
+            loginSuccessful = false;
+        }
+    };
+
+    Callback<ApiResponse> addUserCallback = new Callback<ApiResponse>() {
+        @Override
+        public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+
+            if (response.isSuccessful()) {
+
+                if (response.body().isSuccess()) {
+                    Platform.runLater(() -> {
+                        Alert alert;
+                        alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setContentText(response.body().getMessage());
+                        alert.setTitle("Cadastro");
+                        alert.show();
+                        clearCamps();
+                    });
+                } else {
+                    Platform.runLater(() -> {
+                        Alert alert;
+                        alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setContentText(response.body().getMessage());
+                        alert.setTitle("Cadastro");
+                        alert.show();
+                        clearCamps();
+                    });
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<ApiResponse> call, Throwable throwable) {
+            System.out.println("falha " + throwable.getMessage());
+        }
+    };
 
 
 }

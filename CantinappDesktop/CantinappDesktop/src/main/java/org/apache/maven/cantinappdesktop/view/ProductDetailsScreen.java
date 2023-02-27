@@ -103,10 +103,10 @@ public class ProductDetailsScreen {
         @Override
         public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
             if (response.body().isSuccess()) {
-                System.out.println(response.code()+" Sucesso: "+response.body().getMessage());
+                System.out.println(response.code() + " Sucesso: " + response.body().getMessage());
 
-            }else{
-                System.out.println("Erro: "+response.body().getMessage());
+            } else {
+                System.out.println("Erro: " + response.body().getMessage());
             }
         }
 
@@ -159,7 +159,7 @@ public class ProductDetailsScreen {
     void editProduct(ActionEvent event) {
         String productName = productNameField.getText();
         Float productPrice = Float.valueOf(productPriceField.getText());
-        int type = selectProductTypeComboBox.getSelectionModel().getSelectedIndex()+1;
+        int type = selectProductTypeComboBox.getSelectionModel().getSelectedIndex() + 1;
         if (selectedFile != null) {
             Product products = new Product(productName, productPrice, type, selectedFile);
             RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), selectedFile);
@@ -172,14 +172,11 @@ public class ProductDetailsScreen {
             retrofitInit.editProducts(editProductCallback, name, price, productType, productId, file);
         } else {
             Product products = new Product(productName, productPrice, type);
-            // lucas voce sabe oq ta fazendo, converte pra file esse byte[]
-//            RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), productImage);
-//            MultipartBody.Part file = MultipartBody.Part.createFormData("image", selectedFile.getName(), requestBody);
             RequestBody name = RequestBody.create(MediaType.parse("text/plain"), products.getName());
             RequestBody price = RequestBody.create(MediaType.parse("text/plain"), products.getPrice().toString());
             RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), Integer.toString(products.getProductType()));
             RequestBody productId = RequestBody.create(MediaType.parse("text/plain"), Integer.toString(selectedProductId));
-            System.out.println(products.getName()+" - "+products.getPrice().toString()+" - "+String.valueOf(products.getProductType())+" - "+String.valueOf(selectedProductId));
+            System.out.println(products.getName() + " - " + products.getPrice().toString() + " - " + String.valueOf(products.getProductType()) + " - " + String.valueOf(selectedProductId));
             retrofitInit.editProducts(editProductCallback, name, price, productType, productId);
         }
         Stage stage = (Stage) productRegisterButton.getScene().getWindow();
@@ -188,12 +185,12 @@ public class ProductDetailsScreen {
 
     @FXML
     void registerProduct() {
-        if(!productNameField.getText().isEmpty()){
-            if(!productPriceField.getText().isEmpty()){
-                if(!selectProductTypeComboBox.getSelectionModel().isEmpty()){
+        if (!productNameField.getText().isEmpty()) {
+            if (!productPriceField.getText().isEmpty()) {
+                if (!selectProductTypeComboBox.getSelectionModel().isEmpty()) {
                     String productName = productNameField.getText();
                     Float productPrice = Float.valueOf(productPriceField.getText());
-                    int type = selectProductTypeComboBox.getSelectionModel().getSelectedIndex()+1;
+                    int type = selectProductTypeComboBox.getSelectionModel().getSelectedIndex() + 1;
                     if (selectedFile != null) {
                         Product products = new Product(productName, productPrice, type, selectedFile);
                         RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), selectedFile);
@@ -215,14 +212,14 @@ public class ProductDetailsScreen {
                     }
 
                 }
-            }else{
+            } else {
                 productPriceField.requestFocus();
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setContentText("Digite um preço!");
                 alert.setTitle("Registro de produto");
                 alert.show();
             }
-        }else{
+        } else {
             productNameField.requestFocus();
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setContentText("Digite um nome!");

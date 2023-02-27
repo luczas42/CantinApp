@@ -6,6 +6,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import org.apache.maven.cantinappdesktop.model.*;
 import org.apache.maven.cantinappdesktop.util.FileTypeAdapter;
+import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -29,21 +30,21 @@ public class RetrofitInit {
 
     /// GETS
 
-    public void getProducts(Callback<List<Product>> callback) {
-        this.apiService.getProducts().enqueue(callback);
+    public Call<List<Product>> getProducts() {
+        return this.apiService.getProducts();
     }
 
 
-    public void getEmployees(Callback<List<Employee>> callback) {
-        this.apiService.getEmployees().enqueue(callback);
+    public Call<List<Employee>> getEmployees() {
+        return this.apiService.getEmployees();
     }
 
     public void getEmployeesWithClass(Callback<List<Employee>> callback, String clasS) {
         this.apiService.getEmployeesWithClass(clasS).enqueue(callback);
     }
 
-    public void getScales(Callback<List<Scale>> callback) {
-        this.apiService.getScales().enqueue(callback);
+    public Call<List<Scale>> getScales() {
+        return this.apiService.getScales();
     }
 
     /// INSERTS
@@ -57,13 +58,12 @@ public class RetrofitInit {
         this.apiService.addProduct(name, price, productType).enqueue(call);
     }
 
-    public void addUser(Callback<ApiResponse> call, User user, String password) {
-        this.apiService.addUser(user.getUsername(),
+    public Call<ApiResponse> addUser(User user, String password) {
+        return this.apiService.addUser(user.getUsername(),
                         user.getName(),
                         password,
                         user.getIsUser(),
-                        user.getEmail())
-                .enqueue(call);
+                        user.getEmail());
     }
 
     public void addEmployee(Callback<Employee> call, RequestBody name, RequestBody clasS) {
@@ -91,8 +91,8 @@ public class RetrofitInit {
     }
     /// VERIFICATION
 
-    public void checkLogin(Callback<User> call, String username, String password) {
-        this.apiService.userLogin(username, password).enqueue(call);
+    public Call<User> checkLogin(String username, String password) {
+        return this.apiService.userLogin(username, password);
     }
     public void addScale(Callback<Scale> call, String day, String period, String _class, List<Integer> employees) {
         this.apiService.addScale(day, period, _class, employees).enqueue(call);
