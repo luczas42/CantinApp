@@ -19,16 +19,19 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("products/editProduct.php")
-    Call<Product> editProduct(@Part("pname") RequestBody name,
+    Call<ApiResponse> editProduct(@Field("pname") String name,
+                                  @Field("price") Float price,
+                                  @Field("productType") int productType,
+                                  @Field("pid") int productId
+    );
+
+    @Multipart
+    @POST("products/editProduct.php")
+    Call<ApiResponse> editProduct(@Part("pname") RequestBody name,
                               @Part("price") RequestBody price,
                               @Part("productType") RequestBody productType,
+                              @Part("pid") RequestBody pid,
                               @Part MultipartBody.Part image);
-
-    @FormUrlEncoded
-    @POST("products/editProduct.php")
-    Call<Product> editProduct(@Part("pname") RequestBody name,
-                              @Part("price") RequestBody price,
-                              @Part("productType") RequestBody productType);
 
     @POST("products/addProduct.php")
     @Multipart
@@ -49,11 +52,11 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("users/addUser.php")
-    Call<UserResponse> addUser(@Field("username") String username,
-                               @Field("name") String name,
-                               @Field("password") String password,
-                               @Field("isUser") int isUser,
-                               @Field("email") String email);
+    Call<ApiResponse> addUser(@Field("username") String username,
+                              @Field("name") String name,
+                              @Field("password") String password,
+                              @Field("isUser") int isUser,
+                              @Field("email") String email);
 
     @FormUrlEncoded
     @POST("users/login.php")

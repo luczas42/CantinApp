@@ -21,6 +21,12 @@ public class Product {
 
     private byte[] imageFromServer;
 
+    public Product(String name, Float price, int productType) {
+        this.name = name;
+        this.price = price;
+        this.productType = productType;
+    }
+
     public void setImageFromServer(byte[] imageFromServer) {
         this.imageFromServer = imageFromServer;
     }

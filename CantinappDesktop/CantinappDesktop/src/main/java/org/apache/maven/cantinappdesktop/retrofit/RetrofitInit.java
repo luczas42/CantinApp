@@ -57,7 +57,7 @@ public class RetrofitInit {
         this.apiService.addProduct(name, price, productType).enqueue(call);
     }
 
-    public void addUser(Callback<UserResponse> call, User user, String password) {
+    public void addUser(Callback<ApiResponse> call, User user, String password) {
         this.apiService.addUser(user.getUsername(),
                         user.getName(),
                         password,
@@ -72,12 +72,12 @@ public class RetrofitInit {
 
     /// EDITS
 
-    public void editProducts(Callback<Product> call, RequestBody name, RequestBody price, RequestBody productType, MultipartBody.Part file) {
-        this.apiService.editProduct(name, price, productType, file).enqueue(call);
+    public void editProducts(Callback<ApiResponse> call, RequestBody name, RequestBody price, RequestBody productType, RequestBody productId, MultipartBody.Part file) {
+        this.apiService.editProduct(name, price, productType, productId, file).enqueue(call);
     }
 
-    public void editProducts(Callback<Product> call, RequestBody name, RequestBody price, RequestBody productType) {
-        this.apiService.editProduct(name, price, productType).enqueue(call);
+    public void editProducts(Callback<ApiResponse> call, String name, Float price, int productId, int productType) {
+        this.apiService.editProduct(name, price, productType, productId).enqueue(call);
     }
 
     /// DELETES

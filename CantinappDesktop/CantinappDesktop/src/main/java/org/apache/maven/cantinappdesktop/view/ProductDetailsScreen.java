@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import org.apache.maven.cantinappdesktop.model.ApiResponse;
 import org.apache.maven.cantinappdesktop.model.Product;
 import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
 import retrofit2.Call;
@@ -27,7 +28,7 @@ public class ProductDetailsScreen {
 
     private final ObservableList<String> typeList = FXCollections.observableArrayList("Salgado", "Doce", "Caseiro");
     private Image productImage;
-
+    private int selectedProductId;
     private File selectedFile;
     private Stage stage;
     private Parent root;
@@ -98,19 +99,20 @@ public class ProductDetailsScreen {
         }
     };
 
-    Callback<Product> editProductCallback = new Callback<Product>() {
+    Callback<ApiResponse> editProductCallback = new Callback<ApiResponse>() {
         @Override
-        public void onResponse(Call<Product> call, Response<Product> response) {
-            if (!response.isSuccessful()) {
-                System.out.println(response.code());
-                return;
-            }
+        public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+            if (response.body().isSuccess()) {
+                System.out.println(response.code()+" Sucesso: "+response.body().getMessage());
 
-            Product postResponse = response.body();
+            }else{
+                System.out.println("Erro: "+response.body().getMessage());
+            }
         }
 
         @Override
-        public void onFailure(Call<Product> call, Throwable t) {
+        public void onFailure(Call<ApiResponse> call, Throwable t) {
+            System.out.println("???");
             System.out.println(t.getMessage());
         }
     };
@@ -165,13 +167,17 @@ public class ProductDetailsScreen {
             RequestBody name = RequestBody.create(MediaType.parse("text/plain"), products.getName());
             RequestBody price = RequestBody.create(MediaType.parse("text/plain"), products.getPrice().toString());
             RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(products.getProductType()));
-            retrofitInit.editProducts(editProductCallback, name, price, productType, file);
+            RequestBody productId = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(selectedProductId));
+            System.out.println(name.toString());
+            retrofitInit.editProducts(editProductCallback, name, price, productType, productId, file);
         } else {
-            Product products = new Product(productName, productPrice);
+            Product products = new Product(productName, productPrice, type);
             RequestBody name = RequestBody.create(MediaType.parse("text/plain"), products.getName());
             RequestBody price = RequestBody.create(MediaType.parse("text/plain"), products.getPrice().toString());
             RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(products.getProductType()));
-            retrofitInit.editProducts(editProductCallback, name, price, productType);
+            RequestBody productId = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(selectedProductId));
+            System.out.println(products.getName()+" - "+products.getPrice().toString()+" - "+String.valueOf(products.getProductType())+" - "+String.valueOf(selectedProductId));
+            retrofitInit.editProducts(editProductCallback, products.getName(), products.getPrice(), products.getProductType(), selectedProductId);
         }
         Stage stage = (Stage) productRegisterButton.getScene().getWindow();
         stage.close();
@@ -238,7 +244,7 @@ public class ProductDetailsScreen {
         productRegisterButton.setVisible(false);
         productRegisterButton.setManaged(false);
         selectProductTypeComboBox.setItems(FXCollections.observableArrayList(typeList));
-
+        selectedProductId = selectedProduct.getId();
         if (selectedProduct.getImageName() != null) {
             byte[] imageData = Base64.getDecoder().decode(selectedProduct.getImageName());
             productImage = new Image(new ByteArrayInputStream(imageData));

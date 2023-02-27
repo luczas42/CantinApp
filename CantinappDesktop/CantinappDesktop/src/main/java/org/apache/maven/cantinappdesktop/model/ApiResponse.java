@@ -1,10 +1,10 @@
 package org.apache.maven.cantinappdesktop.model;
 
-public class UserResponse {
+public class ApiResponse {
     private boolean success;
     private String message;
 
-    public UserResponse(boolean success, String message) {
+    public ApiResponse(boolean success, String message) {
         this.success = success;
         this.message = message;
     }

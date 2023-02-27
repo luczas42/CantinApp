@@ -183,6 +183,7 @@ public class MainScreenController {
     void productClick(MouseEvent event) {
         if (event.getClickCount() == 2) {
             Product selectedProduct = productsTableView.getSelectionModel().getSelectedItem();
+            System.out.println(selectedProduct.getId());
             try {
                 Stage stage = new Stage();
                 FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("ProductDetailsScreen.fxml"));
