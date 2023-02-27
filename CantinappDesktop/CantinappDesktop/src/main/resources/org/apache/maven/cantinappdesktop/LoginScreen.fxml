@@ -105,7 +105,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextField id="login-fields" fx:id="textFieldSignupName" layoutX="115.0" layoutY="439.0" promptText="Nome de Usuário">
+                              <TextField id="login-fields" fx:id="textFieldSignupName" layoutX="115.0" layoutY="439.0" promptText="Nome ">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -163,7 +163,7 @@
                                     <Image url="@img/email-icon.png" />
                                  </image>
                               </ImageView>
-                              <TextField id="login-fields" fx:id="textFieldSignupUsername" layoutX="115.0" layoutY="398.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="173.0" promptText="Nome Completo">
+                              <TextField id="login-fields" fx:id="textFieldSignupUsername" layoutX="115.0" layoutY="398.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="173.0" promptText="Nome de usuário">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
