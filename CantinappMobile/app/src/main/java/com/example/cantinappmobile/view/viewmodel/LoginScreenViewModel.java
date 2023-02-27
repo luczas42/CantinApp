@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.cantinappmobile.model.User;
+import com.example.cantinappmobile.model.UserApiReturn;
 import com.example.cantinappmobile.repository.RepositoryImpl;
 
 import java.util.List;
@@ -21,6 +22,8 @@ public class LoginScreenViewModel extends ViewModel {
     private RepositoryImpl repository;
     private MutableLiveData<User> _userResponseLiveData = new MutableLiveData<>();
     public LiveData<User> userResponseLiveData = _userResponseLiveData;
+    private MutableLiveData<Boolean> _userCreatedLiveData = new MutableLiveData<>();
+    public LiveData<Boolean> userCreatedLiveData = _userCreatedLiveData;
     public MutableLiveData<Connection> connectionLiveData = new MutableLiveData<>();
 
     public LoginScreenViewModel(RepositoryImpl repository) {
@@ -46,8 +49,6 @@ public class LoginScreenViewModel extends ViewModel {
                 assert response.body() != null;
                 if (response.body().size()!= 0){
                     _userResponseLiveData.setValue(response.body().get(0));
-                    Log.i("loginSuccess", userResponseLiveData.getValue().getUsername());
-                    Log.i("loginSuccess", String.valueOf(response.body().size()));
                 }else{
                     _userResponseLiveData.setValue(null);
                 }
@@ -61,16 +62,23 @@ public class LoginScreenViewModel extends ViewModel {
     }
 
     public void addUser(String username, String name, String password, String email){
-        Call<User> addUserCall = repository.addUser(username,name,password,email);
+        Call<UserApiReturn> addUserCall = repository.addUser(username,name,password,email);
 
-        addUserCall.enqueue(new Callback<User>() {
+        addUserCall.enqueue(new Callback<UserApiReturn>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                System.out.println(response.body().getUsername());
+            public void onResponse(Call<UserApiReturn> call, Response<UserApiReturn> response) {
+                if(response.isSuccessful()){
+                    if(response.body().getSuccess()){
+                        _userCreatedLiveData.setValue(true);
+                    } else{
+                        _userCreatedLiveData.setValue(false);
+                    }
+                }
+
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<UserApiReturn> call, Throwable t) {
                 System.out.println(t.getMessage());
             }
         });

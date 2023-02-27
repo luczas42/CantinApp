@@ -1,7 +1,5 @@
 package com.example.cantinappmobile.di;
 
-import javax.inject.Inject;
-
 import dagger.hilt.android.HiltAndroidApp;
 
 @HiltAndroidApp

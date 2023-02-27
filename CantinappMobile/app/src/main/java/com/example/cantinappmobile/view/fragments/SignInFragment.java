@@ -38,11 +38,9 @@ public class SignInFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         LoginScreenViewModel viewModel = new LoginScreenViewModel(new RepositoryImpl());
         binding.cancelButton.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_SignInFragment_to_LoginFragment));
-
+        Dialog myDialog = new Dialog(requireActivity());
         binding.signinButton.setOnClickListener(v -> {
             String username, name, password, email;
-
-
             if (viewModel.checkEmpty(binding.userNameEditText)) {
                 if (viewModel.checkEmpty(binding.userUsernameEditText)) {
                     if (viewModel.checkEmpty(binding.userPasswordEditText)) {
@@ -55,27 +53,35 @@ public class SignInFragment extends Fragment {
                                 if (binding.userPasswordEditText.getText().toString().equals
                                         (binding.userConfirmPasswordEditText.getText().toString())) {
                                     viewModel.addUser(username, name, password, email);
-                                    Dialog myDialog = new Dialog(requireActivity());
-                                    myDialog.setContentView(R.layout.confirm_account_created_popup);
-                                    Button closeButton = myDialog.findViewById(R.id.bt_popup_dismiss);
-                                    myDialog.show();
-                                    closeButton.setOnClickListener(v1 -> {
-                                        Navigation.findNavController(view).navigate(R.id.action_SignInFragment_to_LoginFragment);
-                                        myDialog.dismiss();
-                                    });
+                                    viewModel.userCreatedLiveData.observe(getViewLifecycleOwner(), query ->{
+                                        if(!query){
+                                            myDialog.setContentView(R.layout.account_not_created_popup);
+                                            Button closeButton = myDialog.findViewById(R.id.bt_popup_dismiss);
+                                            myDialog.show();
+                                            closeButton.setOnClickListener(v1 -> {
+                                                myDialog.dismiss();
+                                            });
+                                        }else if (query){
+                                            myDialog.setContentView(R.layout.confirm_account_created_popup);
+                                            Button closeButton = myDialog.findViewById(R.id.bt_popup_dismiss);
+                                            myDialog.show();
+                                            closeButton.setOnClickListener(v1 -> {
+                                                Navigation.findNavController(view).navigate(R.id.action_SignInFragment_to_LoginFragment);
+                                                myDialog.dismiss();
+                                            });
+                                        }else{
 
+                                        }
+                                    });
                                 } else {
                                     binding.userConfirmPasswordEditText.requestFocus();
                                     binding.userConfirmPasswordEditText.setError("Senhas não coincidem");
                                 }
-
                             }
                         }
                     }
                 }
             }
-
         });
-
     }
 }

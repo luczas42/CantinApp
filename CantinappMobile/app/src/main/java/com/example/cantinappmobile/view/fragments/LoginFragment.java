@@ -43,7 +43,6 @@ public class LoginFragment extends Fragment {
         NavController navController = Navigation.findNavController(view);
         LoginScreenViewModel viewModel = new LoginScreenViewModel(new RepositoryImpl());
 
-
         super.onViewCreated(view, savedInstanceState);
 
         binding.resetPasswordButton.setOnClickListener(v -> {
