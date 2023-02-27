@@ -41,10 +41,10 @@ public interface ApiService {
                              @Part MultipartBody.Part image);
 
     @POST("products/addProduct.php")
-    @Multipart
-    Call<Product> addProduct(@Part("pname") RequestBody name,
-                             @Part("price") RequestBody price,
-                             @Part("productType") RequestBody productType);
+    @FormUrlEncoded
+    Call<Product> addProduct(@Field("pname") String name,
+                             @Field("price") Float price,
+                             @Field("productType") int productType);
 
     @FormUrlEncoded
     @POST("products/deleteProduct.php")

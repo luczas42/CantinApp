@@ -53,7 +53,7 @@ public class RetrofitInit {
 
     }
 
-    public void addProducts(Callback<Product> call, RequestBody name, RequestBody price, RequestBody productType) {
+    public void addProducts(Callback<Product> call, String name, Float price, int productType) {
         this.apiService.addProduct(name, price, productType).enqueue(call);
     }
 

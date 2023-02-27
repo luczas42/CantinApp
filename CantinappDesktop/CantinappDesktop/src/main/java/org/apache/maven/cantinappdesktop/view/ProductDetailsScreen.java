@@ -89,7 +89,7 @@ public class ProductDetailsScreen {
         public void onResponse(Call<Product> call, Response<Product> response) {
             if (!response.isSuccessful()) {
                 System.out.println(response.code());
-                response.body().getImageFile().getName();
+
             }
         }
 
@@ -172,6 +172,8 @@ public class ProductDetailsScreen {
             retrofitInit.editProducts(editProductCallback, name, price, productType, productId, file);
         } else {
             Product products = new Product(productName, productPrice, type);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), productImage);
+            MultipartBody.Part file = MultipartBody.Part.createFormData("image", selectedFile.getName(), requestBody);
             RequestBody name = RequestBody.create(MediaType.parse("text/plain"), products.getName());
             RequestBody price = RequestBody.create(MediaType.parse("text/plain"), products.getPrice().toString());
             RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(products.getProductType()));
@@ -206,7 +208,7 @@ public class ProductDetailsScreen {
                         RequestBody name = RequestBody.create(MediaType.parse("text/plain"), products.getName());
                         RequestBody price = RequestBody.create(MediaType.parse("text/plain"), products.getPrice().toString());
                         RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(products.getProductType()));
-                        retrofitInit.addProducts(addProductCallback, name, price, productType);
+                        retrofitInit.addProducts(addProductCallback, productName, productPrice, type);
                         Stage stage = (Stage) productRegisterButton.getScene().getWindow();
                         stage.close();
                     }
