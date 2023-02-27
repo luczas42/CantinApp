@@ -19,20 +19,23 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.apache.maven.cantinappdesktop.App;
-import org.apache.maven.cantinappdesktop.controller.Controller;
 import org.apache.maven.cantinappdesktop.model.Employee;
 import org.apache.maven.cantinappdesktop.model.Product;
 import org.apache.maven.cantinappdesktop.model.Scale;
+import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.List;
+import java.util.Locale;
 
 public class MainScreenController {
 
-    Controller controller = new Controller();
+    RetrofitInit retrofitInit = new RetrofitInit();
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -75,6 +78,11 @@ public class MainScreenController {
     @FXML
     private TableView<Employee> employeeTableView;
     private String screenAtMoment;
+
+
+    ////
+    //// TABLE DISPLAYING FUNCTIONS: PRODUCTS, EMPLOYEES AND SCALES
+    ////
 
     @FXML
     void displayProducts() {
@@ -313,24 +321,25 @@ public class MainScreenController {
     }
 
     public void refreshProductsTable() throws InterruptedException {
-        controller.getProducts(this.getProductsCallback);
+        retrofitInit.getProducts(this.productCallback);
     }
 
     public void refreshEmployeeTable() throws InterruptedException {
-        controller.getEmployees(this.getEmployeesCallback);
+        retrofitInit.getEmployees(this.employeeCallback);
     }
 
     public void refreshScalesTable() throws InterruptedException {
-        controller.getScales(this.getScalesCallback);
+        retrofitInit.getScales(this.scalesCallback);
     }
 
-    Callback<List<Product>> getProductsCallback = new Callback<>() {
+    Callback<List<Product>> productCallback = new Callback<>() {
         public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-            if(response.isSuccessful() && response.body()!=null){
+            if (response.isSuccessful() && response.body() != null) {
                 ObservableList<Product> productObservableList = FXCollections.observableList(response.body());
                 setProductTableAttributes(productObservableList);
             }
         }
+
         public void onFailure(Call<List<Product>> call, Throwable t) {
             System.out.println(t.getMessage());
         }
@@ -338,18 +347,24 @@ public class MainScreenController {
 
     private void setProductTableAttributes(ObservableList<Product> productObservableList) {
         MainScreenController.this.productNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
-        MainScreenController.this.productPriceTableColumn.setCellValueFactory(new PropertyValueFactory<>("Price"));
+        for (Product product : productObservableList
+        ) {
+            DecimalFormat formatter = new DecimalFormat("#,##0.00", new DecimalFormatSymbols(Locale.FRANCE));
+            product.setFormattedPrice("R$ ".concat(formatter.format(product.getPrice())));
+            MainScreenController.this.productPriceTableColumn.setCellValueFactory(new PropertyValueFactory<>("FormattedPrice"));
+        }
         MainScreenController.this.productsTableView.setItems(productObservableList);
         productsTableView.refresh();
     }
 
-    Callback<List<Employee>> getEmployeesCallback = new Callback<>() {
+    Callback<List<Employee>> employeeCallback = new Callback<>() {
         public void onResponse(Call<List<Employee>> call, Response<List<Employee>> response) {
-            if(response.isSuccessful() && response.body()!=null){
+            if (response.isSuccessful() && response.body() != null) {
                 ObservableList<Employee> employeeObservableList = FXCollections.observableList(response.body());
                 setEmployeeTableAttributes(employeeObservableList);
             }
         }
+
         public void onFailure(Call<List<Employee>> call, Throwable t) {
             System.out.println(t.getMessage());
         }
@@ -362,10 +377,10 @@ public class MainScreenController {
         productsTableView.refresh();
     }
 
-    Callback<List<Scale>> getScalesCallback = new Callback<List<Scale>>() {
+    Callback<List<Scale>> scalesCallback = new Callback<List<Scale>>() {
         @Override
         public void onResponse(Call<List<Scale>> call, Response<List<Scale>> response) {
-            if(response.isSuccessful() && response.body()!=null){
+            if (response.isSuccessful() && response.body() != null) {
                 ObservableList<Scale> scaleObservableList = FXCollections.observableList(response.body());
                 setScalesTableAttributes(scaleObservableList);
             }
