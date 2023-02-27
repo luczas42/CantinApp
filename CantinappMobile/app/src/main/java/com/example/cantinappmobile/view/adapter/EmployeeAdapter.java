@@ -52,7 +52,6 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.ViewHo
         public ViewHolder(@NonNull EmployeesListitemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-            View itemView = binding.getRoot();
         }
 
         public void bind(Employee employee) {

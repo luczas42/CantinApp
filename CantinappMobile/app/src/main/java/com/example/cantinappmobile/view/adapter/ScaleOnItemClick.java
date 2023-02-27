@@ -1,7 +1,7 @@
 package com.example.cantinappmobile.view.adapter;
 
-import com.example.cantinappmobile.model.Turn;
+import com.example.cantinappmobile.model.Scale;
 
 public interface ScaleOnItemClick {
-    public void onItemClick(int position, Turn turn);
+    void onItemClick(int position, Scale scale);
 }

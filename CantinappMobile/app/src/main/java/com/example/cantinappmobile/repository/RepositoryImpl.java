@@ -2,24 +2,21 @@ package com.example.cantinappmobile.repository;
 
 import com.example.cantinappmobile.model.Employee;
 import com.example.cantinappmobile.model.Product;
-import com.example.cantinappmobile.model.Turn;
+import com.example.cantinappmobile.model.Scale;
 import com.example.cantinappmobile.model.User;
 import com.example.cantinappmobile.retrofit.ClientRetrofit;
 import com.example.cantinappmobile.retrofit.WebService;
 
 import java.util.List;
 
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 
-public class RepositoryImpl implements Repository {
+public class RepositoryImpl{
 
     private final WebService
             webService = ClientRetrofit.getInstance().create(WebService.class);
 
     //talvez seja interessante colocar um try catch, mas não sei se é necessário
-    @Override
     public Call<List<Product>> retrieveProductsFromWebService() {
         return webService.retrieveProducts();
     }
@@ -32,11 +29,7 @@ public class RepositoryImpl implements Repository {
         return webService.addUser(username, name, password, 2, email);
     }
 
-    public Call<List<Turn>> getTurn(){
-        return webService.getTurns();
-    }
-
-    public Call<List<Employee>> getTurnEmployees(int turnId) {
-        return webService.getTurnEmployees(turnId);
+    public Call<List<Scale>> getScales(){
+        return webService.getScales();
     }
 }

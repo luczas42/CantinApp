@@ -11,14 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cantinappmobile.databinding.DaysListitemBinding;
 import com.example.cantinappmobile.model.Employee;
-import com.example.cantinappmobile.model.Turn;
+import com.example.cantinappmobile.model.Scale;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ScaleListAdapter extends RecyclerView.Adapter<ScaleListAdapter.ViewHolder> {
 
-    private List<Turn> turnList = new ArrayList<>();
+    private List<Scale> scaleList = new ArrayList<>();
     private ScaleOnItemClick onItemClick;
 
     public void setOnClickListener(ScaleOnItemClick onItemClick) {
@@ -38,31 +38,31 @@ public class ScaleListAdapter extends RecyclerView.Adapter<ScaleListAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Turn turn = turnList.get(position);
-        holder.bind(turn);
+        Scale scale = scaleList.get(position);
+        holder.bind(scale);
     }
 
     @Override
     public int getItemCount() {
-        return turnList.size();
+        return scaleList.size();
     }
 
-    public void append(List<Turn> newList) {
-        this.turnList.clear();
-        this.turnList.addAll(newList);
+    public void append(List<Scale> newList) {
+        this.scaleList.clear();
+        this.scaleList.addAll(newList);
         notifyDataSetChanged();
     }
 
-    public void search(String query, List<Turn> sortedList) {
-        List<Turn> filteredList = new ArrayList<>();
+    public void search(String query, List<Scale> sortedList) {
+        List<Scale> filteredList = new ArrayList<>();
         if (!query.equalsIgnoreCase("")){
-            for (Turn turn : sortedList
+            for (Scale scale : sortedList
             ) {
-                if (turn.getEmployeeList() != null) {
+                if (scale.getEmployeeList() != null) {
                     for (Employee employee :
-                            turn.getEmployeeList()) {
+                            scale.getEmployeeList()) {
                         if (employee.getName().toLowerCase().contains(query.toLowerCase())) {
-                            filteredList.add(turn);
+                            filteredList.add(scale);
                             break;
                         }
                     }
@@ -71,23 +71,23 @@ public class ScaleListAdapter extends RecyclerView.Adapter<ScaleListAdapter.View
         }
         setFilteredList(filteredList);
     }
-    public void updateItems(List<Turn> allTurns, boolean showInf4am, boolean showInf4at, boolean showRefri) {
-        List<Turn> switchFilteredList = new ArrayList<>();
-        for (Turn turn : allTurns) {
-            if (showInf4am && turn.getEmployeeClass().equalsIgnoreCase("inf4am")) {
-                switchFilteredList.add(turn);
-            } else if (showInf4at && turn.getEmployeeClass().equalsIgnoreCase("inf4at")) {
-                switchFilteredList.add(turn);
-            } else if (showRefri && turn.getEmployeeClass().equalsIgnoreCase("refri4am")) {
-                switchFilteredList.add(turn);
+    public void updateItems(List<Scale> allScales, boolean showInf4am, boolean showInf4at, boolean showRefri) {
+        List<Scale> switchFilteredList = new ArrayList<>();
+        for (Scale scale : allScales) {
+            if (showInf4am && scale.get_class().equalsIgnoreCase("inf4am")) {
+                switchFilteredList.add(scale);
+            } else if (showInf4at && scale.get_class().equalsIgnoreCase("inf4at")) {
+                switchFilteredList.add(scale);
+            } else if (showRefri && scale.get_class().equalsIgnoreCase("refri4am")) {
+                switchFilteredList.add(scale);
             }
         }
-        this.turnList = switchFilteredList;
+        this.scaleList = switchFilteredList;
         notifyDataSetChanged();
     }
 
-    private void setFilteredList(List<Turn> filteredList) {
-        this.turnList = filteredList;
+    private void setFilteredList(List<Scale> filteredList) {
+        this.scaleList = filteredList;
         notifyDataSetChanged();
     }
 
@@ -99,17 +99,21 @@ public class ScaleListAdapter extends RecyclerView.Adapter<ScaleListAdapter.View
             super(binding.getRoot());
             this.binding = binding;
             View itemView = binding.getRoot();
-            itemView.setOnClickListener(v -> clickListener.onItemClick(getBindingAdapterPosition(), turnList.get(getBindingAdapterPosition())));
+            itemView.setOnClickListener(v -> clickListener.onItemClick(getBindingAdapterPosition(), scaleList.get(getBindingAdapterPosition())));
         }
 
-        public void bind(Turn turn) {
-            binding.recyclerDaysDayDate.setText(turn.getFormatedDate().concat(" - ").concat(turn.getLiteralPeriod()));
-            binding.classTextView.setText(turn.getEmployeeClass().toUpperCase());
-            if (turn.getEmployeeClass().equalsIgnoreCase("inf4am")) {
+        public void bind(Scale scale) {
+            binding.recyclerDaysDayDate.setText(scale.getDay().concat(" - ").concat(scale.getPeriod()));
+            binding.classTextView.setText(scale.get_class().toUpperCase());
+            setCardViewColor(scale);
+        }
+
+        private void setCardViewColor(Scale scale) {
+            if (scale.get_class().equalsIgnoreCase("inf4am")) {
                 binding.recyclerDaysCardviewClass.setCardBackgroundColor(Color.parseColor("#1849C7"));
-            } else if (turn.getEmployeeClass().equalsIgnoreCase("inf4at")) {
+            } else if (scale.get_class().equalsIgnoreCase("inf4at")) {
                 binding.recyclerDaysCardviewClass.setCardBackgroundColor(Color.parseColor("#000103"));
-            } else if (turn.getEmployeeClass().equalsIgnoreCase("refri4am")) {
+            } else if (scale.get_class().equalsIgnoreCase("refri4am")) {
                 binding.recyclerDaysCardviewClass.setCardBackgroundColor(Color.parseColor("#921835"));
             }
         }
