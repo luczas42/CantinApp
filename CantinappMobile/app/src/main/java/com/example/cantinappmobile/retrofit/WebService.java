@@ -17,6 +17,7 @@ public interface WebService {
 
     @POST("products/getProducts.php")
     Call<List<Product>> retrieveProducts();
+
     @FormUrlEncoded
     @POST("users/login.php")
     Call<List<User>> userLogin(@Field("username") String username, @Field("password") String password);

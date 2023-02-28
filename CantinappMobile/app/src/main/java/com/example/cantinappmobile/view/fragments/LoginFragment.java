@@ -56,11 +56,11 @@ public class LoginFragment extends Fragment {
                     String username = binding.userLoginEditText.getText().toString();
                     String password = binding.userPasswordEditText.getText().toString();
                     viewModel.userLogin(username, password);
-                    viewModel.userResponseLiveData.observe(getViewLifecycleOwner(), user -> {
-                        if (user!= null){
-                            Log.i("login", "onViewCreated: "+ username);
+                    viewModel.userLoginLiveData.observe(getViewLifecycleOwner(), user -> {
+                        if (user){
                             Intent intent = new Intent(requireContext(), ListsActivity.class);
                             startActivity(intent);
+                            LoginFragment.this.onDestroy();
                         }else{
                             Toast.makeText(requireContext(), "Credenciais erradas", Toast.LENGTH_SHORT).show();
                         }
@@ -75,6 +75,13 @@ public class LoginFragment extends Fragment {
                 navController.navigate(R.id.action_LoginFragment_to_SignInFragment);
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        binding.userLoginEditText.setText("");
+        binding.userPasswordEditText.setText("");
     }
 
 

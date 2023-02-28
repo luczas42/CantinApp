@@ -140,18 +140,29 @@ public class ScalesFragment extends Fragment {
         TextView popupName = myDialog.findViewById(R.id.tv_popup_name);
         TextView scaleDate = myDialog.findViewById(R.id.tv_day_info);
         TextView employeeClass = myDialog.findViewById(R.id.tv_employee_class_info);
-        EmployeeAdapter employeeAdapter = new EmployeeAdapter();
-        employeeAdapter.append(scale.getEmployeeList());
-        RecyclerView employeeRecycler = myDialog.findViewById(R.id.recycler_day_employees);
-        employeeRecycler.setLayoutManager(new LinearLayoutManager(requireContext()));
-        employeeRecycler.setAdapter(employeeAdapter);
+        if(scale.getEmployeeList()!=null){
+            EmployeeAdapter employeeAdapter = new EmployeeAdapter();
+            employeeAdapter.append(scale.getEmployeeList());
+            RecyclerView employeeRecycler = myDialog.findViewById(R.id.recycler_day_employees);
+            employeeRecycler.setLayoutManager(new LinearLayoutManager(requireContext()));
+            employeeRecycler.setAdapter(employeeAdapter);
 
-        popupName.setText("Responsáveis");
-        scaleDate.setText(scale.getDay().concat(" - ").concat(scale.getPeriod()));
-        employeeClass.setText(scale.get_class());
+            popupName.setText("Responsáveis");
+            scaleDate.setText(scale.getDay().concat(" - ").concat(scale.getPeriod()));
+            employeeClass.setText(scale.get_class());
 
-        setPopupClick(myDialog, closeButton);
-        myDialog.show();
+            setPopupClick(myDialog, closeButton);
+            myDialog.show();
+        }else{
+            RecyclerView employeeRecycler = myDialog.findViewById(R.id.recycler_day_employees);
+            employeeRecycler.setVisibility(View.GONE);
+            scaleDate.setText(scale.getDay().concat(" - ").concat(scale.getPeriod()));
+            employeeClass.setText(scale.get_class());
+
+            setPopupClick(myDialog, closeButton);
+            myDialog.show();
+        }
+
     }
 
     private void setPopupClick(Dialog myDialog, Button closeButton) {
@@ -173,4 +184,6 @@ public class ScalesFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+
 }

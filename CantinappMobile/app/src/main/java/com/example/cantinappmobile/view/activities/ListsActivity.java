@@ -1,5 +1,6 @@
 package com.example.cantinappmobile.view.activities;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -126,5 +127,13 @@ public class ListsActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.nav_host_fragment_content_lists, new ScalesFragment(), null);
         fragmentTransaction.commit();
         currentFragment = 2;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(ListsActivity.this, LoginActivity.class);
+        startActivity(intent);
+        ListsActivity.this.onDestroy();
     }
 }

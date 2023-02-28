@@ -28,10 +28,11 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.ViewHo
         );
     }
 
-    public void append(List<Employee> newList){
+    public void append(List<Employee> newList) {
         employeeList.clear();
         employeeList.addAll(newList);
         notifyDataSetChanged();
+
     }
 
     @Override
