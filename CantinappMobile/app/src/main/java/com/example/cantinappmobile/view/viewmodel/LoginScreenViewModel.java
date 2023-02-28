@@ -43,12 +43,7 @@ public class LoginScreenViewModel extends ViewModel {
 
     public void userLogin(String username, String password){
         Call<List<User>> userCall = repository.userLogin(username, password);
-//        Response<List<User>> response = null;
-//        try {
-//            response = userCall.execute();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+//        Response<List<User>> response = userCall.execute();;
 //        if (response.isSuccessful()){
 //            if(response.body().isEmpty()){
 //                System.out.println("login false");
@@ -60,14 +55,14 @@ public class LoginScreenViewModel extends ViewModel {
 //        }else{
 //            _userLoginLiveData.setValue(false);
 //        }
-                userCall.enqueue(new Callback<List<User>>() {
+        userCall.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 assert response.body() != null;
-                if (response.body().isEmpty()){
-                    _userLoginLiveData.setValue(false);
-                }else{
+                if (!response.body().isEmpty()) {
                     _userLoginLiveData.setValue(true);
+                }else{
+                    _userLoginLiveData.setValue(false);
                 }
             }
 
@@ -102,7 +97,7 @@ public class LoginScreenViewModel extends ViewModel {
         });
     }
 
-    public void reset(){
+    public void reset() {
         _userLoginLiveData.setValue(false);
     }
 

@@ -15,7 +15,5 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityLoginBinding binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        ContentLoginBinding contentLoginBinding = binding.contentLogin;
     }
 }

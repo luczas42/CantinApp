@@ -22,6 +22,8 @@ import com.example.cantinappmobile.repository.Repository;
 import com.example.cantinappmobile.view.activities.ListsActivity;
 import com.example.cantinappmobile.view.viewmodel.LoginScreenViewModel;
 
+import java.io.IOException;
+
 public class LoginFragment extends Fragment {
 
     private FragmentLoginBinding binding;
@@ -51,17 +53,17 @@ public class LoginFragment extends Fragment {
         });
 
         binding.loginButton.setOnClickListener(v -> {
-            if (viewModel.checkEmpty(binding.userLoginEditText)){
-                if (viewModel.checkEmpty(binding.userPasswordEditText)){
+            if (viewModel.checkEmpty(binding.userLoginEditText)) {
+                if (viewModel.checkEmpty(binding.userPasswordEditText)) {
                     String username = binding.userLoginEditText.getText().toString();
                     String password = binding.userPasswordEditText.getText().toString();
                     viewModel.userLogin(username, password);
                     viewModel.userLoginLiveData.observe(getViewLifecycleOwner(), user -> {
-                        if (user){
+                        if (user) {
                             Intent intent = new Intent(requireContext(), ListsActivity.class);
                             startActivity(intent);
-                            LoginFragment.this.onDestroy();
-                        }else{
+                            LoginFragment.this.onPause();
+                        } else {
                             Toast.makeText(requireContext(), "Credenciais erradas", Toast.LENGTH_SHORT).show();
                         }
                     });
