@@ -7,10 +7,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.util.converter.DateTimeStringConverter;
+import org.apache.maven.cantinappdesktop.viewmodel.MainScreenViewModel;
 import org.apache.maven.cantinappdesktop.model.Employee;
 import org.apache.maven.cantinappdesktop.model.Scale;
-import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
+import org.apache.maven.cantinappdesktop.viewmodel.ScaleDetailsViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,7 +23,7 @@ import java.util.List;
 
 public class ScaleDetailsScreen {
 
-    private RetrofitInit retrofitInit = new RetrofitInit();
+    private ScaleDetailsViewModel viewModel = new ScaleDetailsViewModel();
     private Scale myScale;
     private List<Employee> employeeComboBoxList = new ArrayList<>();
     private List<String> employeeNameList = new ArrayList<>();
@@ -92,7 +92,7 @@ public class ScaleDetailsScreen {
 
     private void getEmployeesFromSelectedClass(String _class) {
 
-        Callback<List<Employee>> employeesCallBack = new Callback<List<Employee>>() {
+        Callback<List<Employee>> getEmployeesCallback = new Callback<List<Employee>>() {
             @Override
             public void onResponse(Call<List<Employee>> call, Response<List<Employee>> response) {
                 if (response.isSuccessful()) {
@@ -111,7 +111,7 @@ public class ScaleDetailsScreen {
             }
         };
 
-        retrofitInit.getEmployeesWithClass(employeesCallBack, _class);
+        viewModel.getEmployeesWithClass(_class, getEmployeesCallback);
     }
 
     public void switchToScaleEditScreen(Scale selectedScale) {
@@ -168,7 +168,7 @@ public class ScaleDetailsScreen {
 
     @FXML
     void deleteScale() {
-        retrofitInit.deleteScale(deleteScaleCallback, myScale.getTurnId());
+        viewModel.deleteScale(myScale.getTurnId(), deleteScaleCallback);
         Stage stage = (Stage) closeScaleDetailsScreenButton.getScene().getWindow();
         stage.close();
     }
@@ -184,7 +184,7 @@ public class ScaleDetailsScreen {
                         String period = selectPeriodComboBox.getSelectionModel().getSelectedItem();
                         String _class = selectClassComboBox.getSelectionModel().getSelectedItem();
                         List<Integer> idList = getEmployeeIdList(employeeTableViewList);
-                        retrofitInit.addScale(scaleCallback, day, period, _class, idList);
+                        viewModel.addScale(day, period, _class, idList, scaleCallback);
                         Stage stage = (Stage) scaleRegisterButton.getScene().getWindow();
                         stage.close();
                     } else {

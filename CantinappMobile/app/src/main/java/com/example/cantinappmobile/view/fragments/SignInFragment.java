@@ -14,7 +14,7 @@ import androidx.navigation.Navigation;
 
 import com.example.cantinappmobile.R;
 import com.example.cantinappmobile.databinding.FragmentSignInBinding;
-import com.example.cantinappmobile.repository.RepositoryImpl;
+import com.example.cantinappmobile.repository.Repository;
 import com.example.cantinappmobile.view.viewmodel.LoginScreenViewModel;
 
 public class SignInFragment extends Fragment {
@@ -36,7 +36,7 @@ public class SignInFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        LoginScreenViewModel viewModel = new LoginScreenViewModel(new RepositoryImpl());
+        LoginScreenViewModel viewModel = new LoginScreenViewModel(new Repository());
         binding.cancelButton.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_SignInFragment_to_LoginFragment));
         Dialog myDialog = new Dialog(requireActivity());
         binding.signinButton.setOnClickListener(v -> {

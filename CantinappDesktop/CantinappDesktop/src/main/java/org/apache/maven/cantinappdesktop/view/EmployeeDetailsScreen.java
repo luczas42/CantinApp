@@ -3,16 +3,14 @@ package org.apache.maven.cantinappdesktop.view;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
+import org.apache.maven.cantinappdesktop.viewmodel.EmployeeDetailsViewModel;
+import org.apache.maven.cantinappdesktop.viewmodel.MainScreenViewModel;
 import org.apache.maven.cantinappdesktop.model.Employee;
-import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -21,8 +19,7 @@ public class EmployeeDetailsScreen {
 
     private Employee myEmployee = null;
     private ObservableList<String> classList = FXCollections.observableArrayList("INF4AM", "INF4AT", "REFRI4AM");
-    private Parent parent;
-    private RetrofitInit retrofitInit = new RetrofitInit();
+    private EmployeeDetailsViewModel viewModel = new EmployeeDetailsViewModel();
     @FXML
     private ComboBox cbEmployeeClass;
     @FXML
@@ -76,10 +73,11 @@ public class EmployeeDetailsScreen {
                 String employeeName = employeeNameField.getText();
                 String employeeClass = cbEmployeeClass.getSelectionModel().getSelectedItem().toString();
 
-                RequestBody name = RequestBody.create(MediaType.parse("text/plain"), employeeName);
-                RequestBody clasS = RequestBody.create(MediaType.parse("text/plain"), employeeClass);
+//                RequestBody name = RequestBody.create(MediaType.parse("text/plain"), employeeName);
+//                RequestBody _class = RequestBody.create(MediaType.parse("text/plain"), employeeClass);
 
-                retrofitInit.addEmployee(addEmployeeCallback, name, clasS);
+//                controller.addEmployee(name, _class);
+                viewModel.addEmployee(employeeName, employeeClass, addEmployeeCallback);
                 Stage stage = (Stage) employeeRegisterButton.getScene().getWindow();
                 stage.close();
 
@@ -105,7 +103,7 @@ public class EmployeeDetailsScreen {
                 !cbEmployeeClass.getSelectionModel().getSelectedItem().equals(myEmployee.getClasS())) {
             myEmployee.setName(employeeNameField.getText());
             myEmployee.set_class(cbEmployeeClass.getSelectionModel().getSelectedItem().toString());
-            retrofitInit.editEmployee(employeeEditCallback, myEmployee);
+            viewModel.editEmployee(myEmployee, employeeEditCallback);
         }
         Stage stage = (Stage) employeeRegisterButton.getScene().getWindow();
         stage.close();
@@ -113,7 +111,7 @@ public class EmployeeDetailsScreen {
 
     @FXML
     void deleteEmployee() {
-        retrofitInit.deleteEmployee(deleteEmployeeCallback, myEmployee.getId());
+        viewModel.deleteEmployee(myEmployee.getId(), deleteEmployeeCallback);
         Stage stage = (Stage) employeeRegisterButton.getScene().getWindow();
         stage.close();
     }
@@ -127,7 +125,6 @@ public class EmployeeDetailsScreen {
     Callback<Employee> addEmployeeCallback = new Callback<Employee>() {
         @Override
         public void onResponse(Call<Employee> call, Response<Employee> response) {
-
             if (!response.isSuccessful()) {
                 System.out.println("falhou a response");
             } else {

@@ -13,9 +13,10 @@ import javafx.stage.Stage;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import org.apache.maven.cantinappdesktop.viewmodel.MainScreenViewModel;
 import org.apache.maven.cantinappdesktop.model.ApiResponse;
 import org.apache.maven.cantinappdesktop.model.Product;
-import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
+import org.apache.maven.cantinappdesktop.viewmodel.ProductDetailsViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,7 +33,7 @@ public class ProductDetailsScreen {
     private File selectedFile;
     private Stage stage;
     private Parent root;
-    RetrofitInit retrofitInit = new RetrofitInit();
+    ProductDetailsViewModel viewModel = new ProductDetailsViewModel();
     @FXML
     private ImageView productImageView;
     @FXML
@@ -150,7 +151,7 @@ public class ProductDetailsScreen {
 
     @FXML
     void deleteProduct(ActionEvent event) {
-        retrofitInit.deleteProduct(deleteProductCallback, myProduct.getId());
+        viewModel.deleteProduct(myProduct.getId(), deleteProductCallback);
         Stage stage = (Stage) productRegisterButton.getScene().getWindow();
         stage.close();
     }
@@ -169,7 +170,7 @@ public class ProductDetailsScreen {
             RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(products.getProductType()));
             RequestBody productId = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(selectedProductId));
             System.out.println(name.toString());
-            retrofitInit.editProducts(editProductCallback, name, price, productType, productId, file);
+            viewModel.editProducts(name, price, productType, productId, file, editProductCallback);
         } else {
             Product products = new Product(productName, productPrice, type);
             RequestBody name = RequestBody.create(MediaType.parse("text/plain"), products.getName());
@@ -177,7 +178,7 @@ public class ProductDetailsScreen {
             RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), Integer.toString(products.getProductType()));
             RequestBody productId = RequestBody.create(MediaType.parse("text/plain"), Integer.toString(selectedProductId));
             System.out.println(products.getName() + " - " + products.getPrice().toString() + " - " + String.valueOf(products.getProductType()) + " - " + String.valueOf(selectedProductId));
-            retrofitInit.editProducts(editProductCallback, name, price, productType, productId);
+            viewModel.editProducts(name, price, productType, productId, editProductCallback);
         }
         Stage stage = (Stage) productRegisterButton.getScene().getWindow();
         stage.close();
@@ -198,7 +199,7 @@ public class ProductDetailsScreen {
                         RequestBody name = RequestBody.create(MediaType.parse("text/plain"), products.getName());
                         RequestBody price = RequestBody.create(MediaType.parse("text/plain"), products.getPrice().toString());
                         RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(products.getProductType()));
-                        retrofitInit.addProducts(addProductCallback, name, price, productType, file);
+                        viewModel.addProducts(name, price, productType, file, addProductCallback);
                         Stage stage = (Stage) productRegisterButton.getScene().getWindow();
                         stage.close();
                     } else {
@@ -206,7 +207,7 @@ public class ProductDetailsScreen {
                         RequestBody name = RequestBody.create(MediaType.parse("text/plain"), products.getName());
                         RequestBody price = RequestBody.create(MediaType.parse("text/plain"), products.getPrice().toString());
                         RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(products.getProductType()));
-                        retrofitInit.addProducts(addProductCallback, productName, productPrice, type);
+                        viewModel.addProducts(productName, productPrice, type, addProductCallback);
                         Stage stage = (Stage) productRegisterButton.getScene().getWindow();
                         stage.close();
                     }
@@ -244,6 +245,7 @@ public class ProductDetailsScreen {
         productRegisterButton.setVisible(false);
         productRegisterButton.setManaged(false);
         selectProductTypeComboBox.setItems(FXCollections.observableArrayList(typeList));
+        myProduct = selectedProduct;
         selectedProductId = selectedProduct.getId();
         if (selectedProduct.getImageName() != null) {
             byte[] imageData = Base64.getDecoder().decode(selectedProduct.getImageName());

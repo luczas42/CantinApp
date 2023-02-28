@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.example.cantinappmobile.R;
 import com.example.cantinappmobile.databinding.FragmentLoginBinding;
-import com.example.cantinappmobile.repository.RepositoryImpl;
+import com.example.cantinappmobile.repository.Repository;
 import com.example.cantinappmobile.view.activities.ListsActivity;
 import com.example.cantinappmobile.view.viewmodel.LoginScreenViewModel;
 
@@ -41,7 +41,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         NavController navController = Navigation.findNavController(view);
-        LoginScreenViewModel viewModel = new LoginScreenViewModel(new RepositoryImpl());
+        LoginScreenViewModel viewModel = new LoginScreenViewModel(new Repository());
 
         super.onViewCreated(view, savedInstanceState);
 

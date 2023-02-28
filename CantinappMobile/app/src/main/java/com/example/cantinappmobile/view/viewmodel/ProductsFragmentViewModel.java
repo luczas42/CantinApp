@@ -6,7 +6,7 @@ import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
 import com.example.cantinappmobile.model.Product;
-import com.example.cantinappmobile.repository.RepositoryImpl;
+import com.example.cantinappmobile.repository.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import retrofit2.Response;
 @HiltViewModel
 public class ProductsFragmentViewModel extends ViewModel {
     private final SavedStateHandle state;
-    private RepositoryImpl repository = new RepositoryImpl();
+    private Repository repository = new Repository();
     private MutableLiveData<List<Product>>  _productSaltyResponse = new MutableLiveData<>();
     public LiveData<List<Product>> productSaltyResponse = _productSaltyResponse;
 

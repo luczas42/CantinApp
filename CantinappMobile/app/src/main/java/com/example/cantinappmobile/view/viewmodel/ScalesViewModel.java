@@ -6,7 +6,7 @@ import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
 import com.example.cantinappmobile.model.Scale;
-import com.example.cantinappmobile.repository.RepositoryImpl;
+import com.example.cantinappmobile.repository.Repository;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ import retrofit2.Response;
 public class ScalesViewModel extends ViewModel {
     private final SavedStateHandle state;
     public MutableLiveData<String> employeeSearchQuery = new MutableLiveData<>();
-    private RepositoryImpl repository = new RepositoryImpl();
+    private Repository repository = new Repository();
 
     private MutableLiveData<List<Scale>> _scaleLiveData = new MutableLiveData<>();
     public LiveData<List<Scale>> scaleLiveData = _scaleLiveData;

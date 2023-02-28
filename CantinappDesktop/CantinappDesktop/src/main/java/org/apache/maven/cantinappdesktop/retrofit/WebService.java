@@ -9,7 +9,7 @@ import retrofit2.http.*;
 
 import java.util.List;
 
-public interface ApiService {
+public interface WebService {
     @POST("products/getProducts.php")
     Call<List<Product>> getProducts();
 
@@ -62,10 +62,10 @@ public interface ApiService {
     @POST("users/login.php")
     Call<User> userLogin(@Field("username") String username, @Field("password") String password);
 
+    @FormUrlEncoded
     @POST("employees/addEmployee.php")
-    @Multipart
-    Call<Employee> addEmployee(@Part("name") RequestBody name,
-                               @Part("class") RequestBody clasS);
+    Call<Employee> addEmployee(@Field("name") String name,
+                               @Field("class") String clasS);
 
     @POST("scales/getScale.php")
     Call<List<Scale>> getScales();

@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.cantinappmobile.model.User;
 import com.example.cantinappmobile.model.UserApiReturn;
-import com.example.cantinappmobile.repository.RepositoryImpl;
+import com.example.cantinappmobile.repository.Repository;
 
 import java.util.List;
 
@@ -19,14 +19,14 @@ import retrofit2.Response;
 
 public class LoginScreenViewModel extends ViewModel {
 
-    private RepositoryImpl repository;
+    private Repository repository;
     private MutableLiveData<User> _userResponseLiveData = new MutableLiveData<>();
     public LiveData<User> userResponseLiveData = _userResponseLiveData;
     private MutableLiveData<Boolean> _userCreatedLiveData = new MutableLiveData<>();
     public LiveData<Boolean> userCreatedLiveData = _userCreatedLiveData;
     public MutableLiveData<Connection> connectionLiveData = new MutableLiveData<>();
 
-    public LoginScreenViewModel(RepositoryImpl repository) {
+    public LoginScreenViewModel(Repository repository) {
         this.repository = repository;
     }
 

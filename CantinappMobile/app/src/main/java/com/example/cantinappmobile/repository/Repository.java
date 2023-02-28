@@ -1,6 +1,5 @@
 package com.example.cantinappmobile.repository;
 
-import com.example.cantinappmobile.model.Employee;
 import com.example.cantinappmobile.model.Product;
 import com.example.cantinappmobile.model.Scale;
 import com.example.cantinappmobile.model.User;
@@ -12,7 +11,7 @@ import java.util.List;
 
 import retrofit2.Call;
 
-public class RepositoryImpl{
+public class Repository {
 
     private final WebService
             webService = ClientRetrofit.getInstance().create(WebService.class);

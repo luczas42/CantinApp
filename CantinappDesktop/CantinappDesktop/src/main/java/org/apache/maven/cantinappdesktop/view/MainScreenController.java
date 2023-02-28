@@ -19,10 +19,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.apache.maven.cantinappdesktop.App;
+import org.apache.maven.cantinappdesktop.viewmodel.MainScreenViewModel;
 import org.apache.maven.cantinappdesktop.model.Employee;
 import org.apache.maven.cantinappdesktop.model.Product;
 import org.apache.maven.cantinappdesktop.model.Scale;
-import org.apache.maven.cantinappdesktop.retrofit.RetrofitInit;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,7 +35,7 @@ import java.util.Locale;
 
 public class MainScreenController {
 
-    RetrofitInit retrofitInit = new RetrofitInit();
+    MainScreenViewModel mainScreenViewModel = new MainScreenViewModel();
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -321,18 +321,18 @@ public class MainScreenController {
     }
 
     public void refreshProductsTable() throws InterruptedException {
-        retrofitInit.getProducts(this.productCallback);
+        mainScreenViewModel.getProducts(this.getProductsCallback);
     }
 
     public void refreshEmployeeTable() throws InterruptedException {
-        retrofitInit.getEmployees(this.employeeCallback);
+        mainScreenViewModel.getEmployees(this.getEmployeesCallback);
     }
 
     public void refreshScalesTable() throws InterruptedException {
-        retrofitInit.getScales(this.scalesCallback);
+        mainScreenViewModel.getScales(this.getScalesCallback);
     }
 
-    Callback<List<Product>> productCallback = new Callback<>() {
+    Callback<List<Product>> getProductsCallback = new Callback<>() {
         public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
             if (response.isSuccessful() && response.body() != null) {
                 ObservableList<Product> productObservableList = FXCollections.observableList(response.body());
@@ -359,7 +359,7 @@ public class MainScreenController {
         productsTableView.refresh();
     }
 
-    Callback<List<Employee>> employeeCallback = new Callback<>() {
+    Callback<List<Employee>> getEmployeesCallback = new Callback<>() {
         public void onResponse(Call<List<Employee>> call, Response<List<Employee>> response) {
             if (response.isSuccessful() && response.body() != null) {
                 ObservableList<Employee> employeeObservableList = FXCollections.observableList(response.body());
@@ -381,7 +381,7 @@ public class MainScreenController {
         productsTableView.refresh();
     }
 
-    Callback<List<Scale>> scalesCallback = new Callback<List<Scale>>() {
+    Callback<List<Scale>> getScalesCallback = new Callback<List<Scale>>() {
         @Override
         public void onResponse(Call<List<Scale>> call, Response<List<Scale>> response) {
             if (response.isSuccessful() && response.body() != null) {

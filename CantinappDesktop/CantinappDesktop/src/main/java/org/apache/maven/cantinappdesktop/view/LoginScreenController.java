@@ -14,7 +14,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.apache.maven.cantinappdesktop.App;
-import org.apache.maven.cantinappdesktop.controller.Controller;
+import org.apache.maven.cantinappdesktop.viewmodel.LoginScreenViewModel;
+import org.apache.maven.cantinappdesktop.viewmodel.MainScreenViewModel;
 import org.apache.maven.cantinappdesktop.model.ApiResponse;
 import org.apache.maven.cantinappdesktop.model.User;
 import retrofit2.Call;
@@ -26,7 +27,7 @@ import java.io.IOException;
 import java.net.URI;
 
 public class LoginScreenController {
-    Controller controller = new Controller();
+    LoginScreenViewModel viewModel = new LoginScreenViewModel();
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -127,7 +128,7 @@ public class LoginScreenController {
                                 String email = textFieldSignupEmail.getText();
                                 User user = new User(username, name, email);
                                 String password = textFieldSignupPassword.getText();
-                                controller.addUser(user, password, addUserCallback);
+                                viewModel.addUser(user, password, addUserCallback);
                             } else {
                                 textFieldSignupPasswordConfirm.requestFocus();
                                 Alert alert = new Alert(Alert.AlertType.WARNING);
