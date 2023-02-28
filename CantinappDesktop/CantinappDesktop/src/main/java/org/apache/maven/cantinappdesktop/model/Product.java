@@ -4,7 +4,6 @@ package org.apache.maven.cantinappdesktop.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.File;
-import java.text.DecimalFormat;
 
 public class Product {
 
@@ -16,8 +15,11 @@ public class Product {
     private String imageName;
     @SerializedName("price")
     private Float price;
-
+    private File imageFile;
     private String formattedPrice;
+    private byte[] imageFromServer;
+    @SerializedName("productType")
+    private int productType;
 
     public void setFormattedPrice(String formattedPrice) {
         this.formattedPrice = formattedPrice;
@@ -27,30 +29,11 @@ public class Product {
         return formattedPrice;
     }
 
-    @SerializedName("productType")
-    private int productType;
-
-    private byte[] imageFromServer;
-
     public Product(String name, Float price, int productType) {
         this.name = name;
         this.price = price;
         this.productType = productType;
     }
-
-    public void setImageFromServer(byte[] imageFromServer) {
-        this.imageFromServer = imageFromServer;
-    }
-
-    public Product(int id, String name, Float price, int productType, byte[] imageFromServer) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.productType = productType;
-        this.imageFromServer = imageFromServer;
-    }
-
-    private File imageFile;
 
     public int getProductType() {
         return productType;
@@ -65,48 +48,11 @@ public class Product {
         };
     }
 
-    public void setProductType(int productType) {
-        this.productType = productType;
-    }
-
     public Product(String name, Float price, int productType, File imageFile) {
         this.name = name;
         this.price = price;
         this.productType = productType;
         this.imageFile = imageFile;
-    }
-
-    public Product(String name, Float price) {
-        this.name = name;
-        this.price = price;
-    }
-
-    public Product(String name, Float price, File imageFile) {
-        this.name = name;
-        this.price = price;
-        this.imageFile = imageFile;
-    }
-
-    public String formatPriceToString(){
-        final DecimalFormat df = new DecimalFormat("R$ 0,00");
-        String priceString = df.format(this.price);
-        return priceString;
-    }
-
-    public File getImageFile() {
-        return imageFile;
-    }
-
-    public void setImageFile(File imageFile) {
-        this.imageFile = imageFile;
-    }
-
-    public String getImageFromServer() {
-        return imageName;
-    }
-
-    public void setImageFromServer(String imageName) {
-        this.imageName = imageName;
     }
 
     public int getId() {
@@ -125,9 +71,6 @@ public class Product {
         return this.price;
     }
 
-    public void setPrice(Float price) {
-        this.price = price;
-    }
 
     public void setId(int id) {
         this.id = id;
@@ -135,10 +78,6 @@ public class Product {
 
     public String getImageName() {
         return imageName;
-    }
-
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
     }
 
 

@@ -8,8 +8,6 @@ import org.apache.maven.cantinappdesktop.repository.Repository;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-import java.io.File;
-
 public class ProductDetailsViewModel {
     Repository repository = new Repository();
 

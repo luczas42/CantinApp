@@ -70,7 +70,7 @@ public class Repository {
     }
     /// VERIFICATION
 
-    public Call<User> checkLogin(String username, String password) {
+    public Call<List<User>> checkLogin(String username, String password) {
         return this.webService.userLogin(username, password);
     }
 

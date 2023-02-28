@@ -44,42 +44,18 @@ public class Scale {
         this.employeeList = employeeList;
     }
 
-    public Scale(List<Employee> employeeList) {
-        this.employeeList = employeeList;
-    }
-
     public int getTurnId() {
         return turnId;
     }
-
-    public void setTurnId(int turnId) {
-        this.turnId = turnId;
-    }
-
     public String get_class() {
         return _class;
     }
-
-    public void set_class(String _class) {
-        this._class = _class;
-    }
-
     public String getPeriod() {
         return period;
     }
-
-    public void setPeriod(String period) {
-        this.period = period;
-    }
-
     public String getDay() {
         return day;
     }
-
-    public void setDay(String day) {
-        this.day = day;
-    }
-
     public void createNameString() {
         String allEmployeeNames = "";
         for (Employee employee :
@@ -91,9 +67,5 @@ public class Scale {
             }
         }
         this.employeeNamesString = allEmployeeNames;
-    }
-
-    public void formatDay() {
-
     }
 }

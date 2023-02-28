@@ -60,7 +60,7 @@ public interface WebService {
 
     @FormUrlEncoded
     @POST("users/login.php")
-    Call<User> userLogin(@Field("username") String username, @Field("password") String password);
+    Call<List<User>> userLogin(@Field("username") String username, @Field("password") String password);
 
     @FormUrlEncoded
     @POST("employees/addEmployee.php")

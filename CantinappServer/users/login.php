@@ -16,8 +16,6 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('s', $username);
         $stmt->execute();
-
-
         $dbpassword = null;
 
         $result = $stmt->get_result();
@@ -40,9 +38,11 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             if($result->num_rows>0){
                 while($row = $result->fetch_object()){
                     $user[] = new User($row->id, $row->username, $row->name, $row->email, $row->isUser);
+                    // $newUser = new User($row->id, $row->username, $row->name, $row->email, $row->isUser);
+		    // $user['success'] = false;
+		    // $user['user'] = $newUser;
                 }
             }
-        }else{
         }
     }
     echo json_encode($user);

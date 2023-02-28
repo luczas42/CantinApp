@@ -7,17 +7,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.apache.maven.cantinappdesktop.App;
-import org.apache.maven.cantinappdesktop.viewmodel.LoginScreenViewModel;
-import org.apache.maven.cantinappdesktop.viewmodel.MainScreenViewModel;
 import org.apache.maven.cantinappdesktop.model.ApiResponse;
 import org.apache.maven.cantinappdesktop.model.User;
+import org.apache.maven.cantinappdesktop.viewmodel.LoginScreenViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,6 +24,7 @@ import retrofit2.Response;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
+import java.util.List;
 
 public class LoginScreenController {
     LoginScreenViewModel viewModel = new LoginScreenViewModel();
@@ -78,7 +78,6 @@ public class LoginScreenController {
 
     @FXML
     private Pane startPane;
-    boolean loginSuccessful;
 
     @FXML
     void onForgotPasswordClick(ActionEvent event) throws IOException {
@@ -87,32 +86,31 @@ public class LoginScreenController {
 
     @FXML
     void onLogin(ActionEvent event) throws IOException {
-//        if (checkFieldsLogin(textFieldLoginUsername)) {
-//            if (checkFieldsLogin(textFieldLoginPassword)) {
-//                String username = textFieldLoginUsername.getText();
-//                String password = textFieldLoginPassword.getText();
-//                controller.checkLogin(username, password, checkLoginCallback);
-////                if (loginSuccessful) {
-////                    FXMLLoader loader = new FXMLLoader(App.class.getResource("MainScreen.fxml"));
-////                    root = loader.load();
-////                    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-////                    scene = new Scene(root);
-////                    stage.setScene(scene);
-////                    stage.show();
-////                } else {
-////                    Alert alert = new Alert(Alert.AlertType.WARNING);
-////                    alert.setContentText("Usuário não encontrado!");
-////                    alert.setTitle("Login");
-////                    alert.show();
-////                }
-//            }
-//        }
-        FXMLLoader loader = new FXMLLoader(App.class.getResource("MainScreen.fxml"));
-        root = loader.load();
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        if (checkFieldsLogin(textFieldLoginUsername)) {
+            if (checkFieldsLogin(textFieldLoginPassword)) {
+                String email = textFieldLoginUsername.getText();
+                String password = textFieldLoginPassword.getText();
+                boolean success = viewModel.checkLogin(email, password);
+//                        , checkLoginCallback);
+                checkUser(event, success);
+            }
+        }
+    }
+
+    synchronized private void checkUser(ActionEvent event, boolean success) throws IOException {
+        if (success) {
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("MainScreen.fxml"));
+            root = loader.load();
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Usuário não encontrado!");
+            alert.setTitle("Login");
+            alert.show();
+        }
     }
 
     @FXML
@@ -188,23 +186,30 @@ public class LoginScreenController {
         stage.setIconified(true);
     }
 
-    Callback<User> checkLoginCallback = new Callback<User>() {
-        @Override
-        public void onResponse(Call<User> call, Response<User> response) {
-            if (response.isSuccessful()) {
-                loginSuccessful = true;
-            } else {
-                loginSuccessful = false;
-            }
-        }
 
-        @Override
-        public void onFailure(Call<User> call, Throwable throwable) {
-            System.out.println("teste");
-            throwable.printStackTrace();
-            loginSuccessful = false;
-        }
-    };
+//    Callback<List<User>> checkLoginCallback = new Callback<List<User>>() {
+//        @Override
+//        public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+//            if (response.isSuccessful()) {
+//                Platform.runLater(() -> {
+//                    loginSuccess(true);
+//                });
+//            }
+//
+//        }
+//
+//        @Override
+//        public void onFailure(Call<List<User>> call, Throwable throwable) {
+//            System.out.println("aaaaa " + throwable.getMessage());
+//            Platform.runLater(() -> {
+//                loginSuccess(false);
+//            });
+//        }
+//    };
+//
+//    synchronized void loginSuccess(boolean auxBool) {
+//        loginSuccessful = auxBool;
+//    }
 
     Callback<ApiResponse> addUserCallback = new Callback<ApiResponse>() {
         @Override

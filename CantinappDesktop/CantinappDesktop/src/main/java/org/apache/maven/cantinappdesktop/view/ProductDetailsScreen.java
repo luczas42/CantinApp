@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import org.apache.maven.cantinappdesktop.viewmodel.MainScreenViewModel;
 import org.apache.maven.cantinappdesktop.model.ApiResponse;
 import org.apache.maven.cantinappdesktop.model.Product;
 import org.apache.maven.cantinappdesktop.viewmodel.ProductDetailsViewModel;
@@ -203,10 +202,6 @@ public class ProductDetailsScreen {
                         Stage stage = (Stage) productRegisterButton.getScene().getWindow();
                         stage.close();
                     } else {
-                        Product products = new Product(productName, productPrice);
-                        RequestBody name = RequestBody.create(MediaType.parse("text/plain"), products.getName());
-                        RequestBody price = RequestBody.create(MediaType.parse("text/plain"), products.getPrice().toString());
-                        RequestBody productType = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(products.getProductType()));
                         viewModel.addProducts(productName, productPrice, type, addProductCallback);
                         Stage stage = (Stage) productRegisterButton.getScene().getWindow();
                         stage.close();
