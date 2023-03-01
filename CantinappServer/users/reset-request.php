@@ -56,7 +56,8 @@ if (isset($_POST["reset-request-submit"])) {
 
     $mail = new PHPMailer(true);
     try {
-        $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      
+$mail->CharSet = "UTF-8";
+	$mail->SMTPDebug = 0;                     
         $mail->isSMTP();
         $mail->SMTPAuth=true;
         $mail->SMTPSecure='ssl';
@@ -71,7 +72,7 @@ if (isset($_POST["reset-request-submit"])) {
         $mail->addAddress($to);
         $mail->send();
 
-        header("Location passwordEmailReset.php?reset=success");
+        header("Location: passwordEmailReset.php?reset=success");
     
     } catch (\Throwable $th) {
         echo($mail->ErrorInfo);

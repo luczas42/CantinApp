@@ -21,23 +21,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt = $conn->prepare($sql);
                 $stmt->bind_param("sdsii", $pname, $price, $fileName, $productType, $pid);
                 $stmt->execute();
-            $response = array("success" => true, "message" => "Adicionado com imagem");
-            echo json_encode($response);
+                $response = array("success" => true, "message" => "Adicionado com imagem");
+                echo json_encode($response);
             } else {
-            $response = array("success" => false, "message" => "Imagem não");
-            echo json_encode($response);
+                $response = array("success" => false, "message" => "Imagem não");
+                echo json_encode($response);
             }
         } else {
-            $sql = "UPDATE product SET name=?, price=?, productType=? WHERE id=?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param('sdii', $pname, $price, $productType, $pid);
-            $stmt->execute();
-            $response = array("success" => true, "message" => "Funcionou???");
-            echo json_encode($response);
+            $stmt1 = $conn->prepare("SELECT * FROM product WHERE id=$pid");
+            $stmt1->execute();
+            $result = $stmt1->get_result();
+            $product = $result->fetch_assoc();
+
+            if ($product) {
+                $sql = "UPDATE product SET name=?, price=?, image=?, productType=? WHERE id=$pid";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param('sdsi', $pname, $price, $product["image"], $productType );
+                $stmt->execute();
+                $response = array("success" => true, "message" => "Funcionou???");
+                echo json_encode($response);
+            } else {
+              $response = array("success" => false, "message" => "Não foi possível encontrar o produto com id " . $pid);
+                echo json_encode($response);
+            }
         }
     } else {
-         $response = array("success" => false, "message" => "Parametros");
-            echo json_encode($response);
+        $response = array("success" => false, "message" => "Parametros");
+        echo json_encode($response);
     }
 
     $conn->close();

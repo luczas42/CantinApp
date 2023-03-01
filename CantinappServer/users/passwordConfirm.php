@@ -45,7 +45,7 @@
 <h1>Cantinapp - Redefinição de senha</h1>
 
 	<?php
-		if (isset($_GET["newpdw"])) {
+		if (isset($_GET["newpwd"])) {
 			if ($_GET["newpwd"]=="passwordupdated") {
 				echo('<p>Senha alterada com Sucesso!</p>');
 			}

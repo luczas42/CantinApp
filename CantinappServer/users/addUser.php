@@ -20,18 +20,19 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         $checkStmt->bind_param('ss', $username, $email);
         $checkStmt->execute();
         $result = $checkStmt->get_result();
-        if ($result->num_rows > 0) {
-            $response = array("success" => false, "message" => "Email ou nome de usuário já existe");
-            echo json_encode($response);
-        } else {
-            $sql = "INSERT INTO user (username, name, password, isUser, email) VALUES (?, ?, ?, ?, ?);";
+        if ($result->num_rows === 0) {
+	    $sql = "INSERT INTO user (username, name, password, isUser, email) VALUES (?, ?, ?, ?, ?);";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param('sssis', $username, $name, $password, $isUser, $email);
             $stmt->execute();
+$response = array("success" => true, "message" => "Usuário criado com sucesso");
+            echo json_encode($response);
+        } else {
+            $response = array("success" => false, "message" => "Email ou nome de usuário já existe");
+            echo json_encode($response);
 
             // Return a success message
-            $response = array("success" => true, "message" => "Usuário criado com sucesso");
-            echo json_encode($response);
+            
         }
     }
     $conn->close();

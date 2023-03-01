@@ -29,9 +29,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $pname = $_POST['pname'];
         $price = $_POST['price'];
         $productType = $_POST['productType'];
-        $sql = "INSERT INTO product (name, price, productType) VALUES (?,?,?);";
+        $fileName = "default-image.png";
+        $sql = "INSERT INTO product (name, price, image, productType) VALUES (?,?,?, ?);";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('sdi', $pname, $price, $productType);
+        $stmt->bind_param('sdsi', $pname, $price, $fileName, $productType);
         $stmt->execute();
     }
     echo ('aqui saiu');
