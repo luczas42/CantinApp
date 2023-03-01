@@ -7,10 +7,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.cantinappmobile.model.User;
-import com.example.cantinappmobile.model.UserApiReturn;
+import com.example.cantinappmobile.model.ApiResponse;
 import com.example.cantinappmobile.repository.Repository;
 
-import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -75,11 +74,11 @@ public class LoginScreenViewModel extends ViewModel {
     }
 
     public void addUser(String username, String name, String password, String email) {
-        Call<UserApiReturn> addUserCall = repository.addUser(username, name, password, email);
+        Call<ApiResponse> addUserCall = repository.addUser(username, name, password, email);
 
-        addUserCall.enqueue(new Callback<UserApiReturn>() {
+        addUserCall.enqueue(new Callback<ApiResponse>() {
             @Override
-            public void onResponse(Call<UserApiReturn> call, Response<UserApiReturn> response) {
+            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
                 if (response.isSuccessful()) {
                     if (response.body().getSuccess()) {
                         _userCreatedLiveData.setValue(true);
@@ -91,7 +90,7 @@ public class LoginScreenViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<UserApiReturn> call, Throwable t) {
+            public void onFailure(Call<ApiResponse> call, Throwable t) {
                 System.out.println(t.getMessage());
             }
         });

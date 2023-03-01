@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Scale {
     @SerializedName("id")
-    private int turnId;
+    private int id;
     @SerializedName("class")
     private String _class;
     @SerializedName("day")
@@ -36,16 +36,16 @@ public class Scale {
         this.employeeList = employeeList;
     }
 
-    public Scale(int turnId, String _class, String day, String period, List<Employee> employeeList) {
-        this.turnId = turnId;
+    public Scale(int id, String _class, String day, String period, List<Employee> employeeList) {
+        this.id = id;
         this._class = _class;
         this.day = day;
         this.period = period;
         this.employeeList = employeeList;
     }
 
-    public int getTurnId() {
-        return turnId;
+    public int getId() {
+        return id;
     }
     public String get_class() {
         return _class;

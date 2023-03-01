@@ -3,7 +3,7 @@ package com.example.cantinappmobile.repository;
 import com.example.cantinappmobile.model.Product;
 import com.example.cantinappmobile.model.Scale;
 import com.example.cantinappmobile.model.User;
-import com.example.cantinappmobile.model.UserApiReturn;
+import com.example.cantinappmobile.model.ApiResponse;
 import com.example.cantinappmobile.retrofit.ClientRetrofit;
 import com.example.cantinappmobile.retrofit.WebService;
 
@@ -25,7 +25,7 @@ public class Repository {
         return webService.userLogin(username, password);
     }
 
-    public Call<UserApiReturn> addUser(String username, String name, String password, String email){
+    public Call<ApiResponse> addUser(String username, String name, String password, String email){
         return webService.addUser(username, name, password, 2, email);
     }
 

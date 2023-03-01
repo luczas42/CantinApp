@@ -167,7 +167,7 @@ public class ScaleDetailsScreen {
 
     @FXML
     void deleteScale() {
-        viewModel.deleteScale(myScale.getTurnId(), deleteScaleCallback);
+        viewModel.deleteScale(myScale.getId(), deleteScaleCallback);
         Stage stage = (Stage) closeScaleDetailsScreenButton.getScene().getWindow();
         stage.close();
     }
