@@ -2,21 +2,24 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/chocolatebar"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/chocolatebar"
         android:supportsRtl="true"
+        android:name=".di.Application"
         android:theme="@style/Theme.CantinappMobile"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activities.ListsActivity"
+            android:name=".view.activities.LoginActivity"
             android:exported="true"
-            android:label="@string/title_activity_lists"
-            android:theme="@style/Theme.CantinappMobile.NoActionBar">
+            android:label="Cantinapp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,6 +29,12 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+        </activity>
+        <activity
+            android:name=".view.activities.ListsActivity"
+            android:exported="true"
+            android:label="@string/title_activity_lists"
+            android:theme="@style/Theme.CantinappMobile.NoActionBar">
         </activity>
     </application>
 

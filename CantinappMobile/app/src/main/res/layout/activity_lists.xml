@@ -3,8 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.ListsActivity">
+    tools:context=".view.activities.ListsActivity">
 
-    <include layout="@layout/content_lists" />
+    <include
+        android:id="@+id/content_lists"
+        layout="@layout/content_lists" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

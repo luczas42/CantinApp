@@ -1,21 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    style="@style/background"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.ListsActivity">
+    android:layout_width="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_products"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:itemCount="2"
-        tools:listitem="@layout/product_listitem"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="wrap_content"
+        tools:context=".view.activities.ListsActivity">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_salty_products"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_salty_text"
+            tools:itemCount="1"
+            tools:listitem="@layout/product_listitem" />
+
+        <TextView
+            android:id="@+id/tv_salty_text"
+            style="@style/productCardTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Salgados"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/recycler_salty_products"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="8dp" />
+
+        <TextView
+            android:id="@+id/tv_sweet_text"
+            style="@style/productCardTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Doces"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/recycler_sweet_products"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recycler_salty_products" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_sweet_products"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_sweet_text"
+            app:layout_constraintVertical_bias="0"
+            tools:itemCount="1"
+            tools:listitem="@layout/product_listitem" />
+
+        <TextView
+            android:id="@+id/tv_homemade_text"
+            style="@style/productCardTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Caseiros"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/recycler_homemade_products"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recycler_sweet_products" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_homemade_products"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_homemade_text"
+            app:layout_constraintVertical_bias="0"
+            tools:itemCount="1"
+            tools:listitem="@layout/product_listitem" />
+
+        <TextView
+            android:id="@+id/tv_error"
+            style="@style/productCardDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/an_error_has_ocurred"
+            android:textAlignment="center"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
