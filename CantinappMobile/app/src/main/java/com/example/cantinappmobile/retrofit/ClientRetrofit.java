@@ -9,8 +9,6 @@ public class ClientRetrofit {
 
     public static Retrofit getInstance() {
 
-        //perguntar pros professores em aula se isso não é perigoso
-
         Retrofit retrofit = null;
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();

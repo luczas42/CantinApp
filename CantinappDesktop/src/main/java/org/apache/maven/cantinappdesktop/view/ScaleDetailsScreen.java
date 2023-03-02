@@ -174,7 +174,7 @@ public class ScaleDetailsScreen {
 
     @FXML
     void registerScale() throws ParseException {
-        if (checkDayFormat()!=null) {
+        if (checkDayFormat() != null) {
             if (!selectPeriodComboBox.getSelectionModel().isEmpty()) {
                 if (!selectClassComboBox.getSelectionModel().isEmpty()) {
                     if (!employeeTableViewList.isEmpty()) {

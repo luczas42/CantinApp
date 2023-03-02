@@ -13,9 +13,6 @@ public class Scale {
     private String day;
     @SerializedName("period")
     private String period;
-    /// period = 0 means morning
-    /// period = 1 means afternoon
-    /// period = 2 means night
     @SerializedName("employee_array")
     private List<Employee> employeeList;
     private String employeeNamesString = "";
@@ -47,22 +44,26 @@ public class Scale {
     public int getId() {
         return id;
     }
+
     public String get_class() {
         return _class;
     }
+
     public String getPeriod() {
         return period;
     }
+
     public String getDay() {
         return day;
     }
+
     public void createNameString() {
         String allEmployeeNames = "";
         for (Employee employee :
                 employeeList) {
-            if(allEmployeeNames.equals("")){
+            if (allEmployeeNames.equals("")) {
                 allEmployeeNames = employee.getName();
-            }else{
+            } else {
                 allEmployeeNames = allEmployeeNames + ", " + employee.getName();
             }
         }

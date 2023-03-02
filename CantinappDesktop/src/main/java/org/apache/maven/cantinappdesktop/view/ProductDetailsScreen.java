@@ -64,10 +64,6 @@ public class ProductDetailsScreen {
 
     Product myProduct = null;
 
-    ////
-    //// DELETE, EDIT AND ADD ENDPOINTS
-    ////
-
     Callback<Void> deleteProductCallback = new Callback<Void>() {
         @Override
         public void onResponse(Call<Void> call, Response<Void> response) {
@@ -120,10 +116,6 @@ public class ProductDetailsScreen {
     public ProductDetailsScreen() {
     }
 
-    ////
-    //// IMAGE PROCESS
-    ////
-
     @FXML
     void addProductImage(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -137,10 +129,6 @@ public class ProductDetailsScreen {
             productImageView.setImage(productImage);
         }
     }
-
-    ////
-    //// POPUP CLICK ACTIONS
-    ////
 
     @FXML
     void closeProductEditScreen(ActionEvent event) {
@@ -223,10 +211,6 @@ public class ProductDetailsScreen {
             alert.show();
         }
     }
-
-    ////
-    //// ALTERNATE BETWEEN EDIT AND ADD POPUP
-    ////
     public void swichToProductAddScreen() {
         productDeleteButton.setVisible(false);
         productDeleteButton.setManaged(false);

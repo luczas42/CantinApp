@@ -71,11 +71,6 @@ public class EmployeeDetailsScreen {
             if (!cbEmployeeClass.getSelectionModel().isEmpty()) {
                 String employeeName = employeeNameField.getText();
                 String employeeClass = cbEmployeeClass.getSelectionModel().getSelectedItem().toString();
-
-//                RequestBody name = RequestBody.create(MediaType.parse("text/plain"), employeeName);
-//                RequestBody _class = RequestBody.create(MediaType.parse("text/plain"), employeeClass);
-
-//                controller.addEmployee(name, _class);
                 viewModel.addEmployee(employeeName, employeeClass, addEmployeeCallback);
                 Stage stage = (Stage) employeeRegisterButton.getScene().getWindow();
                 stage.close();

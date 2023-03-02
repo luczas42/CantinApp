@@ -6,8 +6,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.cantinappmobile.model.User;
 import com.example.cantinappmobile.model.ApiResponse;
+import com.example.cantinappmobile.model.User;
 import com.example.cantinappmobile.repository.Repository;
 
 import java.util.List;
@@ -42,18 +42,6 @@ public class LoginScreenViewModel extends ViewModel {
 
     public void userLogin(String username, String password){
         Call<List<User>> userCall = repository.userLogin(username, password);
-//        Response<List<User>> response = userCall.execute();;
-//        if (response.isSuccessful()){
-//            if(response.body().isEmpty()){
-//                System.out.println("login false");
-//                _userLoginLiveData.setValue(false);
-//            }else{
-//                System.out.println("login true");
-//                _userLoginLiveData.setValue(true);
-//            }
-//        }else{
-//            _userLoginLiveData.setValue(false);
-//        }
         userCall.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {

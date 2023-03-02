@@ -79,11 +79,6 @@ public class MainScreenController {
     private TableView<Employee> employeeTableView;
     private String screenAtMoment;
 
-
-    ////
-    //// TABLE DISPLAYING FUNCTIONS: PRODUCTS, EMPLOYEES AND SCALES
-    ////
-
     @FXML
     void displayProducts() {
         arrangingScreenElements("products");
@@ -175,10 +170,6 @@ public class MainScreenController {
             }
         }
     }
-
-    ////
-    //// PRODUCT CLICKING ACTIONS (OPENS PRODUCT DETAILS SCREEN)
-    ////
 
     @FXML
     void productClick(MouseEvent event) {
@@ -301,10 +292,6 @@ public class MainScreenController {
         }
     }
 
-    ////
-    //// REFRESHING THE PRODUCTS TABLE
-    ////
-
     @FXML
     void refreshTable() throws InterruptedException {
         switch (screenAtMoment) {
@@ -414,10 +401,6 @@ public class MainScreenController {
         scaleEmployeeTableColumn.setResizable(false);
         scaleTableView.refresh();
     }
-
-    ////
-    //// ADDITIONAL BUTTON ACTIONS (LOGOUT, CLOSE AND MINIMIZE)
-    ////
 
     @FXML
     void closeApp() {

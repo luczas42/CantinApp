@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cantinappmobile.R;
 import com.example.cantinappmobile.databinding.FragmentScalesBinding;
-import com.example.cantinappmobile.model.Employee;
 import com.example.cantinappmobile.model.Scale;
 import com.example.cantinappmobile.view.adapter.EmployeeAdapter;
 import com.example.cantinappmobile.view.adapter.ScaleListAdapter;

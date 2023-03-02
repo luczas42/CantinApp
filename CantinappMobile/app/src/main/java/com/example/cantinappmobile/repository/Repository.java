@@ -16,7 +16,6 @@ public class Repository {
     private final WebService
             webService = ClientRetrofit.getInstance().create(WebService.class);
 
-    //talvez seja interessante colocar um try catch, mas não sei se é necessário
     public Call<List<Product>> retrieveProductsFromWebService() {
         return webService.retrieveProducts();
     }

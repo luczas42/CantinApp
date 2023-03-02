@@ -7,9 +7,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -24,7 +24,6 @@ import retrofit2.Response;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
-import java.util.List;
 
 public class LoginScreenController {
     LoginScreenViewModel viewModel = new LoginScreenViewModel();
@@ -91,7 +90,6 @@ public class LoginScreenController {
                 String email = textFieldLoginUsername.getText();
                 String password = textFieldLoginPassword.getText();
                 boolean success = viewModel.checkLogin(email, password);
-//                        , checkLoginCallback);
                 checkUser(event, success);
             }
         }
@@ -185,31 +183,6 @@ public class LoginScreenController {
         Stage stage = (Stage) minimizeAppButton.getScene().getWindow();
         stage.setIconified(true);
     }
-
-
-//    Callback<List<User>> checkLoginCallback = new Callback<List<User>>() {
-//        @Override
-//        public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-//            if (response.isSuccessful()) {
-//                Platform.runLater(() -> {
-//                    loginSuccess(true);
-//                });
-//            }
-//
-//        }
-//
-//        @Override
-//        public void onFailure(Call<List<User>> call, Throwable throwable) {
-//            System.out.println("aaaaa " + throwable.getMessage());
-//            Platform.runLater(() -> {
-//                loginSuccess(false);
-//            });
-//        }
-//    };
-//
-//    synchronized void loginSuccess(boolean auxBool) {
-//        loginSuccessful = auxBool;
-//    }
 
     Callback<ApiResponse> addUserCallback = new Callback<ApiResponse>() {
         @Override

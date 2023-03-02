@@ -28,10 +28,10 @@ public interface WebService {
     @Multipart
     @POST("products/editProduct.php")
     Call<ApiResponse> editProduct(@Part("pname") RequestBody name,
-                              @Part("price") RequestBody price,
-                              @Part("productType") RequestBody productType,
-                              @Part("pid") RequestBody pid,
-                              @Part MultipartBody.Part image);
+                                  @Part("price") RequestBody price,
+                                  @Part("productType") RequestBody productType,
+                                  @Part("pid") RequestBody pid,
+                                  @Part MultipartBody.Part image);
 
     @POST("products/addProduct.php")
     @Multipart

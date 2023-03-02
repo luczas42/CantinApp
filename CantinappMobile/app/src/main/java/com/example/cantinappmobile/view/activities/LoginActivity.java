@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cantinappmobile.databinding.ActivityLoginBinding;
-import com.example.cantinappmobile.databinding.ContentLoginBinding;
 
 
 public class LoginActivity extends AppCompatActivity {

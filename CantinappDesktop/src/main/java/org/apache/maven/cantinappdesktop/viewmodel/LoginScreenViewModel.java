@@ -14,28 +14,19 @@ public class LoginScreenViewModel {
     Repository repository = new Repository();
 
     public boolean checkLogin(String username, String password) throws IOException {
-//            , Callback<List<User>> checkLoginCallback) throws IOException {
         Call<List<User>> call = repository.checkLogin(username, password);
         Response<List<User>> response = call.execute();
-        if (response.isSuccessful()){
-            if(response.body().isEmpty()){
+        if (response.isSuccessful()) {
+            if (response.body().isEmpty()) {
                 System.out.println("login false");
                 return false;
-            }else{
+            } else {
                 System.out.println("login true");
                 return true;
             }
-        }else{
+        } else {
             return false;
         }
-
-//        if(call.execute().isSuccessful()){
-//            System.out.println("login true");
-//            return true;
-//        }else{
-//            System.out.println("login false");
-//            return false;
-//        }
     }
 
     public void addUser(User user, String password, Callback<ApiResponse> addUserCallback) {

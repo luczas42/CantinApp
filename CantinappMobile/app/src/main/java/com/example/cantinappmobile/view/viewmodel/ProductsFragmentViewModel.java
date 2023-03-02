@@ -22,7 +22,7 @@ import retrofit2.Response;
 public class ProductsFragmentViewModel extends ViewModel {
     private final SavedStateHandle state;
     private Repository repository = new Repository();
-    private MutableLiveData<List<Product>>  _productSaltyResponse = new MutableLiveData<>();
+    private MutableLiveData<List<Product>> _productSaltyResponse = new MutableLiveData<>();
     public LiveData<List<Product>> productSaltyResponse = _productSaltyResponse;
 
     private MutableLiveData<List<Product>> _productSweetResponse = new MutableLiveData<>();
@@ -78,7 +78,6 @@ public class ProductsFragmentViewModel extends ViewModel {
                         _productSweetResponse.setValue(sweetList);
                         _productHomemadeResponse.setValue(homemadeList);
                     } else {
-                        //dá pra melhorar usando outro tipo de erro, pra saber se é erro de conexao ou se veio nulo, mas nao é importante agora
                         connectionLiveData.setValue(Connection.Failed);
                     }
                 }
@@ -90,34 +89,5 @@ public class ProductsFragmentViewModel extends ViewModel {
             }
         });
     }
-
-//    public void retrieveProductImage(Product currentProduct) {
-//        if (currentProduct.getImage() != null && !currentProduct.getImage().equals("")) {
-//            RequestBody imageName = RequestBody.create(MediaType.parse("text/plain"), currentProduct.getImage());
-//            Call<ResponseBody> productImageCallback = repository.getImage(imageName);
-//            productImageCallback.enqueue(new Callback<ResponseBody>() {
-//                @Override
-//                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                    if (response.isSuccessful()) {
-//                        try {
-//                            assert response.body() != null;
-//                            byte[] data = response.body().bytes();
-//                            currentProduct.setImageView(data);
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                    t.printStackTrace();
-//                    t.getMessage();
-//                }
-//            });
-//        }
-//
-//
-//    }
 }
 
